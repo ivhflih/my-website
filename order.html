@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلب موقعك | مؤيد الصبياني</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html">مؤيد الصبياني</a>
+        <nav>
+            <a href="index.html#services">الخدمات</a>
+            <a href="index.html#work">الأعمال</a>
+            <a href="index.html#packages">الباقات</a>
+        </nav>
+    </header>
+
+    <main class="order">
+        <h1>اطلب موقعك</h1>
+        <p class="sub">عبّ الطلب، وحوّل المقدم، وأرسل لي كل شي على واتساب بضغطة وحدة.</p>
+
+        <form id="order-form">
+            <fieldset>
+                <legend>1. اختر الباقة</legend>
+                <div class="choices">
+                    <label class="choice">
+                        <input type="radio" name="plan" value="landing" required>
+                        <b>صفحة هبوط</b>
+                        <span>500 ر.س</span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="plan" value="company">
+                        <b>موقع شركة</b>
+                        <span>1,200 ر.س</span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="plan" value="store">
+                        <b>متجر إلكتروني</b>
+                        <span>1,500 ر.س</span>
+                    </label>
+                </div>
+                <label class="check">
+                    <input type="checkbox" id="maintenance">
+                    أبغى صيانة شهرية بعد التسليم (150 ر.س بالشهر)
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. بياناتك</legend>
+                <div class="fields">
+                    <label>الاسم
+                        <input id="name" required>
+                    </label>
+                    <label>رقم الجوال
+                        <input id="phone" inputmode="numeric" placeholder="05XXXXXXXX" required>
+                    </label>
+                    <label>اسم النشاط
+                        <input id="business" required>
+                    </label>
+                    <label>نوع النشاط
+                        <select id="type">
+                            <option>مطعم أو كافيه</option>
+                            <option>شركة أو مؤسسة</option>
+                            <option>متجر</option>
+                            <option>عيادة أو مركز</option>
+                            <option>غير ذلك</option>
+                        </select>
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>3. فكرتك</legend>
+                <label>وش تبغى بالموقع؟
+                    <textarea id="idea" rows="4" placeholder="مثلاً: أبغى صفحة فيها المنيو وأوقات العمل وزر طلب واتساب" required></textarea>
+                </label>
+                <label>مواقع تعجبك (اختياري)
+                    <input id="refs" placeholder="روابط أو أسماء مواقع">
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>4. الملخص والدفع</legend>
+                <div class="summary">
+                    <div><span>الباقة</span><b id="s-plan">اختر باقة</b></div>
+                    <div><span>السعر الكامل</span><b id="s-total">-</b></div>
+                    <div class="big"><span>المقدم المطلوب الحين (50%)</span><b id="s-deposit">-</b></div>
+                </div>
+                <div class="bank">
+                    <p>حوّل المقدم على هالحساب:</p>
+                    <div><span>البنك</span><b>اسم البنك</b></div>
+                    <div><span>اسم صاحب الحساب</span><b>مؤيد الصبياني</b></div>
+                    <div>
+                        <span>الآيبان</span>
+                        <code id="iban">SA69 1000 0075 5000 0030 6904</code>
+                        <button type="button" id="copy-iban">نسخ</button>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="cta send">أرسل الطلب على واتساب</button>
+            <p class="hint">بينفتح لك واتساب وفيه رسالة جاهزة بكل تفاصيل طلبك. أرفق معها صورة إيصال التحويل، وأتواصل معك خلال يوم.</p>
+        </form>
+    </main>
+
+    <script>
+        // حط رقمك هنا بالصيغة الدولية: بدون + وبدون صفر البداية، مثل 966512345678
+        const WHATSAPP = "966559333976";
+
+        const plans = {
+            landing: { name: "صفحة هبوط", price: 500 },
+            company: { name: "موقع شركة", price: 1200 },
+            store: { name: "متجر إلكتروني", price: 1500 }
+        };
+
+        const form = document.getElementById("order-form");
+
+        // يحوّل الأرقام العربية (٠١٢) إلى إنجليزية (012)
+        function toEnglish(text) {
+            return text.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+        }
+
+        // يكتب المبلغ بفواصل وأرقام إنجليزية: 1,200 ر.س
+        function money(n) {
+            return n.toLocaleString("en-US") + " ر.س";
+        }
+
+        function selectedPlan() {
+            const checked = form.querySelector('input[name="plan"]:checked');
+            return checked ? plans[checked.value] : null;
+        }
+
+        // يحدّث الملخص كل ما تغيّر شي في النموذج
+        function updateSummary() {
+            const plan = selectedPlan();
+            if (!plan) return;
+            document.getElementById("s-plan").textContent = plan.name;
+            document.getElementById("s-total").textContent = money(plan.price);
+            document.getElementById("s-deposit").textContent = money(plan.price / 2);
+        }
+
+        form.addEventListener("change", updateSummary);
+
+        // إذا جا العميل من زر باقة (order.html?p=company) نختارها له تلقائياً
+        const fromLink = new URLSearchParams(location.search).get("p");
+        if (plans[fromLink]) {
+            form.querySelector('input[value="' + fromLink + '"]').checked = true;
+            updateSummary();
+        }
+
+        document.getElementById("copy-iban").addEventListener("click", e => {
+            const iban = document.getElementById("iban").textContent.replace(/\s/g, "");
+            navigator.clipboard.writeText(iban).then(() => e.target.textContent = "تم النسخ");
+        });
+
+        // لما يضغط "أرسل": نجمع البيانات في رسالة ونفتح واتساب
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const phone = toEnglish(document.getElementById("phone").value.trim());
+            if (!/^05\d{8}$/.test(phone)) {
+                alert("رقم الجوال لازم يبدأ بـ 05 ويكون 10 أرقام");
+                return;
+            }
+
+            const plan = selectedPlan();
+            const maintenance = document.getElementById("maintenance").checked;
+
+            const lines = [
+                "السلام عليكم، هذا طلب موقع جديد:",
+                "",
+                "الباقة: " + plan.name + " (" + money(plan.price) + ")",
+                "الصيانة الشهرية: " + (maintenance ? "نعم" : "لا"),
+                "المقدم: " + money(plan.price / 2),
+                "",
+                "الاسم: " + document.getElementById("name").value.trim(),
+                "الجوال: " + phone,
+                "النشاط: " + document.getElementById("business").value.trim() + " (" + document.getElementById("type").value + ")",
+                "",
+                "الفكرة: " + document.getElementById("idea").value.trim(),
+                "مواقع تعجبني: " + (document.getElementById("refs").value.trim() || "لا يوجد"),
+                "",
+                "بأرفق صورة إيصال التحويل هنا."
+            ];
+
+            const url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n"));
+            window.open(url, "_blank");
+        });
+    </script>
+</body>
+</html>

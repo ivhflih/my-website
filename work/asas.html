@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أساس للمقاولات</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Changa:wght@600;800&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Single light look by choice: concrete grey + safety yellow, hazard-stripe accents */
+:root{--bg:#EEF0F2;--panel:#FFFFFF;--ink:#1E2A33;--muted:#5B6873;--yel:#F2B705;--line:#D3D8DD;
+--disp:"Changa",Tahoma,sans-serif;--body:"Tajawal",Tahoma,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.w{max-width:1000px;margin-inline:auto;padding-inline:20px}
+a{color:inherit}
+.back{display:inline-block;margin-block:14px;font-size:.85rem;color:var(--muted)}
+.hero{background:var(--ink);color:#fff;padding-block:48px}
+.stripe{height:10px;background:repeating-linear-gradient(135deg,var(--yel) 0 16px,var(--ink) 16px 32px)}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(2rem,6vw,3.4rem);margin:0 0 10px;line-height:1.25;text-wrap:balance}
+.hero p{opacity:.8;max-width:34em;margin:0 0 22px}
+.btn{display:inline-block;background:var(--yel);color:var(--ink);font-weight:700;padding:12px 24px;border-radius:6px;text-decoration:none;border:0;font:inherit;font-weight:700;cursor:pointer}
+section{padding-block:44px}
+h2{font-family:var(--disp);font-size:1.8rem;margin:0 0 20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.stats div{padding:20px;border-inline-start:1px solid var(--line)}
+.stats div:first-child{border-inline-start:0}
+.stats b{font-family:var(--disp);font-size:2rem;display:block;font-variant-numeric:tabular-nums}
+.stats span{color:var(--muted);font-size:.9rem}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.stats div{border-inline-start:0;border-top:1px solid var(--line)}.stats div:first-child{border-top:0}}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.svc{grid-template-columns:1fr}}
+.svc div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;border-top:4px solid var(--yel)}
+.svc h3{margin:0 0 6px;font-family:var(--disp)}
+.svc p{margin:0;color:var(--muted);font-size:.95rem}
+form{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media(max-width:600px){form{grid-template-columns:1fr}}
+label{display:grid;gap:4px;font-size:.9rem;font-weight:500}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);min-width:0}
+.full{grid-column:1/-1}
+#ok{color:#1c7a3a;font-weight:700}
+footer{padding-block:24px;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="w"><a class="back" href="../index.html">← رجوع للمعرض</a></div>
+<header class="hero"><div class="w">
+  <h1>نبني مشروعك بجودة وفي الوقت المتفق عليه</h1>
+  <p>أساس للمقاولات: فلل سكنية، مبانٍ تجارية، وترميم. من الرخصة إلى التسليم.</p>
+  <a class="btn" href="#quote">اطلب عرض سعر</a>
+</div></header>
+<div class="stripe"></div>
+<main class="w">
+  <section>
+    <h2>بالأرقام</h2>
+    <div class="stats">
+      <div><b>+120</b><span>مشروع منفذ</span></div>
+      <div><b>15</b><span>سنة خبرة</span></div>
+      <div><b>98%</b><span>تسليم في الموعد</span></div>
+    </div>
+  </section>
+  <section>
+    <h2>خدماتنا</h2>
+    <div class="svc">
+      <div><h3>عظم وتشطيب</h3><p>تنفيذ كامل للفلل والعمائر حسب المخططات المعتمدة.</p></div>
+      <div><h3>ترميم وتجديد</h3><p>إعادة تأهيل المباني القديمة وتحديث الواجهات.</p></div>
+      <div><h3>رخص وتصاريح</h3><p>نتابع إصدار رخص البناء والتصاريح نيابة عنك.</p></div>
+    </div>
+  </section>
+  <section id="quote">
+    <h2>اطلب عرض سعر</h2>
+    <form id="f">
+      <label>الاسم<input id="n" required></label>
+      <label>رقم الجوال<input id="p" inputmode="tel" required></label>
+      <label>نوع المشروع<select id="t"><option>فيلا سكنية</option><option>مبنى تجاري</option><option>ترميم</option></select></label>
+      <label>المدينة<input id="c"></label>
+      <label class="full">تفاصيل المشروع<textarea id="d" rows="3"></textarea></label>
+      <div class="full"><button class="btn" type="submit">إرسال الطلب</button> <span id="ok" hidden>النموذج يعمل للعرض فقط، ولم يُرسل أي طلب.</span></div>
+    </form>
+  </section>
+</main>
+<footer>مشروع نموذجي من تصميم مؤيد الصبياني · الأرقام للعرض</footer>
+<script>
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').hidden=false});
+</script>
+</body>
+</html>

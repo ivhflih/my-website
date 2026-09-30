@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>جمر — مطعم مشويات</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Single dark look by choice: charcoal and ember, menu as a priced list */
+:root{--bg:#1B1210;--panel:#251916;--ink:#F6E7D6;--muted:#C4AE9A;--ember:#E0692A;--line:#3A2A25;
+--disp:"Aref Ruqaa","Times New Roman",serif;--body:"Tajawal",Tahoma,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.w{max-width:960px;margin-inline:auto;padding-inline:20px}
+a{color:inherit}
+.back{display:inline-block;margin-block:14px;font-size:.85rem;color:var(--muted)}
+.hero{padding-block:40px 56px;text-align:center;background:radial-gradient(ellipse at 50% 0%,#E0692A40,transparent 60%)}
+.hero h1{font-family:var(--disp);font-size:clamp(3.5rem,14vw,7rem);margin:0;line-height:1.1;color:var(--ember)}
+.hero p{color:var(--muted);font-size:1.15rem;margin:.3em 0 1.4em}
+.btn{display:inline-block;background:var(--ember);color:#1B1210;font-weight:700;padding:12px 26px;border-radius:999px;text-decoration:none}
+h2{font-family:var(--disp);font-size:2rem;margin:0 0 20px;color:var(--ember)}
+section{padding-block:44px;border-top:1px solid var(--line)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px 40px}
+@media(max-width:640px){.menu{grid-template-columns:1fr}}
+.item{display:flex;align-items:baseline;gap:10px;padding-block:10px;border-bottom:1px dashed var(--line)}
+.item b{font-weight:700}
+.item small{display:block;color:var(--muted);font-size:.85rem}
+.item span{margin-inline-start:auto;font-variant-numeric:tabular-nums;color:var(--ember);white-space:nowrap}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:640px){.info{grid-template-columns:1fr}}
+.info div{background:var(--panel);border-radius:12px;padding:18px}
+.info small{color:var(--muted)}
+footer{padding-block:24px;color:var(--muted);font-size:.85rem;text-align:center}
+.note{font-size:.8rem;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<div class="w"><a class="back" href="../index.html">← رجوع للمعرض</a></div>
+<header class="hero"><div class="w">
+  <h1>جمر</h1>
+  <p>مشويات على الفحم · من الظهر لين نص الليل</p>
+  <a class="btn" href="#menu">شوف المنيو</a>
+</div></header>
+<main class="w">
+  <section id="menu">
+    <h2>المنيو</h2>
+    <div class="menu">
+      <div class="item"><div><b>مشاوي مشكّلة</b><small>كباب، شيش، أوصال، مع خبز وسلطات</small></div><span>85 ر.س</span></div>
+      <div class="item"><div><b>ريش غنم</b><small>6 قطع متبّلة بالبهارات</small></div><span>72 ر.س</span></div>
+      <div class="item"><div><b>شيش طاووق</b><small>صدور دجاج مع ثوم</small></div><span>38 ر.س</span></div>
+      <div class="item"><div><b>كباب لحم</b><small>4 أسياخ مع بصل مشوي</small></div><span>42 ر.س</span></div>
+      <div class="item"><div><b>حمص بالطحينة</b><small>مع زيت زيتون</small></div><span>14 ر.س</span></div>
+      <div class="item"><div><b>تبولة</b><small>بقدونس طازج وليمون</small></div><span>16 ر.س</span></div>
+    </div>
+    <p class="note">الأسعار نموذجية لغرض العرض.</p>
+  </section>
+  <section>
+    <h2>زورونا</h2>
+    <div class="info">
+      <div><small>أوقات العمل</small><br><b>يومياً 12 ظهراً – 12 ليلاً</b></div>
+      <div><small>الموقع</small><br><b>حي النموذج، الرياض</b></div>
+      <div><small>الطلب</small><br><b>واتساب 0500000000</b></div>
+    </div>
+  </section>
+</main>
+<footer>مشروع نموذجي من تصميم مؤيد الصبياني</footer>
+</body>
+</html>
