@@ -421,12 +421,19 @@ b, strong {
     background: var(--ivory);
     opacity: 0;
     transform: translateY(-12px);
+    pointer-events: none;
     transition: opacity 0.45s var(--ease), transform 0.6s var(--ease);
+}
+
+/* لازم: display:flex فوق يلغي hidden، فبدونها القائمة المخفية تغطي الصفحة وتسرق الضغطات */
+.mobile-menu[hidden] {
+    display: none;
 }
 
 .mobile-menu[data-open] {
     opacity: 1;
     transform: none;
+    pointer-events: auto;
 }
 
 .mobile-menu__nav a {
