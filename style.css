@@ -979,16 +979,6 @@ div.piece__frame {
     text-align: left;
 }
 
-.service__price {
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-}
-
-.service__price b {
-    font: 600 1.35rem/1 var(--display);
-    color: var(--ink);
-}
-
 .service__link {
     display: inline-flex;
     align-items: center;
