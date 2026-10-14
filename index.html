@@ -2,127 +2,479 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مؤيد الصبياني | تصميم مواقع</title>    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MD-DESIGN | تصميم وتطوير المواقع في السعودية</title>
+    <meta name="description" content="MD-DESIGN استوديو تصميم وتطوير مواقع عربية للشركات والمتاجر والمطاعم والمشاريع التجارية في السعودية. مواقع سريعة ومتجاوبة مع الجوال، مصممة خصيصًا لمشروعك.">
+    <link rel="canonical" href="https://moayad-design.vercel.app/">
+    <meta name="theme-color" content="#F7F5F0">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_SA">
+    <meta property="og:site_name" content="MD-DESIGN">
+    <meta property="og:title" content="MD-DESIGN | أصمّم لك موقعًا يصنع انطباعك الأول">
+    <meta property="og:description" content="مواقع إلكترونية عصرية وسريعة، مصممة خصيصًا لمشروعك.">
+    <meta property="og:url" content="https://moayad-design.vercel.app/">
+    <meta property="og:image" content="https://moayad-design.vercel.app/assets/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "MD-DESIGN",
+        "url": "https://moayad-design.vercel.app/",
+        "description": "تصميم وتطوير المواقع الإلكترونية للشركات والمتاجر والمطاعم والمشاريع التجارية في السعودية.",
+        "founder": { "@type": "Person", "name": "مؤيد الصبياني" },
+        "areaServed": { "@type": "Country", "name": "Saudi Arabia" }
+    }
+    </script>
 </head>
 <body>
-    <header>
-        <a href="#">مؤيد الصبياني</a>
-        <nav>
-            <a href="#services">الخدمات</a>
-            <a href="#work">الأعمال</a>
-            <a href="#packages">الباقات</a>
-            <a href="order.html" class="btn">اطلب موقعك</a>
-        </nav>
+    <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+
+    <header class="site-header" data-header>
+        <div class="wrap site-header__inner">
+            <a class="brand" href="#top" aria-label="MD-DESIGN، العودة إلى أعلى الصفحة">
+                <span class="brand__mark" aria-hidden="true"></span>
+                <span class="brand__word" dir="ltr">MD-DESIGN</span>
+            </a>
+            <nav class="site-nav" aria-label="القائمة الرئيسية">
+                <a href="#work">الأعمال</a>
+                <a href="#services">الخدمات</a>
+                <a href="#process">طريقة العمل</a>
+                <a href="#packages">الباقات</a>
+            </nav>
+            <a class="btn btn--ink btn--sm site-header__cta" href="order.html">لنبدأ مشروعك</a>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
+                <span class="menu-toggle__lines" aria-hidden="true"></span>
+                <span class="sr-only">فتح القائمة</span>
+            </button>
+        </div>
     </header>
-        <main>
-        <section class="hero">
-            <p class="eyebrow">مصمم ومطوّر مواقع مستقل · السعودية</p>
-            <h1>مواقع عربية <span>سريعة وواضحة</span> تخلي العميل يتواصل معك</h1>
-            <p class="lede">أصمم وأبني مواقع الشركات والمطاعم والمتاجر وصفحات الهبوط. تصميم يناسب الجوال أول، ويشتغل من اليمين لليسار صح.</p>
-            <div class="actions">
-                <a href="order.html" class="cta">ابدأ مشروعك</a>
-                <a href="#work" class="cta ghost">شوف الأعمال</a>
+
+    <div class="mobile-menu" id="mobile-menu" hidden data-menu>
+        <nav class="mobile-menu__nav" aria-label="قائمة الجوال">
+            <a href="#work">الأعمال</a>
+            <a href="#services">الخدمات</a>
+            <a href="#process">طريقة العمل</a>
+            <a href="#packages">الباقات</a>
+        </nav>
+        <div class="mobile-menu__foot">
+            <a class="btn btn--orange" href="order.html">لنبدأ مشروعك</a>
+            <a class="link-wa" href="order.html" data-wa>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.1-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.3 2.4 1.9 4.5 4.6 5.7l1.2-1.2 1.9.9-.4 1.6c-3.8.2-7.4-3.3-7.6-7.4l1.6-.5.9 1.9z"/></svg>
+                راسلني على واتساب
+            </a>
+        </div>
+    </div>
+
+    <main id="main">
+        <!-- الواجهة -->
+        <section class="hero wrap" id="top" aria-labelledby="hero-title">
+            <div class="hero__copy">
+                <h1 class="hero__title" id="hero-title">
+                    <span class="hero__line" data-reveal>أصمّم لك موقعًا</span>
+                    <span class="hero__line hero__line--in" data-reveal>يصنع <em>انطباعك</em></span>
+                    <span class="hero__line hero__line--far" data-reveal>الأول.</span>
+                </h1>
+                <p class="hero__lede" data-reveal>مواقع إلكترونية عصرية وسريعة، مصممة خصيصًا لمشروعك لتمنح علامتك التجارية حضورًا رقميًا احترافيًا.</p>
+                <div class="hero__actions" data-reveal>
+                    <a class="btn btn--ink" href="order.html">
+                        لنبدأ مشروعك
+                        <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg>
+                    </a>
+                    <a class="btn btn--line" href="#work">استعرض أعمالي</a>
+                </div>
+            </div>
+
+            <figure class="stack" aria-label="نماذج من أعمالي معروضة على شاشات" data-stack>
+                <div class="stack__scene">
+                    <div class="device device--browser stack__back" style="--depth: 0.35">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">asas.sa</span></div>
+                        <div class="device__screen"><img src="assets/work/asas-desktop.png" width="1280" height="1566" alt="الصفحة الرئيسية لنموذج موقع شركة أساس للمقاولات" fetchpriority="high"></div>
+                    </div>
+                    <div class="device device--browser stack__mid" style="--depth: 0.7">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">souqna.sa</span></div>
+                        <div class="device__screen"><img src="assets/work/souqna-desktop.png" width="1280" height="1054" alt="صفحة الهبوط لنموذج منصة سوقنا"></div>
+                    </div>
+                    <div class="device device--phone stack__front" style="--depth: 1.2">
+                        <div class="device__screen"><img src="assets/work/jamr-mobile.png" width="390" height="1499" alt="نموذج موقع مطعم جمر على الجوال"></div>
+                    </div>
+                </div>
+                <figcaption class="stack__caption">نماذج تصميم من أعمالي: أساس، سوقنا، جَمر</figcaption>
+            </figure>
+        </section>
+
+        <!-- الشريط المتحرك -->
+        <div class="marquee" role="img" aria-label="مجالات العمل: تصميم مواقع، تطوير واجهات، متاجر إلكترونية، تجربة مستخدم، تصميم متجاوب، صفحات هبوط">
+            <div class="marquee__track" aria-hidden="true">
+                <ul class="marquee__group">
+                    <li>تصميم مواقع</li><li>تطوير واجهات</li><li>متاجر إلكترونية</li><li>تجربة مستخدم</li><li>تصميم متجاوب</li><li>صفحات هبوط</li>
+                </ul>
+                <ul class="marquee__group">
+                    <li>تصميم مواقع</li><li>تطوير واجهات</li><li>متاجر إلكترونية</li><li>تجربة مستخدم</li><li>تصميم متجاوب</li><li>صفحات هبوط</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- الأعمال -->
+        <section class="works wrap" id="work" aria-labelledby="works-title">
+            <div class="section-head">
+                <h2 class="section-title" id="works-title" data-reveal>أعمال تتحدث<br>عن نفسها.</h2>
+                <p class="section-intro" data-reveal>منصة حقيقية بنيتها من الصفر، ونماذج تصميم لأنواع مشاريع في السوق السعودي. مرّر المؤشر على أي شاشة لتتصفح الموقع كاملًا، أو افتح النموذج وجرّبه بنفسك.</p>
+            </div>
+
+            <div class="gallery">
+                <article class="piece piece--wide piece--signals" data-reveal>
+                    <div class="piece__frame device device--browser" tabindex="0" aria-label="معاينة منصة إشارات التداول، مرّر أو ركّز لتصفح الصفحة كاملة">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span>إشارات التداول</span></div>
+                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/signals-desktop.jpg" width="1280" height="4382" alt="لقطة كاملة للصفحة الرئيسية لمنصة إشارات التداول" loading="lazy" decoding="async"></div>
+                    </div>
+                    <div class="piece__label">
+                        <h3 class="piece__title">إشارات التداول</h3>
+                        <p class="piece__type">منصة اشتراكات لإشارات الذهب <span class="tag tag--real">مشروع حقيقي</span></p>
+                        <p class="piece__desc">منصة كاملة بنيتها من الصفر: خادم يستقبل البيانات مباشرة من MetaTrader 5، واشتراكات ودفع، ولوحة إدارة، وأكاديمية تعليمية، وبوت تيليجرام.</p>
+                        <p class="piece__note">تعمل على خادم خاص، والمعاينة الحية متاحة عند الطلب.
+                            <a class="piece__link" href="order.html" data-wa>اطلب معاينة حيّة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </p>
+                    </div>
+                </article>
+
+                <article class="piece piece--major" data-reveal>
+                    <a class="piece__frame device device--browser" href="work/jamr.html" data-cursor="view" aria-label="افتح نموذج مطعم جمر">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">jamr.sa</span></div>
+                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/jamr-desktop.png" width="1280" height="1104" alt="لقطة كاملة لنموذج موقع مطعم جمر" loading="lazy" decoding="async"></div>
+                    </a>
+                    <div class="piece__label">
+                        <h3 class="piece__title">جَمر</h3>
+                        <p class="piece__type">موقع مطعم مشويات <span class="tag">نموذج تصميم</span></p>
+                        <p class="piece__desc">هوية دافئة تناسب المشويات، وقائمة طعام واضحة بالأسعار، وأوقات العمل، وزر طلب عبر واتساب.</p>
+                        <a class="piece__link" href="work/jamr.html">شاهد النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                    </div>
+                </article>
+
+                <article class="piece piece--minor" data-reveal>
+                    <div class="piece__stage">
+                        <a class="piece__frame device device--phone" href="work/souqna.html" data-cursor="view" aria-label="افتح نموذج منصة سوقنا">
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/souqna-mobile.png" width="390" height="1327" alt="لقطة كاملة لنموذج سوقنا على الجوال" loading="lazy" decoding="async"></div>
+                        </a>
+                    </div>
+                    <div class="piece__label">
+                        <h3 class="piece__title">سوقنا</h3>
+                        <p class="piece__type">صفحة هبوط لمنصة إعلانات <span class="tag">نموذج تصميم</span></p>
+                        <p class="piece__desc">عنوان جذاب مع خانة بحث، وأقسام المنصة ومميزاتها، ونموذج للتسجيل المبكر.</p>
+                        <a class="piece__link" href="work/souqna.html">شاهد النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                    </div>
+                </article>
+
+                <article class="piece piece--wide" data-reveal>
+                    <a class="piece__frame device device--browser" href="work/asas.html" data-cursor="view" aria-label="افتح نموذج أساس للمقاولات">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">asas.sa</span></div>
+                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/asas-desktop.png" width="1280" height="1566" alt="لقطة كاملة لنموذج موقع أساس للمقاولات" loading="lazy" decoding="async"></div>
+                    </a>
+                    <div class="piece__label">
+                        <h3 class="piece__title">أساس للمقاولات</h3>
+                        <p class="piece__type">موقع شركة مقاولات <span class="tag">نموذج تصميم</span></p>
+                        <p class="piece__desc">واجهة تبرز قيمة الشركة، وإنجازاتها بالأرقام، وخدماتها في عرض منظم، مع نموذج لطلب عرض سعر.</p>
+                        <a class="piece__link" href="work/asas.html">شاهد النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                    </div>
+                </article>
+
+                <article class="piece piece--wide piece--slot" data-reveal>
+                    <div class="slot">
+                        <div class="slot__frame" aria-hidden="true">
+                            <div class="device__bar"><i></i><i></i><i></i><span dir="ltr">your-brand.sa</span></div>
+                            <div class="slot__screen">
+                                <span class="slot__line slot__line--lg"></span>
+                                <span class="slot__line"></span>
+                                <span class="slot__line slot__line--sm"></span>
+                            </div>
+                        </div>
+                        <div class="slot__copy">
+                            <h3 class="slot__title">هنا يُعرض مشروعك القادم.</h3>
+                            <p>هذه المساحة محجوزة لأول مشروع أنفّذه لعميل حقيقي. قد يكون مشروعك أنت.</p>
+                            <a class="btn btn--ink" href="order.html">احجز هذه المساحة</a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
-        <section id="services">
-            <h2>الخدمات</h2>
-            <p class="sub">كل خدمة تشمل تصميم متجاوب مع الجوال، وسرعة تحميل عالية، وربط الدومين.</p>
-            <div class="grid">
-                <article class="card">
-                    <h3>موقع شركة</h3>
-                    <p>صفحات تعريف، وخدمات، وأعمال سابقة، ونموذج تواصل. مناسب للمقاولات والمكاتب والعيادات.</p>
-                    <span class="tag">4 إلى 6 صفحات</span>
-                </article>
-                <article class="card">
-                    <h3>صفحة هبوط</h3>
-                    <p>صفحة وحدة مركزة على منتج أو حملة إعلانية، هدفها تحوّل الزائر لعميل.</p>
-                    <span class="tag">تسليم سريع</span>
-                </article>
-                <article class="card">
-                    <h3>متجر إلكتروني</h3>
-                    <p>تجهيز وتخصيص متجرك على سلة أو زد، أو متجر مستقل حسب احتياجك.</p>
-                    <span class="tag">سلة · زد</span>
-                </article>
-                <article class="card">
-                    <h3>صيانة شهرية</h3>
-                    <p>تحديث المحتوى، ونسخ احتياطي، ومتابعة سرعة الموقع وعمله بدون أعطال.</p>
-                    <span class="tag">اشتراك شهري</span>
-                </article>
+
+        <!-- الخدمات -->
+        <section class="services" id="services" aria-labelledby="services-title">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title" id="services-title" data-reveal>ماذا أصمّم لك؟</h2>
+                    <p class="section-intro" data-reveal>كل خدمة تشمل تصميمًا متجاوبًا مع الجوال، وسرعة تحميل عالية، واتجاهًا عربيًا صحيحًا من اليمين إلى اليسار.</p>
+                </div>
+
+                <ol class="service-list">
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">01</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6M3 20h18"/></svg>
+                                مواقع الشركات والأعمال
+                            </h3>
+                            <p>موقع تعريفي من 4 إلى 6 صفحات يعرض خدماتك وأعمالك، مع نموذج تواصل وربط بالدومين الخاص بك.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price">يبدأ من <b>1,200</b> ر.س</span>
+                            <a class="service__link" href="order.html?p=company">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">02</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>
+                                المتاجر الإلكترونية
+                            </h3>
+                            <p>تجهيز متجرك على سلة أو زد، وتخصيص شكله ليناسب علامتك التجارية، وإضافة منتجاتك.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price">يبدأ من <b>1,500</b> ر.س</span>
+                            <a class="service__link" href="order.html?p=store">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">03</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8m-3-8v5a3 3 0 0 0 6 0V3M7 11v10"/><path d="M17 21V3c-2.5 1.5-3.5 4-3.5 7v3H17"/></svg>
+                                مواقع المطاعم والمقاهي
+                            </h3>
+                            <p>قائمة طعام واضحة بالأسعار، وأوقات العمل والموقع على الخريطة، وزر طلب مباشر عبر واتساب.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price">السعر حسب احتياجك</span>
+                            <a class="service__link" href="order.html">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">04</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/><path d="M14 16.5l2 1.5 3-4"/></svg>
+                                صفحات الهبوط التسويقية
+                            </h3>
+                            <p>صفحة واحدة مركّزة على منتج أو حملة إعلانية، هدفها الوحيد تحويل الزائر إلى عميل.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price">يبدأ من <b>500</b> ر.س</span>
+                            <a class="service__link" href="order.html?p=landing">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">05</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v12H3zM8 21h8M12 17v4"/><path d="M8 10l-2 1.5L8 13m8-3l2 1.5-2 1.5"/></svg>
+                                تطوير الواجهات وتحسين تجربة المستخدم
+                            </h3>
+                            <p>إعادة بناء واجهة موقعك الحالي لتصبح أوضح وأسرع وأسهل في الاستخدام، خاصة على الجوال.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price">حسب نطاق العمل</span>
+                            <a class="service__link" href="order.html">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                    <li class="service" data-reveal>
+                        <span class="service__num" aria-hidden="true">06</span>
+                        <div class="service__body">
+                            <h3 class="service__title">
+                                <svg class="icon icon--line" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></svg>
+                                صيانة المواقع وتحسين السرعة
+                            </h3>
+                            <p>تحديث المحتوى، ونسخ احتياطية دورية، ومتابعة سرعة الموقع وعمله دون أعطال.</p>
+                        </div>
+                        <div class="service__meta">
+                            <span class="service__price"><b>150</b> ر.س شهريًا</span>
+                            <a class="service__link" href="order.html?m=1">اطلب الخدمة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                        </div>
+                    </li>
+                </ol>
             </div>
         </section>
-                <section id="work">
-            <h2>الأعمال</h2>
-            <p class="sub">اضغط على أي مشروع وافتح الموقع كامل.</p>
-            <div class="grid">
-                <a href="work/jamr.html" class="card work">
-                    <div class="thumb" style="background:#2A1712;color:#F6E7D6">
-                        <small>مطعم مشويات</small>
-                        <strong>جَمر</strong>
+
+        <!-- لماذا تختارني -->
+        <section class="why wrap" id="why" aria-labelledby="why-title">
+            <div class="why__aside">
+                <h2 class="section-title" id="why-title" data-reveal>لماذا<br>تختارني؟</h2>
+                <p class="section-intro" data-reveal>خلفيتي في الإدارة والحسابات والتراخيص تجعلني أفهم احتياج صاحب النشاط، لا الجانب التقني فقط.</p>
+            </div>
+            <ul class="why__list">
+                <li class="reason" data-reveal>
+                    <svg class="reason__icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M24 6v36M6 24h36"/><circle cx="24" cy="24" r="6"/></svg>
+                    <div>
+                        <h3>تصميم مخصص لهوية مشروعك</h3>
+                        <p>لا قوالب جاهزة؛ كل موقع يُبنى من الصفر على هوية نشاطك وطبيعة جمهوره.</p>
                     </div>
-                    <h3>موقع مطعم</h3>
-                    <p>قائمة طعام، وأوقات العمل، والموقع، وزر طلب واتساب.</p>
-                </a>
-                <a href="work/asas.html" class="card work">
-                    <div class="thumb" style="background:#E9ECEF;color:#1E2A33">
-                        <small>مقاولات عامة</small>
-                        <strong>أساس للمقاولات</strong>
+                </li>
+                <li class="reason" data-reveal>
+                    <svg class="reason__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M40 14H12m8-8l-8 8 8 8"/><path d="M8 30h28m-8-8l8 8-8 8" opacity=".35"/></svg>
+                    <div>
+                        <h3>تجربة عربية حقيقية من اليمين إلى اليسار</h3>
+                        <p>اتجاه صحيح في كل تفصيلة، من القوائم والأسهم إلى النماذج والأرقام.</p>
                     </div>
-                    <h3>موقع شركة مقاولات</h3>
-                    <p>الخدمات، والمشاريع بالأرقام، وطلب عرض سعر.</p>
-                </a>
-                <a href="work/souqna.html" class="card work">
-                    <div class="thumb" style="background:#0B3B35;color:#E8FFF8">
-                        <small>منصة إعلانات مبوبة</small>
-                        <strong>سوقنا</strong>
+                </li>
+                <li class="reason" data-reveal>
+                    <svg class="reason__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34a16 16 0 1 1 32 0"/><path d="M24 34l9-11"/><circle cx="24" cy="34" r="2.5"/></svg>
+                    <div>
+                        <h3>سرعة وأداء واهتمام بالتفاصيل</h3>
+                        <p>كود نظيف دون إضافات ثقيلة، فيفتح موقعك بسرعة حتى على شبكة الجوال.</p>
                     </div>
-                    <h3>صفحة هبوط</h3>
-                    <p>تعريف بالمنصة، والأقسام، ودعوة للتسجيل المبكر.</p>
-                </a>
+                </li>
+                <li class="reason" data-reveal>
+                    <svg class="reason__icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="9" width="30" height="21" rx="2"/><path d="M12 38h14M19 30v8"/><rect x="30" y="18" width="14" height="24" rx="3"/></svg>
+                    <div>
+                        <h3>توافق كامل مع الجوال والكمبيوتر</h3>
+                        <p>أصمّم للجوال أولًا، لأن أغلب عملائك يصلون إليك منه، ثم أكمل للشاشات الكبيرة.</p>
+                    </div>
+                </li>
+                <li class="reason" data-reveal>
+                    <svg class="reason__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 10h26v16H16l-6 6v-6H6z"/><path d="M36 18h6v16h-4v6l-6-6H20v-4"/></svg>
+                    <div>
+                        <h3>تواصل واضح ومباشر طوال التنفيذ</h3>
+                        <p>تعرف في كل مرحلة أين وصل مشروعك، وترى التصميم وتعدّل عليه قبل البرمجة.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- مراحل التنفيذ -->
+        <section class="process" id="process" aria-labelledby="process-title">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title" id="process-title" data-reveal>من الفكرة<br>إلى الإطلاق.</h2>
+                    <p class="section-intro" data-reveal>أربع مراحل واضحة، تعرف في كل واحدة منها ما الذي يحدث وما المطلوب منك.</p>
+                </div>
+                <div class="steps" data-steps>
+                    <div class="steps__rail" aria-hidden="true"><span class="steps__fill" data-steps-fill></span></div>
+                    <ol class="steps__list">
+                        <li class="step" data-reveal>
+                            <span class="step__node" aria-hidden="true">01</span>
+                            <h3>فهم الفكرة والاحتياجات</h3>
+                            <p>نتحدث عن نشاطك وجمهورك وهدف الموقع، ثم أرسل لك عرضًا واضحًا بالمدة والسعر.</p>
+                        </li>
+                        <li class="step" data-reveal>
+                            <span class="step__node" aria-hidden="true">02</span>
+                            <h3>وضع التصور والتصميم</h3>
+                            <p>تشاهد شكل الموقع قبل البرمجة، وتطلب تعديلاتك حتى يصبح كما تريده.</p>
+                        </li>
+                        <li class="step" data-reveal>
+                            <span class="step__node" aria-hidden="true">03</span>
+                            <h3>التطوير والاختبار</h3>
+                            <p>أبني الموقع وأختبره على الجوال والكمبيوتر، وأرسل لك رابط معاينة تجربه بنفسك.</p>
+                        </li>
+                        <li class="step" data-reveal>
+                            <span class="step__node" aria-hidden="true">04</span>
+                            <h3>الإطلاق والتسليم</h3>
+                            <p>أربط الموقع بدومينك، وأسلّمك جميع الملفات والحسابات.</p>
+                        </li>
+                    </ol>
+                </div>
             </div>
         </section>
-        <section id="packages">
-            <h2>الباقات</h2>
-            <p class="sub">أسعار واضحة بدون مفاجآت. تدفع 50% مقدم، والباقي عند التسليم.</p>
-            <div class="grid">
-                <div class="card plan">
-                    <h3>صفحة هبوط</h3>
-                    <p class="price">500 <small>ر.س</small></p>
-                    <ul>
-                        <li>صفحة وحدة متجاوبة مع الجوال</li>
-                        <li>زر تواصل واتساب</li>
-                        <li>تعديلين مجاناً</li>
+
+        <!-- الباقات -->
+        <section class="packages wrap" id="packages" aria-labelledby="packages-title">
+            <div class="section-head">
+                <h2 class="section-title" id="packages-title" data-reveal>باقات واضحة،<br>بلا مفاجآت.</h2>
+                <p class="section-intro" data-reveal>سعر ثابت تعرفه قبل أن نبدأ، ومدة تسليم محددة في كل باقة.</p>
+            </div>
+            <ul class="price-list">
+                <li class="price" data-reveal>
+                    <h3 class="price__name">صفحة هبوط</h3>
+                    <ul class="price__incl">
+                        <li>صفحة واحدة متجاوبة مع الجوال</li>
+                        <li>زر تواصل عبر واتساب</li>
+                        <li>تعديلان مجانًا</li>
                         <li>التسليم خلال 5 أيام</li>
                     </ul>
-                    <a href="order.html?p=landing" class="cta ghost">اطلب الباقة</a>
-                </div>
-                <div class="card plan featured">
-                    <span class="badge">الأكثر طلباً</span>
-                    <h3>موقع شركة</h3>
-                    <p class="price">1,200 <small>ر.س</small></p>
-                    <ul>
+                    <p class="price__amount"><b>500</b> ر.س</p>
+                    <a class="btn btn--line btn--sm" href="order.html?p=landing">اطلب الباقة</a>
+                </li>
+                <li class="price price--feature" data-reveal>
+                    <h3 class="price__name">موقع شركة <span class="price__badge">الخيار المقترح</span></h3>
+                    <ul class="price__incl">
                         <li>من 4 إلى 6 صفحات</li>
                         <li>نموذج تواصل وخريطة</li>
                         <li>ربط الدومين</li>
-                        <li>3 تعديلات مجاناً</li>
-                        <li>التسليم خلال 14 يوم</li>
+                        <li>3 تعديلات مجانًا</li>
+                        <li>التسليم خلال 14 يومًا</li>
                     </ul>
-                    <a href="order.html?p=company" class="cta">اطلب الباقة</a>
-                </div>
-                <div class="card plan">
-                    <h3>متجر إلكتروني</h3>
-                    <p class="price">1,500 <small>ر.س</small></p>
-                    <ul>
+                    <p class="price__amount"><b>1,200</b> ر.س</p>
+                    <a class="btn btn--orange btn--sm" href="order.html?p=company">اطلب الباقة</a>
+                </li>
+                <li class="price" data-reveal>
+                    <h3 class="price__name">متجر إلكتروني</h3>
+                    <ul class="price__incl">
                         <li>تجهيز متجر على سلة أو زد</li>
                         <li>تخصيص الشكل والألوان</li>
-                        <li>إضافة حتى 30 منتج</li>
-                        <li>التسليم خلال 14 يوم</li>
+                        <li>إضافة حتى 30 منتجًا</li>
+                        <li>التسليم خلال 14 يومًا</li>
                     </ul>
-                    <a href="order.html?p=store" class="cta ghost">اطلب الباقة</a>
+                    <p class="price__amount"><b>1,500</b> ر.س</p>
+                    <a class="btn btn--line btn--sm" href="order.html?p=store">اطلب الباقة</a>
+                </li>
+            </ul>
+            <p class="packages__note" data-reveal>تدفع <bdi dir="ltr">50%</bdi> مقدمًا والباقي عند التسليم. والصيانة الشهرية بعد التسليم اختيارية بـ <b>150</b> ر.س في الشهر.</p>
+        </section>
+
+        <!-- دعوة للتواصل -->
+        <section class="cta" aria-labelledby="cta-title">
+            <div class="wrap cta__inner">
+                <h2 class="cta__title" id="cta-title" data-reveal>عندك فكرة؟<br>خلّنا نحوّلها إلى <em>واقع.</em></h2>
+                <div class="cta__side" data-reveal>
+                    <p>ابدأ مشروعك الرقمي بخطوة بسيطة، واحكِ لي عن فكرتك.</p>
+                    <a class="btn btn--orange btn--lg" href="order.html">
+                        ابدأ مشروعك الآن
+                        <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg>
+                    </a>
+                    <a class="link-wa link-wa--light" href="order.html" data-wa>
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.1-3.6A8 8 0 1 1 8.4 18.6z"/><path d="M9.2 8.6c.3 2.4 1.9 4.5 4.6 5.7l1.2-1.2 1.9.9-.4 1.6c-3.8.2-7.4-3.3-7.6-7.4l1.6-.5.9 1.9z"/></svg>
+                        أو راسلني مباشرة على واتساب
+                    </a>
                 </div>
             </div>
-            <p class="note">تبغى صيانة شهرية بعد التسليم؟ <strong>150 ر.س بالشهر</strong>: تحديثات، ونسخ احتياطي، ومتابعة.</p>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="site-footer__grid">
+                <div class="site-footer__about">
+                    <a class="brand" href="#top"><span class="brand__mark" aria-hidden="true"></span><span class="brand__word" dir="ltr">MD-DESIGN</span></a>
+                    <p>استوديو تصميم وتطوير مواقع عربية للشركات والمتاجر والمطاعم والمشاريع التجارية في السعودية. يديره مؤيد الصبياني.</p>
+                </div>
+                <nav class="site-footer__col" aria-label="أقسام الموقع">
+                    <h2>الأقسام</h2>
+                    <a href="#work">الأعمال</a>
+                    <a href="#services">الخدمات</a>
+                    <a href="#process">طريقة العمل</a>
+                    <a href="#packages">الباقات</a>
+                </nav>
+                <div class="site-footer__col">
+                    <h2>التواصل</h2>
+                    <a href="order.html" data-wa>واتساب</a>
+                    <a href="order.html">صفحة الطلب</a>
+                </div>
+            </div>
+            <p class="site-footer__word" aria-hidden="true" dir="ltr">MD-DESIGN</p>
+            <div class="site-footer__base">
+                <span>© 2026 MD-DESIGN. جميع الحقوق محفوظة.</span>
+                <span>صُمّم وبُني يدويًا في السعودية.</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cursor" aria-hidden="true" data-cursor-el><i></i><span>شاهد</span></div>
+
+    <script src="main.js" defer></script>
 </body>
 </html>
