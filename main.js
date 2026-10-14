@@ -24,6 +24,79 @@ const WHATSAPP = "966559333976";
     onScrollHeader();
     window.addEventListener("scroll", onScrollHeader, { passive: true });
 
+    // القائمة العلوية: مؤشر ينزلق تحت الرابط، ويعلّم القسم اللي يقرأه الزائر
+    const nav = document.querySelector(".site-nav");
+    if (nav) {
+        const links = Array.from(nav.querySelectorAll("a"));
+        const pill = document.createElement("span");
+        pill.className = "site-nav__pill";
+        pill.setAttribute("aria-hidden", "true");
+        nav.prepend(pill);
+
+        // الأقسام الموجودة في نفس الصفحة بس (في صفحة الطلب ما فيه أقسام، فيشتغل مع الماوس فقط)
+        const targets = links.map(a => {
+            const hash = a.getAttribute("href").split("#")[1];
+            const onPage = a.pathname === location.pathname || a.getAttribute("href").startsWith("#");
+            return hash && onPage ? document.getElementById(hash) : null;
+        });
+        let active = null;
+
+        const moveTo = link => {
+            links.forEach(a => a.classList.toggle("is-current", a === link));
+            if (!link) {
+                pill.classList.remove("is-on");
+                return;
+            }
+            // إذا كان المؤشر مخفي، يظهر مكانه على طول بدون ما ينزلق من الطرف
+            const jump = !pill.classList.contains("is-on");
+            pill.classList.toggle("is-jump", jump);
+            pill.style.width = link.offsetWidth + "px";
+            pill.style.transform = "translateX(" + link.offsetLeft + "px)";
+            if (jump) void pill.offsetWidth;
+            pill.classList.add("is-on");
+            pill.classList.remove("is-jump");
+        };
+
+        links.forEach(a => {
+            a.addEventListener("mouseenter", () => moveTo(a));
+            a.addEventListener("focus", () => moveTo(a));
+        });
+        nav.addEventListener("mouseleave", () => moveTo(active));
+        nav.addEventListener("focusout", e => { if (!nav.contains(e.relatedTarget)) moveTo(active); });
+
+        if (targets.some(Boolean)) {
+            let ticking = false;
+            const spy = () => {
+                ticking = false;
+                const line = window.innerHeight * 0.4;
+                let current = null;
+                targets.forEach((section, i) => {
+                    if (section && section.getBoundingClientRect().top < line) current = links[i];
+                });
+                // بعد آخر قسم (الدعوة والفوتر) يبقى على آخر قسم مرّ عليه
+                if (current !== active) {
+                    active = current;
+                    links.forEach(a => {
+                        a.classList.toggle("is-active", a === active);
+                        if (a === active) a.setAttribute("aria-current", "true");
+                        else a.removeAttribute("aria-current");
+                    });
+                    if (!nav.matches(":hover") && !nav.contains(document.activeElement)) moveTo(active);
+                }
+            };
+            const queueSpy = () => {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(spy);
+                }
+            };
+            window.addEventListener("scroll", queueSpy, { passive: true });
+            window.addEventListener("resize", () => { moveTo(active); queueSpy(); });
+            document.fonts && document.fonts.ready.then(() => moveTo(active));
+            queueSpy();
+        }
+    }
+
     // قائمة الجوال
     const toggle = document.querySelector("[data-menu-toggle]");
     const menu = document.querySelector("[data-menu]");
