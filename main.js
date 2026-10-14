@@ -282,4 +282,78 @@ const WHATSAPP = "966559333976";
             el.addEventListener("mouseleave", () => cursor.classList.remove("is-view"));
         });
     }
+
+    // الطلب السريع: أزرار "لنبدأ مشروعك" تفتح نافذة بثلاثة أسئلة، وبدون سكربت تبقى روابط لصفحة الطلب
+    const quick = document.getElementById("quick");
+    if (quick && typeof quick.showModal === "function") {
+        const form = quick.querySelector("[data-quick-form]");
+        const error = document.getElementById("quick-error");
+        const lead = quick.querySelector("[data-quick-lead]");
+        const showError = on => { error.hidden = !on; lead.hidden = on; };
+        let opener = null;
+
+        // التنظيف يصير مباشرة عند الإغلاق، وحدث close احتياط لزر Esc
+        const cleanup = () => {
+            root.classList.remove("quick-open");
+            if (opener) {
+                opener.focus();
+                opener = null;
+            }
+        };
+        const close = () => {
+            if (quick.open) quick.close();
+            cleanup();
+        };
+        quick.addEventListener("close", cleanup);
+        quick.addEventListener("cancel", () => setTimeout(cleanup, 0));
+
+        document.querySelectorAll("[data-quick]").forEach(link => {
+            link.addEventListener("click", e => {
+                e.preventDefault();
+                opener = link;
+                // خدمة محددة (مطعم، تطوير موقع) تختار النوع تلقائيًا
+                const key = link.getAttribute("data-quick");
+                if (key) {
+                    const match = form.querySelector('input[data-key="' + key + '"]');
+                    if (match) match.checked = true;
+                }
+                showError(false);
+                root.classList.add("quick-open");
+                quick.showModal();
+                const first = form.querySelector('input[name="q-type"]:checked') ? form.querySelector('input[name="q-budget"]') : form.querySelector('input[name="q-type"]');
+                if (first) first.focus();
+            });
+        });
+
+        quick.querySelector("[data-quick-close]").addEventListener("click", close);
+        // الضغط خارج النافذة يقفلها
+        quick.addEventListener("click", e => { if (e.target === quick) close(); });
+        form.addEventListener("change", () => showError(false));
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            const pick = name => {
+                const el = form.querySelector('input[name="' + name + '"]:checked');
+                return el ? el.value : "";
+            };
+            const type = pick("q-type"), budget = pick("q-budget"), time = pick("q-time");
+            if (!type || !budget || !time) {
+                showError(true);
+                const missing = form.querySelector('input[name="' + (!type ? "q-type" : !budget ? "q-budget" : "q-time") + '"]');
+                if (missing) missing.focus();
+                return;
+            }
+            const name = document.getElementById("q-name").value.trim();
+            const lines = [
+                "السلام عليكم، أرغب في تصميم موقع:",
+                "",
+                "نوع الموقع: " + type,
+                "الميزانية: " + budget,
+                "موعد التسليم: " + time
+            ];
+            if (name) lines.push("الاسم: " + name);
+            window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+            close();
+        });
+    }
 })();
