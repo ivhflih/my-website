@@ -307,23 +307,41 @@ const WHATSAPP = "966559333976";
         quick.addEventListener("close", cleanup);
         quick.addEventListener("cancel", () => setTimeout(cleanup, 0));
 
+        const open = from => {
+            opener = from;
+            showError(false);
+            root.classList.add("quick-open");
+            quick.showModal();
+            const first = form.querySelector('input[name="q-type"]:checked') ? form.querySelector('input[name="q-budget"]') : form.querySelector('input[name="q-type"]');
+            if (first) first.focus();
+        };
+
         document.querySelectorAll("[data-quick]").forEach(link => {
             link.addEventListener("click", e => {
                 e.preventDefault();
-                opener = link;
                 // خدمة محددة (مطعم، تطوير موقع) تختار النوع تلقائيًا
                 const key = link.getAttribute("data-quick");
                 if (key) {
                     const match = form.querySelector('input[data-key="' + key + '"]');
                     if (match) match.checked = true;
                 }
-                showError(false);
-                root.classList.add("quick-open");
-                quick.showModal();
-                const first = form.querySelector('input[name="q-type"]:checked') ? form.querySelector('input[name="q-budget"]') : form.querySelector('input[name="q-type"]');
-                if (first) first.focus();
+                open(link);
             });
         });
+
+        // جاء من صفحة شكل (زر "أبي هذا الشكل"): نفتح الطلب والشكل واللون مكتوبين فيه
+        const STYLES = ["ثلاثي الأبعاد", "فاخر وأنيق", "بسيط ونظيف", "جريء وملوّن"];
+        const params = new URLSearchParams(location.search);
+        const style = params.get("style");
+        const color = params.get("color") || "";
+        const picked = quick.querySelector("[data-quick-picked]");
+        let chosen = "";
+        if (STYLES.includes(style)) {
+            chosen = style + (/^[؀-ۿ ]{1,20}$/.test(color) ? " (اللون: " + color + ")" : "");
+            picked.textContent = "الشكل المختار: " + chosen;
+            picked.hidden = false;
+            open(null);
+        }
 
         quick.querySelector("[data-quick-close]").addEventListener("click", close);
         // الضغط خارج النافذة يقفلها
@@ -351,6 +369,7 @@ const WHATSAPP = "966559333976";
                 "الميزانية: " + budget,
                 "موعد التسليم: " + time
             ];
+            if (chosen) lines.push("الشكل: " + chosen);
             if (name) lines.push("الاسم: " + name);
             window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
             close();
