@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عَبَق — شكل فاخر وأنيق | MD-DESIGN</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* شكل فاخر: ليل دافئ، ومعدن واحد (ذهبي افتراضيًا)، وخط نسخي كلاسيكي، ومساحات واسعة */
+:root{--bg:#0D0B09;--panel:#16120E;--ink:#F3EBDD;--muted:#A99C86;--gold:#C9A45C;
+--line:color-mix(in srgb,var(--gold) 28%,transparent);
+--disp:"Amiri","Times New Roman",serif;--body:"Tajawal",Tahoma,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.9;transition:background-color .6s}
+a{color:inherit}
+.w{max-width:1160px;margin-inline:auto;padding-inline:clamp(18px,5vw,48px)}
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-block:26px;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+.top nav{display:flex;gap:26px}
+.top .logo{font-family:var(--disp);font-size:1.9rem;font-weight:700;color:var(--gold);text-decoration:none;letter-spacing:.02em}
+.top .end{justify-self:end}
+.hero{position:relative;display:grid;place-items:center;text-align:center;padding-block:clamp(60px,9vw,120px) clamp(70px,10vw,130px);overflow:hidden}
+.hero::before{content:"";position:absolute;top:30%;left:50%;width:560px;height:560px;transform:translate(-50%,-50%);border-radius:50%;
+background:radial-gradient(circle,color-mix(in srgb,var(--gold) 26%,transparent),transparent 65%);pointer-events:none}
+.kicker{display:flex;align-items:center;gap:14px;color:var(--gold);font-size:.9rem;letter-spacing:.08em}
+.kicker::before,.kicker::after{content:"";width:46px;height:1px;background:var(--gold)}
+.hero h1{position:relative;margin:18px 0 0;font-family:var(--disp);font-weight:400;font-size:clamp(2.8rem,7vw,5.6rem);line-height:1.45}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.bottle{position:relative;width:min(220px,46vw);margin:34px auto 30px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.bottle svg{display:block;width:100%;height:auto}
+.hero p{position:relative;max-width:44ch;margin:0 auto 34px;color:var(--muted);font-size:1.1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 34px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-weight:500;letter-spacing:.04em;transition:background-color .4s,color .4s}
+.btn:hover{background:var(--gold);color:var(--bg)}
+section{padding-block:clamp(70px,10vw,130px)}
+.title{text-align:center;margin-bottom:56px}
+.title h2{margin:12px 0 0;font-family:var(--disp);font-weight:400;font-size:clamp(2rem,4vw,3.1rem)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.item{padding:36px 28px 32px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),transparent);text-align:center;transition:border-color .4s,transform .5s cubic-bezier(.16,1,.3,1)}
+.item:hover{border-color:var(--gold);transform:translateY(-6px)}
+.item svg{width:96px;height:auto;margin:0 auto 22px;display:block}
+.item h3{margin:0;font-family:var(--disp);font-size:1.6rem;font-weight:400}
+.item .notes{margin:6px 0 18px;color:var(--muted);font-size:.95rem}
+.item .price{color:var(--gold);font-weight:500;letter-spacing:.04em}
+.note{margin-top:22px;text-align:center;color:var(--muted);font-size:.82rem}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:center;border-top:1px solid var(--line)}
+.story blockquote{margin:0;font-family:var(--disp);font-size:clamp(1.8rem,3.6vw,2.8rem);line-height:1.5;color:var(--gold)}
+.story p{margin:0 0 18px;color:var(--muted)}
+.gift{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:clamp(32px,5vw,56px);border:1px solid var(--line);background:var(--panel)}
+.gift h2{margin:0;font-family:var(--disp);font-weight:400;font-size:clamp(1.7rem,3vw,2.4rem)}
+.gift p{margin:6px 0 0;color:var(--muted)}
+footer{margin-top:80px;padding-block:30px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+@media (max-width:820px){
+.top{grid-template-columns:1fr auto}
+.top nav{display:none}
+.grid,.story{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.item,.btn,body{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" style="stop-color:var(--gold);stop-opacity:.55"/>
+      <stop offset=".5" style="stop-color:var(--gold);stop-opacity:.18"/>
+      <stop offset="1" style="stop-color:var(--gold);stop-opacity:.45"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" x2="1">
+      <stop offset="0" style="stop-color:var(--gold);stop-opacity:.7"/>
+      <stop offset=".45" style="stop-color:var(--gold)"/>
+      <stop offset="1" style="stop-color:var(--gold);stop-opacity:.6"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<header class="w top">
+  <nav><span>العطور</span><span>المجموعات</span><span>قصتنا</span></nav>
+  <a class="logo" href="#">عَبَق</a>
+  <span class="end">السلة (0)</span>
+</header>
+
+<main>
+  <section class="w hero">
+    <span class="kicker">مجموعة الشتاء</span>
+    <h1>عطر يبقى<br><em>في الذاكرة.</em></h1>
+    <div class="bottle" aria-hidden="true">
+      <svg viewBox="0 0 200 300">
+        <rect x="78" y="10" width="44" height="46" rx="6" fill="url(#metal)"/>
+        <rect x="88" y="56" width="24" height="22" fill="url(#metal)" opacity=".85"/>
+        <path d="M40 92 Q40 78 56 78 H144 Q160 78 160 92 V270 Q160 290 140 290 H60 Q40 290 40 270 Z" fill="url(#glass)" stroke="var(--gold)" stroke-width="1.5"/>
+        <path d="M58 100 V262" stroke="#fff" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+        <rect x="70" y="170" width="60" height="58" fill="none" stroke="var(--gold)" stroke-width="1"/>
+        <text x="100" y="206" text-anchor="middle" font-family="Amiri,serif" font-size="22" fill="var(--gold)">عَبَق</text>
+      </svg>
+    </div>
+    <p>عطور شرقية مركّبة يدويًا من العود والمسك والورد، في قوارير تليق بالهدايا.</p>
+    <a class="btn" href="#collection">اكتشف المجموعة</a>
+  </section>
+
+  <section class="w" id="collection">
+    <div class="title"><span class="kicker" style="justify-content:center">المجموعة</span><h2>ثلاثة عطور، ثلاث حكايات</h2></div>
+    <div class="grid">
+      <article class="item">
+        <svg viewBox="0 0 120 180" aria-hidden="true"><rect x="44" y="6" width="32" height="30" rx="4" fill="url(#metal)"/><path d="M20 50 Q20 40 30 40 H90 Q100 40 100 50 V165 Q100 175 90 175 H30 Q20 175 20 165Z" fill="url(#glass)" stroke="var(--gold)"/></svg>
+        <h3>عود ملكي</h3>
+        <p class="notes">عود كمبودي، عنبر، جلد</p>
+        <span class="price">650 ر.س</span>
+      </article>
+      <article class="item">
+        <svg viewBox="0 0 120 180" aria-hidden="true"><circle cx="60" cy="18" r="14" fill="url(#metal)"/><path d="M60 34 C20 60 18 110 22 140 Q26 175 60 175 Q94 175 98 140 C102 110 100 60 60 34Z" fill="url(#glass)" stroke="var(--gold)"/></svg>
+        <h3>مسك الليل</h3>
+        <p class="notes">مسك أبيض، فانيليا، صندل</p>
+        <span class="price">480 ر.س</span>
+      </article>
+      <article class="item">
+        <svg viewBox="0 0 120 180" aria-hidden="true"><rect x="48" y="4" width="24" height="40" rx="3" fill="url(#metal)"/><path d="M60 44 L102 86 L60 176 L18 86Z" fill="url(#glass)" stroke="var(--gold)"/></svg>
+        <h3>ورد طائفي</h3>
+        <p class="notes">ورد طائفي، زعفران، باتشولي</p>
+        <span class="price">520 ر.س</span>
+      </article>
+    </div>
+    <p class="note">الأسماء والأسعار نموذجية لغرض العرض.</p>
+  </section>
+
+  <section class="w story">
+    <blockquote>«كل قارورة تبدأ بقطرة عود، وتنتهي بذكرى.»</blockquote>
+    <div>
+      <p>نختار خاماتنا من أفضل المصادر، ونترك العطر يتعتّق أسابيع قبل أن يصل إليك.</p>
+      <p>وكل طلب يُغلّف يدويًا في علبة خشبية مع بطاقة إهداء بخط اليد.</p>
+    </div>
+  </section>
+
+  <div class="w">
+    <div class="gift">
+      <div><h2>هدية لا تُنسى</h2><p>تغليف فاخر مجاني مع كل طلب.</p></div>
+      <a class="btn" href="#collection">اختر الهدية</a>
+    </div>
+  </div>
+</main>
+<footer>شكل تصميم من MD-DESIGN. الاسم والمحتوى للعرض فقط.</footer>
+
+<script>
+window.KIT = {
+  style: "luxury",
+  name: "فاخر وأنيق",
+  palettes: [
+    { name: "ذهبي", swatch: "#C9A45C", vars: { "--gold": "#C9A45C", "--bg": "#0D0B09", "--panel": "#16120E", "--ink": "#F3EBDD", "--muted": "#A99C86" } },
+    { name: "فضي", swatch: "#C9CDD3", vars: { "--gold": "#C9CDD3", "--bg": "#0C0D0F", "--panel": "#15171A", "--ink": "#EEF0F3", "--muted": "#9A9FA8" } },
+    { name: "وردي عتيق", swatch: "#D19A8E", vars: { "--gold": "#D19A8E", "--bg": "#120C0C", "--panel": "#1B1313", "--ink": "#F5E9E6", "--muted": "#B09A95" } },
+    { name: "زمردي", swatch: "#5FB49C", vars: { "--gold": "#5FB49C", "--bg": "#08100D", "--panel": "#0F1915", "--ink": "#E8F2EE", "--muted": "#8FA79E" } }
+  ]
+};
+</script>
+<script src="kit.js"></script>
+</body>
+</html>

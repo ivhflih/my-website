@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عيادة بَسمة — شكل بسيط ونظيف | MD-DESIGN</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* شكل بسيط: أبيض، لون واحد هادئ، مسافات مريحة، ومحتوى واضح بدون زخرفة */
+:root{--bg:#FFFFFF;--soft:#F5F7F9;--ink:#111827;--muted:#5B6472;--line:#E6E9EE;--accent:#2F6FED;
+--tint:color-mix(in srgb,var(--accent) 9%,white);--font:"IBM Plex Sans Arabic",Tahoma,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.75}
+a{color:inherit}
+.w{max-width:1120px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;text-decoration:none}
+.logo i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--accent)}
+.logo svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.nav ul{display:flex;gap:30px;margin:0;padding:0;list-style:none;color:var(--muted);font-size:.95rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:12px;font-weight:600;text-decoration:none;transition:background-color .25s,transform .25s}
+.btn--main{background:var(--accent);color:#fff}
+.btn--main:hover{transform:translateY(-1px);background:color-mix(in srgb,var(--accent) 85%,black)}
+.btn--soft{background:var(--tint);color:var(--accent)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,70px);align-items:center;padding-block:clamp(40px,7vw,90px)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--tint);color:var(--accent);font-size:.88rem;font-weight:500}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.hero h1{margin:18px 0 0;font-size:clamp(2.2rem,4.8vw,3.8rem);line-height:1.3;font-weight:700}
+.hero p{max-width:44ch;margin:18px 0 30px;color:var(--muted);font-size:1.08rem}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.book{padding:26px;border:1px solid var(--line);border-radius:22px;background:var(--bg);box-shadow:0 30px 60px -36px rgba(17,24,39,.35)}
+.book h2{margin:0 0 4px;font-size:1.1rem}
+.book small{color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:20px 0 16px}
+.days button,.times button{padding:10px 0;border:1px solid var(--line);border-radius:12px;background:var(--bg);font:inherit;font-size:.85rem;color:var(--ink);cursor:pointer;transition:border-color .2s,background-color .2s,color .2s}
+.days button b{display:block;font-size:1.15rem}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.days button[aria-pressed="true"],.times button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.days button:hover,.times button:hover{border-color:var(--accent)}
+.book .btn{width:100%}
+section{padding-block:clamp(60px,9vw,110px)}
+.soft{background:var(--soft)}
+.head{max-width:560px;margin-bottom:40px}
+.head h2{margin:0 0 10px;font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.35}
+.head p{margin:0;color:var(--muted)}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc{padding:26px 22px;border-radius:18px;background:var(--bg);border:1px solid var(--line);transition:border-color .25s,transform .25s}
+.svc:hover{border-color:var(--accent);transform:translateY(-3px)}
+.svc i{display:grid;place-items:center;width:48px;height:48px;margin-bottom:16px;border-radius:14px;background:var(--tint);color:var(--accent)}
+.svc svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+.svc h3{margin:0 0 6px;font-size:1.08rem}
+.svc p{margin:0;color:var(--muted);font-size:.93rem}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{padding-top:22px;border-top:2px solid var(--line)}
+.steps li::before{counter-increment:s;content:"0" counter(s);display:block;margin-bottom:8px;color:var(--accent);font-weight:700}
+.steps b{display:block;font-size:1.08rem}
+.steps span{color:var(--muted);font-size:.95rem}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{padding:28px;border-radius:18px;border:1px solid var(--line)}
+.box h3{margin:0 0 14px;font-size:1.1rem}
+.box dl{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin:0}
+.box dt{color:var(--muted)}
+.box dd{margin:0;font-weight:500}
+footer{padding-block:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+@media (max-width:900px){.services{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+.nav ul{display:none}
+.hero,.visit,.steps{grid-template-columns:1fr}
+}
+@media (max-width:420px){.services{grid-template-columns:1fr}.days{grid-template-columns:repeat(3,1fr)}.days button:nth-child(n+4){display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="w nav">
+  <a class="logo" href="#"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4c-2 0-3.5 1.6-3.5 4 0 3 1.5 4 2 7s1 5 2.5 5 1.5-3 2-5 1-3 2-3 1.5 1 2 3 .5 5 2 5 2-2 2.5-5 2-4 2-7c0-2.4-1.5-4-3.5-4-1.7 0-2.6 1-5 1S8.7 4 7 4z"/></svg></i>عيادة بَسمة</a>
+  <ul><li>الخدمات</li><li>الأطباء</li><li>الموقع</li></ul>
+  <a class="btn btn--soft" href="#book">احجز موعد</a>
+</header>
+<main>
+  <section class="w hero">
+    <div>
+      <span class="badge">نستقبل حجوزات هذا الأسبوع</span>
+      <h1>ابتسامتك تستحق رعاية هادئة.</h1>
+      <p>عيادة أسنان متكاملة بخطوات واضحة، ومواعيد دقيقة، وبدون انتظار طويل.</p>
+      <div class="actions">
+        <a class="btn btn--main" href="#book">احجز موعدك</a>
+        <a class="btn btn--soft" href="#services">تعرّف على الخدمات</a>
+      </div>
+    </div>
+    <div class="book" id="book">
+      <h2>أقرب المواعيد المتاحة</h2>
+      <small>اختر اليوم والوقت</small>
+      <div class="days" data-pick>
+        <button type="button" aria-pressed="true">الأحد<b>12</b></button>
+        <button type="button" aria-pressed="false">الاثنين<b>13</b></button>
+        <button type="button" aria-pressed="false">الثلاثاء<b>14</b></button>
+        <button type="button" aria-pressed="false">الأربعاء<b>15</b></button>
+        <button type="button" aria-pressed="false">الخميس<b>16</b></button>
+      </div>
+      <div class="times" data-pick>
+        <button type="button" aria-pressed="false">9:30 ص</button>
+        <button type="button" aria-pressed="true">11:00 ص</button>
+        <button type="button" aria-pressed="false">4:30 م</button>
+      </div>
+      <a class="btn btn--main" href="#">تأكيد الحجز</a>
+    </div>
+  </section>
+
+  <section class="soft" id="services">
+    <div class="w">
+      <div class="head"><h2>خدماتنا</h2><p>كل ما تحتاجه لصحة أسنانك في مكان واحد.</p></div>
+      <div class="services">
+        <article class="svc"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="8"/></svg></i><h3>الفحص والتنظيف</h3><p>فحص شامل وتنظيف دوري لحماية أسنانك.</p></article>
+        <article class="svc"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9h18M3 15h18"/><path d="M7 9v6M12 9v6M17 9v6"/></svg></i><h3>التقويم</h3><p>تقويم شفاف ومعدني حسب حالتك.</p></article>
+        <article class="svc"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v6m-4 0h8l-1 12h-6z"/></svg></i><h3>زراعة الأسنان</h3><p>تعويض الأسنان المفقودة بنتيجة طبيعية.</p></article>
+        <article class="svc"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></i><h3>التبييض</h3><p>ابتسامة أفتح بجلسة واحدة آمنة.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="w">
+    <div class="head"><h2>موعدك في ثلاث خطوات</h2></div>
+    <ol class="steps">
+      <li><b>اختر الخدمة</b><span>من الموقع أو عبر واتساب.</span></li>
+      <li><b>حدد الوقت</b><span>المواعيد المتاحة أمامك مباشرة.</span></li>
+      <li><b>احضر في موعدك</b><span>نذكّرك قبل الموعد بيوم.</span></li>
+    </ol>
+  </section>
+
+  <section class="w">
+    <div class="visit">
+      <div class="box"><h3>أوقات العمل</h3><dl><dt>السبت - الخميس</dt><dd>9 ص - 10 م</dd><dt>الجمعة</dt><dd>4 م - 10 م</dd></dl></div>
+      <div class="box"><h3>الموقع</h3><dl><dt>الحي</dt><dd>حي النموذج، الرياض</dd><dt>الهاتف</dt><dd dir="ltr" style="text-align:right">0500000000</dd></dl></div>
+    </div>
+  </section>
+</main>
+<footer>شكل تصميم من MD-DESIGN. الاسم والمحتوى للعرض فقط.</footer>
+
+<script>
+window.KIT = {
+  style: "minimal",
+  name: "بسيط ونظيف",
+  palettes: [
+    { name: "أزرق", swatch: "#2F6FED", vars: { "--accent": "#2F6FED" } },
+    { name: "أخضر", swatch: "#129C73", vars: { "--accent": "#129C73" } },
+    { name: "بنفسجي", swatch: "#7357F6", vars: { "--accent": "#7357F6" } },
+    { name: "كحلي", swatch: "#1E293B", vars: { "--accent": "#1E293B" } }
+  ]
+};
+// اختيار اليوم والوقت في بطاقة الحجز
+document.querySelectorAll("[data-pick]").forEach(group => {
+  group.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  });
+});
+</script>
+<script src="kit.js"></script>
+</body>
+</html>

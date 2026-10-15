@@ -1,0 +1,141 @@
+/* شريط تجربة الأشكال: مشترك بين كل نماذج الأشكال في work/ */
+.kit {
+    position: fixed;
+    inset-inline: 0;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    padding-inline: 12px;
+    pointer-events: none;
+    font-family: "IBM Plex Sans Arabic", Tahoma, sans-serif;
+}
+
+.kit__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 16px;
+    max-width: 100%;
+    padding: 10px 12px;
+    background: #171717;
+    color: #F7F5F0;
+    border: 1px solid rgba(247, 245, 240, 0.16);
+    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6);
+    pointer-events: auto;
+}
+
+.kit__back {
+    color: rgba(247, 245, 240, 0.72);
+    font-size: 0.88rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.kit__back:hover {
+    color: #F7F5F0;
+}
+
+.kit__group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.kit__label {
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.kit__label b {
+    font-weight: 600;
+}
+
+.kit__colors {
+    display: flex;
+    gap: 6px;
+}
+
+.kit__swatch {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--sw);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(.16, 1, .3, 1);
+}
+
+.kit__swatch:hover {
+    transform: scale(1.12);
+}
+
+.kit__swatch[aria-pressed="true"] {
+    box-shadow: 0 0 0 2px #171717, 0 0 0 4px #F7F5F0;
+}
+
+.kit__swatch:focus-visible {
+    outline: 2px solid #E2581E;
+    outline-offset: 5px;
+}
+
+.kit__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 18px;
+    background: #E2581E;
+    color: #171717;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.kit__cta:hover {
+    background: #F7F5F0;
+}
+
+.kit-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* مساحة تحت الصفحة عشان الشريط ما يغطي آخر المحتوى */
+body.has-kit {
+    padding-bottom: 104px;
+}
+
+@media (max-width: 560px) {
+    .kit {
+        padding-inline: 8px;
+    }
+
+    .kit__bar {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .kit__back {
+        order: 3;
+    }
+
+    body.has-kit {
+        padding-bottom: 150px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kit__swatch {
+        transition: none;
+    }
+}
