@@ -3,9 +3,14 @@
    الألوان والخطوط والمسافات كلها من هنا، وتتغير في كل الموقع
    ========================================================= */
 :root {
-    --ivory: #F7F5F0;
-    --paper: #EEEAE0;
-    --white: #FFFDF8;
+    /* الخلفيات الأساسية، وفوقها لمسة خفيفة من اللون المختار عشان الموقع كله يمشي معه */
+    --base-ivory: #F7F5F0;
+    --base-paper: #EEEAE0;
+    --base-white: #FFFDF8;
+    --tint: 3.5%;
+    --ivory: color-mix(in srgb, var(--orange) var(--tint), var(--base-ivory));
+    --paper: color-mix(in srgb, var(--orange) calc(var(--tint) + 2%), var(--base-paper));
+    --white: color-mix(in srgb, var(--orange) calc(var(--tint) - 2%), var(--base-white));
     --ink: #171717;
     --ink-soft: #34322E;
     --muted: #5F5A51;
@@ -41,9 +46,10 @@
 
 /* الوضع الداكن: نفس الأسماء بقيم معكوسة، فكل الموقع يتبعها */
 :root[data-mode="dark"] {
-    --ivory: #141311;
-    --paper: #1C1A17;
-    --white: #221F1B;
+    --base-ivory: #141311;
+    --base-paper: #1C1A17;
+    --base-white: #221F1B;
+    --tint: 6%;
     --ink: #F2EEE6;
     --ink-soft: #D9D3C7;
     --muted: #A8A196;
@@ -1050,7 +1056,370 @@ div.piece__frame {
 
 .why__aside {
     max-width: 760px;
+}
+
+/* العنوان يمين ورمز الكود المجسّم يسار، مثل الواجهة */
+.why__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
     margin-bottom: clamp(56px, 8vw, 112px);
+}
+
+/* ---------- رمز الكود المجسّم ---------- */
+.code3d {
+    --size: clamp(92px, 10.5vw, 150px);
+    position: relative;
+    height: calc(var(--size) * 3.2);
+    perspective: 1100px;
+}
+
+/* توهّج خفيف باللون المختار خلف الرمز */
+.code3d::before {
+    content: "";
+    position: absolute;
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--orange) 26%, transparent), transparent 65%);
+    pointer-events: none;
+}
+
+:root[data-mode="dark"] .code3d::before {
+    background: radial-gradient(circle, color-mix(in srgb, var(--orange) 16%, transparent), transparent 60%);
+}
+
+.code3d__scene {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+    transition: transform 0.9s var(--ease);
+}
+
+.code3d__float {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    animation: code-float 6s var(--ease-io) infinite alternate;
+}
+
+.code3d__glyph {
+    transform-style: preserve-3d;
+    animation: code-sway 7s var(--ease-io) infinite alternate;
+}
+
+/* 14 طبقة من نفس الرمز ورا بعض، كل وحدة أغمق شوي: هذا اللي يعطيه السماكة */
+.code3d__glyph span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    direction: ltr;
+    white-space: nowrap;
+    font: 700 var(--size)/1 "JetBrains Mono", ui-monospace, Consolas, monospace;
+    letter-spacing: -0.06em;
+    color: color-mix(in srgb, var(--orange) calc(100% - var(--i) * 4.5%), var(--frame));
+    transform: translate(-50%, -50%) translateZ(calc(var(--i) * -2.2px));
+}
+
+.code3d__glyph span:first-child {
+    color: var(--orange);
+    text-shadow: 0 0 28px color-mix(in srgb, var(--orange) 45%, transparent);
+}
+
+@keyframes code-sway {
+    from { transform: rotateY(-30deg) rotateX(10deg); }
+    to { transform: rotateY(30deg) rotateX(-6deg); }
+}
+
+@keyframes code-float {
+    to { transform: translateY(-14px); }
+}
+
+/* مداران: واحد كبير يدور، وواحد صغير يدور بالعكس */
+.code3d__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--size) * 2.9);
+    aspect-ratio: 1;
+    margin: calc(var(--size) * -1.45) 0 0 calc(var(--size) * -1.45);
+    border: 1.5px dashed color-mix(in srgb, var(--orange) 55%, transparent);
+    border-radius: 50%;
+    transform: rotateX(74deg);
+    animation: code-ring 18s linear infinite;
+}
+
+.code3d__ring::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 14px var(--orange);
+}
+
+.code3d__ring--in {
+    width: calc(var(--size) * 2.1);
+    margin: calc(var(--size) * -1.05) 0 0 calc(var(--size) * -1.05);
+    border-style: solid;
+    border-color: var(--line);
+    animation-duration: 12s;
+    animation-direction: reverse;
+}
+
+.code3d__ring--in::before {
+    width: 7px;
+    height: 7px;
+    top: -4px;
+    background: var(--ink);
+    box-shadow: none;
+}
+
+@keyframes code-ring {
+    to { transform: rotateX(74deg) rotateZ(360deg); }
+}
+
+.code3d__chip {
+    position: absolute;
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--white) 84%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.45);
+    color: var(--ink);
+    font: 600 0.85rem/1.4 var(--display);
+    white-space: nowrap;
+    transform: translateZ(60px);
+    animation: code-chip 6s var(--ease-io) infinite;
+}
+
+.code3d__chip small {
+    display: block;
+    color: var(--muted);
+    font: 500 0.72rem/1.5 var(--text);
+}
+
+.code3d__chip code {
+    direction: ltr;
+    display: inline-block;
+    font: 700 0.92rem/1.3 "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+
+.code3d__chip i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-inline-end: 7px;
+    border-radius: 50%;
+    background: #22A55B;
+}
+
+.code3d__fast {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+/* أيقونة البرق باللون المختار */
+.code3d__fast svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--orange);
+    stroke: none;
+}
+
+.code3d__chip--1 { top: 6%; right: 8%; }
+.code3d__chip--2 { bottom: 10%; left: 6%; animation-delay: -2s; }
+.code3d__chip--3 { bottom: 6%; right: 14%; animation-delay: -4s; }
+.code3d__chip--4 { top: 12%; left: 4%; animation-delay: -3s; }
+
+@keyframes code-chip {
+    50% { translate: 0 -10px; }
+}
+
+/* لما يكون الرمز برا الشاشة توقف الحركة، توفيرًا للجهاز */
+.code3d.is-paused *,
+.code3d.is-paused *::before {
+    animation-play-state: paused;
+}
+
+/* ---------- نافذة الكود المجسّمة (طريقة العمل) ---------- */
+.process__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
+}
+
+.editor3d {
+    position: relative;
+    height: clamp(340px, 30vw, 430px);
+    perspective: 1200px;
+}
+
+.editor3d::before {
+    content: "";
+    position: absolute;
+    inset: 4%;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--orange) 22%, transparent), transparent 65%);
+    pointer-events: none;
+}
+
+.editor3d__scene {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+    transition: transform 0.9s var(--ease);
+}
+
+.editor3d__tilt {
+    position: relative;
+    width: min(100%, 420px);
+    transform-style: preserve-3d;
+    animation: editor-tilt 8s var(--ease-io) infinite alternate;
+}
+
+@keyframes editor-tilt {
+    from { transform: rotateY(-22deg) rotateX(12deg) translateY(0); }
+    to { transform: rotateY(12deg) rotateX(5deg) translateY(-12px); }
+}
+
+.editor3d__win {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #2C2925;
+    border-radius: 14px;
+    background: #141311;
+    box-shadow: 0 50px 80px -40px rgba(0, 0, 0, 0.6);
+}
+
+/* نسختين باهتة ورا النافذة تعطي العمق */
+.editor3d__win--back,
+.editor3d__win--back2 {
+    position: absolute;
+    inset: 0;
+    border-color: var(--line);
+    background: var(--paper);
+    box-shadow: none;
+}
+
+.editor3d__win--back { transform: translateZ(-60px) translate(-30px, -26px); opacity: 0.6; }
+.editor3d__win--back2 { transform: translateZ(-120px) translate(-60px, -52px); opacity: 0.3; }
+
+.editor3d__bar {
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    background: #1E1C19;
+}
+
+.editor3d__bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3A3732;
+}
+
+.editor3d__bar i:first-child {
+    background: var(--orange);
+}
+
+.editor3d__bar span {
+    margin-left: auto;
+    color: #8F897E;
+    font: 500 0.72rem/1 "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+
+.editor3d__code {
+    margin: 0;
+    min-height: 15.2em;
+    padding: 18px 20px 22px;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    color: #E9E4DA;
+    font: 500 clamp(0.74rem, 0.95vw, 0.9rem)/1.75 "JetBrains Mono", ui-monospace, Consolas, monospace;
+    /* بعد font لأن font يرجّعها: بدون دمج الرموز، عشان <!-- تطلع زي ما هي */
+    font-variant-ligatures: none;
+    font-feature-settings: "calt" 0, "liga" 0;
+}
+
+/* تلوين الكود: الكلمات المحجوزة باللون المختار */
+.editor3d__code .k { color: color-mix(in srgb, var(--orange) 75%, white); }
+.editor3d__code .s { color: #9BE38B; }
+.editor3d__code .t { color: #7FB8FF; }
+.editor3d__code .c { color: #7D776C; }
+
+.editor3d__caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    vertical-align: -0.2em;
+    background: var(--orange);
+    animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+    50% { opacity: 0; }
+}
+
+.editor3d__chip {
+    position: absolute;
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--white) 86%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.45);
+    color: var(--ink);
+    font: 600 0.85rem/1.4 var(--display);
+    white-space: nowrap;
+    transform: translateZ(70px);
+    animation: code-chip 6s var(--ease-io) infinite;
+}
+
+.editor3d__chip small {
+    display: block;
+    color: var(--muted);
+    font: 500 0.72rem/1.5 var(--text);
+}
+
+.editor3d__chip i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-inline-end: 7px;
+    border-radius: 50%;
+    background: #22A55B;
+}
+
+/* "جاهز للإطلاق" يصير إطارها أخضر لما يخلص الكود */
+.editor3d.is-done .editor3d__chip--2 {
+    border-color: #22A55B;
+}
+
+.editor3d__chip--1 { top: -30px; left: -26px; }
+.editor3d__chip--2 { bottom: -26px; right: -22px; animation-delay: -3s; transition: border-color 0.4s; }
+
+.editor3d.is-paused *,
+.editor3d.is-paused *::before {
+    animation-play-state: paused;
 }
 
 .why__aside .section-intro {
@@ -2621,6 +2990,35 @@ html.menu-open .float-wa {
         margin-top: 0;
         width: 110vw;
     }
+
+    .why__head,
+    .process__head {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .editor3d {
+        height: 340px;
+    }
+
+    .editor3d__tilt {
+        width: min(86%, 400px);
+    }
+}
+
+@media (max-width: 640px) {
+    .code3d__chip {
+        padding: 8px 12px;
+        font-size: 0.78rem;
+    }
+
+    .code3d__chip code {
+        font-size: 0.8rem;
+    }
+
+    .code3d__chip--1 { top: 2%; right: 2%; }
+    .code3d__chip--2 { bottom: 4%; left: 0; }
+    .code3d__chip--3 { bottom: 0; right: 4%; }
+    .code3d__chip--4 { top: 8%; left: 0; }
 }
 
 @media (max-width: 640px) {

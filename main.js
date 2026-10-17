@@ -46,13 +46,22 @@ const WHATSAPP = "966559333976";
         const panel = theme.querySelector("[data-theme-panel]");
         const metaColor = document.querySelector('meta[name="theme-color"]');
         const ACCENTS = ["orange", "blue", "green", "violet"];
+        // المتصفح يرجّع اللون المخلوط بصيغة color(srgb 0.96 0.93 0.9)، وشريط الجوال يبيه #RRGGBB
+        const toHex = value => {
+            const n = (value.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+            if (n.length < 3) return value;
+            const scale = value.startsWith("color(") ? 255 : 1;
+            return "#" + n.map(v => Math.round(v * scale).toString(16).padStart(2, "0")).join("");
+        };
 
         const sync = () => {
             const accent = root.getAttribute("data-accent") || "orange";
             const mode = root.getAttribute("data-mode") === "dark" ? "dark" : "light";
             theme.querySelectorAll("[data-accent-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.accentSet === accent)));
             theme.querySelectorAll("[data-mode-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.modeSet === mode)));
-            if (metaColor) metaColor.content = getComputedStyle(root).getPropertyValue("--ivory").trim();
+            // لون شريط المتصفح في الجوال = لون خلفية الصفحة الفعلي (بعد خلط اللون المختار)
+            // (ننتظر انتقال اللون يخلص)
+            if (metaColor) setTimeout(() => { metaColor.content = toHex(getComputedStyle(document.body).backgroundColor); }, 450);
         };
         const save = (key, value) => {
             try { localStorage.setItem(key, value); } catch (e) { /* المتصفح يمنع الحفظ: يشتغل بدون حفظ */ }
@@ -278,6 +287,120 @@ const WHATSAPP = "966559333976";
             tx = 0; ty = 0;
             if (!raf) raf = requestAnimationFrame(tick);
         });
+    }
+
+    // رمز الكود المجسّم: يميل مع الماوس، ويوقف حركته لما يطلع برا الشاشة
+    const code3d = document.querySelector("[data-code3d]");
+    if (code3d && !reduceMotion) {
+        const scene = code3d.querySelector(".code3d__scene");
+        if (finePointer) {
+            const zone = code3d.closest("section") || code3d;
+            zone.addEventListener("pointermove", e => {
+                const r = code3d.getBoundingClientRect();
+                const x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / r.width));
+                const y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / r.height));
+                scene.style.setProperty("--ry", (x * 18).toFixed(1) + "deg");
+                scene.style.setProperty("--rx", (-y * 14).toFixed(1) + "deg");
+            });
+            zone.addEventListener("pointerleave", () => {
+                scene.style.setProperty("--ry", "0deg");
+                scene.style.setProperty("--rx", "0deg");
+            });
+        }
+        if ("IntersectionObserver" in window) {
+            new IntersectionObserver(([entry]) => code3d.classList.toggle("is-paused", !entry.isIntersecting)).observe(code3d);
+        }
+    }
+
+    // نافذة الكود المجسّمة: الكود ينكتب حرف حرف بألوانه، ويعيد من البداية
+    const editor = document.querySelector("[data-editor3d]");
+    if (editor) {
+        const pre = editor.querySelector("[data-type]");
+        // كل سطر قطع: [النوع، النص]. k كلمة محجوزة، s نص، t وسم، c تعليق
+        const LINES = [
+            [["c", "<!-- MD-DESIGN -->"]],
+            [["t", "<header>"]],
+            [["", "  "], ["t", "<h1>"], ["", "Welcome"], ["t", "</h1>"]],
+            [["", "  "], ["t", "<a "], ["k", "class"], ["", "="], ["s", "\"btn\""], ["t", ">"], ["", "Order now"], ["t", "</a>"]],
+            [["t", "</header>"]],
+            [],
+            [["k", "const"], ["", " site = {"]],
+            [["", "  speed: "], ["s", "\"fast\""], ["", ","]],
+            [["", "  mobile: "], ["k", "true"]],
+            [["", "};"]]
+        ];
+        const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const paint = (line, upto) => {
+            let left = upto, html = "";
+            for (const [cls, text] of line) {
+                if (left <= 0) break;
+                const part = esc(text.slice(0, left));
+                html += cls ? '<span class="' + cls + '">' + part + "</span>" : part;
+                left -= text.length;
+            }
+            return html;
+        };
+        const lengthOf = line => line.reduce((n, [, text]) => n + text.length, 0);
+        const caret = '<span class="editor3d__caret"></span>';
+        const draw = (li, ci) => {
+            const rows = LINES.slice(0, li).map(line => paint(line, Infinity));
+            if (li < LINES.length) rows.push(paint(LINES[li], ci) + caret);
+            else rows[rows.length - 1] += caret;
+            pre.innerHTML = rows.join("\n");
+        };
+
+        if (reduceMotion) {
+            draw(LINES.length, 0);
+            editor.classList.add("is-done");
+        } else {
+            let li = 0, ci = 0, visible = false, timer = 0;
+            const tick = () => {
+                timer = 0;
+                if (!visible) return;
+                if (li >= LINES.length) {
+                    editor.classList.add("is-done");
+                    timer = setTimeout(() => { li = 0; ci = 0; editor.classList.remove("is-done"); tick(); }, 2800);
+                    return;
+                }
+                if (ci < lengthOf(LINES[li])) {
+                    ci++;
+                    draw(li, ci);
+                    timer = setTimeout(tick, 34 + Math.random() * 40);
+                } else {
+                    li++;
+                    ci = 0;
+                    draw(li, ci);
+                    timer = setTimeout(tick, 200);
+                }
+            };
+            draw(0, 0);
+            // يكتب بس وهي ظاهرة على الشاشة
+            if ("IntersectionObserver" in window) {
+                new IntersectionObserver(([entry]) => {
+                    visible = entry.isIntersecting;
+                    editor.classList.toggle("is-paused", !visible);
+                    if (visible && !timer) tick();
+                }).observe(editor);
+            } else {
+                visible = true;
+                tick();
+            }
+            if (finePointer) {
+                const scene = editor.querySelector(".editor3d__scene");
+                const zone = editor.closest("section") || editor;
+                zone.addEventListener("pointermove", e => {
+                    const r = editor.getBoundingClientRect();
+                    const x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / r.width));
+                    const y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / r.height));
+                    scene.style.setProperty("--ry", (x * 16).toFixed(1) + "deg");
+                    scene.style.setProperty("--rx", (-y * 12).toFixed(1) + "deg");
+                });
+                zone.addEventListener("pointerleave", () => {
+                    scene.style.setProperty("--ry", "0deg");
+                    scene.style.setProperty("--rx", "0deg");
+                });
+            }
+        }
     }
 
     // الشاشات اللي تتصفح الموقع كامل داخل إطارها

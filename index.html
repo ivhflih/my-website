@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
     <link rel="stylesheet" href="style.css">
     <script>(function(d){d.classList.add('js');try{var a=localStorage.getItem('md-accent'),m=localStorage.getItem('md-mode');if(a)d.setAttribute('data-accent',a);if(m==='dark')d.setAttribute('data-mode','dark');}catch(e){}})(document.documentElement);</script>
     <script type="application/ld+json">
@@ -415,9 +416,27 @@
 
         <!-- لماذا تختارني -->
         <section class="why wrap" id="why" aria-labelledby="why-title">
-            <div class="why__aside">
-                <h2 class="section-title" id="why-title" data-reveal>لماذا<br>تختارني؟</h2>
-                <p class="section-intro" data-reveal>نحوّل فكرتك إلى موقع إلكتروني احترافي يجمع بين التصميم الإبداعي والأداء المتميز.</p>
+            <div class="why__head">
+                <div class="why__aside">
+                    <h2 class="section-title" id="why-title" data-reveal>لماذا<br>تختارني؟</h2>
+                    <p class="section-intro" data-reveal>نحوّل فكرتك إلى موقع إلكتروني احترافي يجمع بين التصميم الإبداعي والأداء المتميز.</p>
+                </div>
+                <!-- رمز الكود المجسّم: زينة بس، فمخفي عن قارئ الشاشة -->
+                <div class="code3d" aria-hidden="true" data-code3d data-reveal>
+                    <div class="code3d__scene">
+                        <span class="code3d__ring"></span>
+                        <span class="code3d__ring code3d__ring--in"></span>
+                        <div class="code3d__float">
+                            <div class="code3d__glyph">
+                                <span style="--i:0">&lt;/&gt;</span><span style="--i:1">&lt;/&gt;</span><span style="--i:2">&lt;/&gt;</span><span style="--i:3">&lt;/&gt;</span><span style="--i:4">&lt;/&gt;</span><span style="--i:5">&lt;/&gt;</span><span style="--i:6">&lt;/&gt;</span><span style="--i:7">&lt;/&gt;</span><span style="--i:8">&lt;/&gt;</span><span style="--i:9">&lt;/&gt;</span><span style="--i:10">&lt;/&gt;</span><span style="--i:11">&lt;/&gt;</span><span style="--i:12">&lt;/&gt;</span><span style="--i:13">&lt;/&gt;</span>
+                            </div>
+                        </div>
+                        <div class="code3d__chip code3d__chip--1"><small>الواجهة</small><code>HTML · CSS</code></div>
+                        <div class="code3d__chip code3d__chip--2"><small>التفاعل</small><code>JavaScript</code></div>
+                        <div class="code3d__chip code3d__chip--3"><i></i>يعمل على الجوال</div>
+                        <div class="code3d__chip code3d__chip--4"><small>الأداء</small><b class="code3d__fast"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></svg>تحميل سريع</b></div>
+                    </div>
+                </div>
             </div>
             <ul class="why__list">
                 <li class="reason" data-reveal>
@@ -461,9 +480,26 @@
         <!-- مراحل التنفيذ -->
         <section class="process" id="process" aria-labelledby="process-title">
             <div class="wrap">
-                <div class="section-head">
-                    <h2 class="section-title" id="process-title" data-reveal>من الفكرة<br>إلى الإطلاق.</h2>
-                    <p class="section-intro" data-reveal>أربع مراحل واضحة، تعرف في كل واحدة منها ما الذي يحدث وما المطلوب منك.</p>
+                <div class="section-head process__head">
+                    <div>
+                        <h2 class="section-title" id="process-title" data-reveal>من الفكرة<br>إلى الإطلاق.</h2>
+                        <p class="section-intro" data-reveal>أربع مراحل واضحة، تعرف في كل واحدة منها ما الذي يحدث وما المطلوب منك.</p>
+                    </div>
+                    <!-- نافذة كود مجسّمة تكتب نفسها: زينة بس، فمخفية عن قارئ الشاشة -->
+                    <div class="editor3d" aria-hidden="true" data-editor3d data-reveal>
+                        <div class="editor3d__scene">
+                            <div class="editor3d__tilt">
+                                <div class="editor3d__win editor3d__win--back2"></div>
+                                <div class="editor3d__win editor3d__win--back"></div>
+                                <div class="editor3d__win">
+                                    <div class="editor3d__bar"><i></i><i></i><i></i><span>your-site.html</span></div>
+                                    <pre class="editor3d__code" data-type></pre>
+                                </div>
+                                <div class="editor3d__chip editor3d__chip--1"><small>الاختبار</small>جوال وكمبيوتر</div>
+                                <div class="editor3d__chip editor3d__chip--2"><i></i>جاهز للإطلاق</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="steps" data-steps>
                     <div class="steps__rail" aria-hidden="true"><span class="steps__fill" data-steps-fill></span></div>
