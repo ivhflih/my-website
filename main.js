@@ -18,11 +18,99 @@ const WHATSAPP = "966559333976";
         a.rel = "noopener";
     });
 
-    // الهيدر: خط سفلي بعد ما ينزل الزائر
+    // الهيدر: خط سفلي بعد ما ينزل الزائر، وشريط التقدم، وزر واتساب العائم بعد الواجهة
     const header = document.querySelector("[data-header]");
-    const onScrollHeader = () => header && header.classList.toggle("is-scrolled", window.scrollY > 8);
+    const progress = document.querySelector("[data-progress]");
+    const floatBtn = document.querySelector("[data-float]");
+    let headTick = false;
+    const onScrollHeader = () => {
+        headTick = false;
+        const y = window.scrollY;
+        if (header) header.classList.toggle("is-scrolled", y > 8);
+        if (progress) {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ")";
+        }
+        if (floatBtn) floatBtn.classList.toggle("is-shown", y > window.innerHeight * 0.7);
+    };
     onScrollHeader();
-    window.addEventListener("scroll", onScrollHeader, { passive: true });
+    window.addEventListener("scroll", () => {
+        if (!headTick) { headTick = true; requestAnimationFrame(onScrollHeader); }
+    }, { passive: true });
+    window.addEventListener("resize", onScrollHeader);
+
+    // زر الألوان: اللون المميز والوضع الفاتح أو الداكن، وينحفظ في متصفح الزائر
+    const theme = document.querySelector("[data-theme]");
+    if (theme) {
+        const btn = theme.querySelector("[data-theme-toggle]");
+        const panel = theme.querySelector("[data-theme-panel]");
+        const metaColor = document.querySelector('meta[name="theme-color"]');
+        const ACCENTS = ["orange", "blue", "green", "violet"];
+
+        const sync = () => {
+            const accent = root.getAttribute("data-accent") || "orange";
+            const mode = root.getAttribute("data-mode") === "dark" ? "dark" : "light";
+            theme.querySelectorAll("[data-accent-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.accentSet === accent)));
+            theme.querySelectorAll("[data-mode-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.modeSet === mode)));
+            if (metaColor) metaColor.content = getComputedStyle(root).getPropertyValue("--ivory").trim();
+        };
+        const save = (key, value) => {
+            try { localStorage.setItem(key, value); } catch (e) { /* المتصفح يمنع الحفظ: يشتغل بدون حفظ */ }
+        };
+        // لون غير معروف محفوظ من قبل يرجع للبرتقالي
+        if (!ACCENTS.includes(root.getAttribute("data-accent") || "orange")) root.removeAttribute("data-accent");
+
+        theme.querySelectorAll("[data-accent-set]").forEach(b => b.addEventListener("click", () => {
+            const accent = b.dataset.accentSet;
+            if (accent === "orange") root.removeAttribute("data-accent");
+            else root.setAttribute("data-accent", accent);
+            save("md-accent", accent);
+            sync();
+        }));
+        theme.querySelectorAll("[data-mode-set]").forEach(b => b.addEventListener("click", () => {
+            if (b.dataset.modeSet === "dark") root.setAttribute("data-mode", "dark");
+            else root.removeAttribute("data-mode");
+            save("md-mode", b.dataset.modeSet);
+            sync();
+        }));
+
+        const setOpen = open => {
+            btn.setAttribute("aria-expanded", String(open));
+            panel.hidden = !open;
+            if (open) {
+                const current = panel.querySelector('[aria-checked="true"]');
+                if (current) current.focus();
+            }
+        };
+        btn.addEventListener("click", () => setOpen(panel.hidden));
+        document.addEventListener("click", e => { if (!panel.hidden && !theme.contains(e.target)) setOpen(false); });
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape" && !panel.hidden) {
+                setOpen(false);
+                btn.focus();
+            }
+        });
+        sync();
+    }
+
+    // جملة الواجهة تتبدّل كل ثواني (وتوقف لو الصفحة مخفية أو الزائر يفضّل تقليل الحركة)
+    const swap = document.querySelector("[data-swap]");
+    if (swap && !reduceMotion) {
+        const slides = Array.from(swap.children);
+        let index = 0, timer = 0;
+        const next = () => {
+            const prev = slides[index];
+            prev.classList.remove("is-on");
+            prev.classList.add("is-out");
+            setTimeout(() => prev.classList.remove("is-out"), 700);
+            index = (index + 1) % slides.length;
+            slides[index].classList.add("is-on");
+        };
+        const start = () => { if (!timer) timer = setInterval(next, 3200); };
+        const stop = () => { clearInterval(timer); timer = 0; };
+        document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+        setTimeout(start, 1400);
+    }
 
     // القائمة العلوية: مؤشر ينزلق تحت الرابط، ويعلّم القسم اللي يقرأه الزائر
     const nav = document.querySelector(".site-nav");
@@ -220,17 +308,20 @@ const WHATSAPP = "966559333976";
                 frame.addEventListener("blur", off);
             });
         } else if ("IntersectionObserver" in window) {
-            // على الجوال: تتصفح مرة وحدة لما تظهر الشاشة، وترجع لأولها
+            // على الجوال: تتصفح كل ما تظهر الشاشة، وترجع لأولها
             const seen = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
                     const screen = entry.target;
-                    seen.unobserve(screen);
+                    if (!entry.isIntersecting || screen.dataset.busy) return;
+                    screen.dataset.busy = "1";
                     measure(screen);
                     setTimeout(() => {
                         screen.classList.add("is-scrolling");
                         const dur = parseFloat(getComputedStyle(screen).getPropertyValue("--dur")) || 3;
-                        setTimeout(() => screen.classList.remove("is-scrolling"), dur * 1000 + 1400);
+                        setTimeout(() => {
+                            screen.classList.remove("is-scrolling");
+                            setTimeout(() => delete screen.dataset.busy, 1200);
+                        }, dur * 1000 + 1400);
                     }, 500);
                 });
             }, { threshold: 0.6 });

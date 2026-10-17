@@ -14,6 +14,12 @@
     --orange: #E2581E;
     --orange-ink: #B4410D;
     --night: #121212;
+    /* ثوابت ما تتغير مع الوضع الداكن: نص فوق اللون المميز، ونص فوق الأقسام السوداء، وإطار الجوال */
+    --on-accent: #171717;
+    --on-dark: #F7F5F0;
+    --frame: #171717;
+    --bar: #F2EEE6;
+    --hi: rgba(255, 255, 255, 0.8);
 
     --display: "Alexandria", "IBM Plex Sans Arabic", Tahoma, sans-serif;
     --text: "IBM Plex Sans Arabic", Tahoma, "Segoe UI", sans-serif;
@@ -27,6 +33,32 @@
 
     color-scheme: light;
 }
+
+/* ألوان يختارها الزائر من زر الألوان (تنحفظ في متصفحه) */
+:root[data-accent="blue"] { --orange: #3B82F6; --orange-ink: #1D4ED8; }
+:root[data-accent="green"] { --orange: #16A34A; --orange-ink: #15803D; }
+:root[data-accent="violet"] { --orange: #9B6BFF; --orange-ink: #6D28D9; }
+
+/* الوضع الداكن: نفس الأسماء بقيم معكوسة، فكل الموقع يتبعها */
+:root[data-mode="dark"] {
+    --ivory: #141311;
+    --paper: #1C1A17;
+    --white: #221F1B;
+    --ink: #F2EEE6;
+    --ink-soft: #D9D3C7;
+    --muted: #A8A196;
+    --line: rgba(242, 238, 230, 0.14);
+    --line-strong: rgba(242, 238, 230, 0.3);
+    --orange-ink: #F2814F;
+    --night: #0B0A09;
+    --bar: #2A2723;
+    --hi: rgba(255, 255, 255, 0.05);
+    color-scheme: dark;
+}
+
+:root[data-mode="dark"][data-accent="blue"] { --orange-ink: #8AB4FF; }
+:root[data-mode="dark"][data-accent="green"] { --orange-ink: #4ADE80; }
+:root[data-mode="dark"][data-accent="violet"] { --orange-ink: #BFA6FF; }
 
 *,
 *::before,
@@ -44,6 +76,7 @@ html {
 body {
     margin: 0;
     background: var(--ivory);
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
     color: var(--ink);
     font-family: var(--text);
     font-size: 1.0625rem;
@@ -56,7 +89,7 @@ body {
 
 ::selection {
     background: var(--orange);
-    color: var(--ink);
+    color: var(--on-accent);
 }
 
 ::-webkit-scrollbar { width: 12px; }
@@ -190,7 +223,7 @@ b, strong {
 /* لون الخلفية يلحق التعبئة بعد ما تكتمل، عشان النص يبقى واضح دايم */
 .btn--ink:hover,
 .btn--ink:focus-visible {
-    color: var(--ink);
+    color: var(--on-accent);
     border-color: var(--orange);
     background-color: var(--orange);
     transition-delay: 0s, 0s, 0.35s;
@@ -212,13 +245,13 @@ b, strong {
 .btn--orange {
     background: var(--orange);
     border-color: var(--orange);
-    color: var(--ink);
-    --fill: var(--ivory);
+    color: var(--on-accent);
+    --fill: var(--on-dark);
 }
 
 .btn--orange:hover,
 .btn--orange:focus-visible {
-    border-color: var(--ivory);
+    border-color: var(--on-dark);
 }
 
 .btn--sm {
@@ -259,7 +292,7 @@ b, strong {
 }
 
 .site-header.is-scrolled {
-    background: rgba(247, 245, 240, 0.84);
+    background: color-mix(in srgb, var(--ivory) 84%, transparent);
     border-bottom-color: var(--line);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
     backdrop-filter: blur(14px) saturate(1.2);
@@ -302,10 +335,10 @@ b, strong {
     gap: 2px;
     margin-inline: auto;
     padding: 5px;
-    background: rgba(255, 253, 248, 0.72);
+    background: color-mix(in srgb, var(--white) 72%, transparent);
     border: 1px solid var(--line);
     border-radius: 999px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 10px 30px -18px rgba(23, 23, 23, 0.35);
+    box-shadow: 0 1px 0 var(--hi) inset, 0 10px 30px -18px rgba(23, 23, 23, 0.35);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
@@ -584,7 +617,7 @@ html.menu-open {
 }
 
 .device--browser {
-    border: 1px solid rgba(23, 23, 23, 0.12);
+    border: 1px solid var(--line);
     border-radius: 3px;
     overflow: hidden;
     box-shadow: 0 34px 60px -34px rgba(23, 23, 23, 0.42), 0 10px 22px -14px rgba(23, 23, 23, 0.22);
@@ -597,7 +630,7 @@ html.menu-open {
     gap: 6px;
     height: 32px;
     padding-inline: 12px;
-    background: #F2EEE6;
+    background: var(--bar);
     border-bottom: 1px solid var(--line);
 }
 
@@ -605,7 +638,7 @@ html.menu-open {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(23, 23, 23, 0.16);
+    background: color-mix(in srgb, var(--ink) 16%, transparent);
 }
 
 .device__bar span {
@@ -632,8 +665,8 @@ html.menu-open {
 .device--phone {
     padding: 3.2%;
     border-radius: 15% / 7%;
-    background: var(--ink);
-    box-shadow: 0 34px 50px -24px rgba(23, 23, 23, 0.5), 0 8px 16px -10px rgba(23, 23, 23, 0.4);
+    background: var(--frame);
+    box-shadow: 0 0 0 1px var(--line), 0 34px 50px -24px rgba(23, 23, 23, 0.5), 0 8px 16px -10px rgba(23, 23, 23, 0.4);
 }
 
 .device--phone .device__screen {
@@ -650,7 +683,7 @@ html.menu-open {
     width: 30%;
     height: 3.4%;
     border-radius: 999px;
-    background: var(--ink);
+    background: var(--frame);
     transform: translateX(-50%);
 }
 
@@ -898,13 +931,13 @@ div.piece__frame {
     display: block;
     width: 62%;
     height: 12px;
-    background: rgba(23, 23, 23, 0.1);
+    background: color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .slot__line--lg {
     width: 82%;
     height: 26px;
-    background: rgba(23, 23, 23, 0.16);
+    background: color-mix(in srgb, var(--ink) 16%, transparent);
 }
 
 .slot__line--sm {
@@ -1114,6 +1147,7 @@ div.piece__frame {
 .step.is-on .step__node {
     background: var(--orange);
     border-color: var(--orange);
+    color: var(--on-accent);
 }
 
 .step h3 {
@@ -1264,7 +1298,7 @@ div.piece__frame {
 .price__badge {
     padding: 2px 12px;
     background: var(--orange);
-    color: var(--ink);
+    color: var(--on-accent);
     font: 600 0.75rem/1.8 var(--display);
 }
 
@@ -1303,9 +1337,9 @@ div.piece__frame {
 .price--feature {
     margin-inline: calc(var(--gutter) * -0.5);
     padding-inline: calc(var(--gutter) * 0.5);
-    background: var(--ink);
-    color: var(--ivory);
-    border-bottom-color: var(--ink);
+    background: var(--night);
+    color: var(--on-dark);
+    border-bottom-color: var(--night);
 }
 
 .price--feature .price__incl,
@@ -1314,7 +1348,7 @@ div.piece__frame {
 }
 
 .price--feature .price__amount b {
-    color: var(--ivory);
+    color: var(--on-dark);
 }
 
 .price__terms {
@@ -1337,7 +1371,7 @@ div.piece__frame {
 }
 
 .price--feature .price__excl span {
-    color: var(--ivory);
+    color: var(--on-dark);
 }
 
 .packages__note {
@@ -1578,7 +1612,7 @@ html.quick-open {
 /* ---------- دعوة للتواصل ---------- */
 .cta {
     background: var(--night);
-    color: var(--ivory);
+    color: var(--on-dark);
     padding-block: clamp(104px, 14vw, 208px);
 }
 
@@ -1964,7 +1998,7 @@ html.quick-open {
 
 .field input::placeholder,
 .field textarea::placeholder {
-    color: #6B665D;
+    color: var(--muted);
 }
 
 .field input:focus,
@@ -1972,7 +2006,7 @@ html.quick-open {
 .field textarea:focus {
     outline: none;
     border-color: var(--ink);
-    box-shadow: 0 0 0 3px rgba(226, 88, 30, 0.35);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--orange) 35%, transparent);
 }
 
 .field input[aria-invalid="true"],
@@ -1993,7 +2027,7 @@ html.quick-open {
     gap: 26px;
     padding: clamp(24px, 3vw, 36px);
     background: var(--night);
-    color: var(--ivory);
+    color: var(--on-dark);
 }
 
 .order-aside h2 {
@@ -2036,17 +2070,17 @@ html.quick-open {
 
 .bank button {
     padding: 6px 16px;
-    border: 1px solid var(--ivory);
+    border: 1px solid var(--on-dark);
     background: transparent;
-    color: var(--ivory);
+    color: var(--on-dark);
     font: 600 0.85rem/1.4 var(--display);
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .bank button:hover {
-    background: var(--ivory);
-    color: var(--ink);
+    background: var(--on-dark);
+    color: var(--frame);
 }
 
 .send {
@@ -2056,6 +2090,559 @@ html.quick-open {
 .hint {
     color: rgba(247, 245, 240, 0.7);
     font-size: 0.9rem;
+}
+
+/* علامة الصح في الوضع الداكن: الخلفية فاتحة فالعلامة تصير داكنة */
+:root[data-mode="dark"] .check input:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%23141311' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* ---------- زر الألوان ---------- */
+.theme {
+    position: relative;
+}
+
+.theme__btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--white) 72%, transparent);
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease), transform 0.5s var(--ease);
+}
+
+.theme__btn:hover,
+.theme__btn[aria-expanded="true"] {
+    border-color: var(--ink);
+}
+
+/* نصف الدائرة باللون المختار، والنصف الثاني بلون الوضع */
+.theme__dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: conic-gradient(var(--orange) 0 50%, var(--ink) 0);
+    transition: transform 0.6s var(--ease);
+}
+
+.theme__btn:hover .theme__dot {
+    transform: rotate(180deg);
+}
+
+.theme__panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    inset-inline-end: 0;
+    z-index: 70;
+    width: 236px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--white);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
+    animation: theme-in 0.35s var(--ease);
+}
+
+@keyframes theme-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
+
+.theme__label {
+    color: var(--muted);
+    font: 500 0.82rem/1.6 var(--text);
+}
+
+.theme__label + div {
+    margin-top: 8px;
+}
+
+.theme__swatches + .theme__label {
+    margin-top: 16px;
+}
+
+.theme__swatches {
+    display: flex;
+    gap: 10px;
+}
+
+.theme__swatches button {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1.5px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease);
+}
+
+.theme__swatches i {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    transition: transform 0.4s var(--ease);
+}
+
+.theme__swatches button:hover i {
+    transform: scale(1.12);
+}
+
+.theme__swatches button[aria-checked="true"] {
+    border-color: var(--ink);
+}
+
+.theme__modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--paper);
+}
+
+.theme__modes button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    font: 600 0.88rem/1 var(--display);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.theme__modes svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+.theme__modes button[aria-checked="true"] {
+    background: var(--ink);
+    color: var(--ivory);
+}
+
+/* ---------- شريط التقدم ---------- */
+.progress {
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: 2px;
+    pointer-events: none;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+/* ---------- إضافات الواجهة ---------- */
+/* الخلفية والتوهّج يمتدون لحافة الشاشة، فنقصّهم هنا عشان ما يصير تمرير أفقي */
+main {
+    overflow-x: clip;
+}
+
+.hero {
+    position: relative;
+    isolation: isolate;
+}
+
+/* شبكة نقاط خفيفة تتلاشى عند الأطراف */
+.hero::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset-block: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: radial-gradient(color-mix(in srgb, var(--ink) 24%, transparent) 1px, transparent 1.6px) 0 0 / 26px 26px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 40% 45%, #000 15%, transparent 72%);
+    mask-image: radial-gradient(ellipse 75% 70% at 40% 45%, #000 15%, transparent 72%);
+    pointer-events: none;
+}
+
+/* توهّج باللون المختار خلف الشاشات، يتحرك ببطء */
+.hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    inset-inline-end: -6%;
+    width: min(58vw, 780px);
+    aspect-ratio: 1;
+    margin-top: calc(min(58vw, 780px) / -2);
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--orange) 34%, transparent) 0%, color-mix(in srgb, var(--orange) 12%, transparent) 38%, transparent 68%);
+    animation: hero-glow 14s var(--ease-io) infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes hero-glow {
+    to {
+        transform: translate(-7%, 5%) scale(1.14);
+    }
+}
+
+.hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: clamp(18px, 2.4vw, 30px);
+    padding: 7px 16px 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--white) 70%, transparent);
+    color: var(--ink-soft);
+    font: 500 0.9rem/1.4 var(--display);
+}
+
+.hero__pulse {
+    position: relative;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #22A55B;
+}
+
+.hero__pulse::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #22A55B;
+    animation: pulse 2s var(--ease) infinite;
+}
+
+@keyframes pulse {
+    to {
+        opacity: 0;
+        transform: scale(3);
+    }
+}
+
+/* الجملة المتبدّلة: كل الجمل في نفس الخانة، فالارتفاع ثابت */
+.hero__swap {
+    display: grid;
+}
+
+.hero__slide {
+    display: block;
+    grid-area: 1 / 1;
+}
+
+html:not(.js) .hero__slide:not(:first-child) {
+    display: none;
+}
+
+.hero__slide .hero__line {
+    transition: opacity 0.6s var(--ease), transform 0.9s var(--ease), filter 0.6s var(--ease);
+}
+
+.hero__slide .hero__line--far {
+    transition-delay: 0.08s;
+}
+
+.js .hero__slide:not(.is-on) .hero__line {
+    opacity: 0;
+    transform: translateY(0.45em);
+    filter: blur(10px);
+}
+
+.js .hero__slide.is-out .hero__line {
+    transform: translateY(-0.45em);
+    transition-duration: 0.45s;
+    transition-delay: 0s;
+}
+
+.hero__perks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: clamp(22px, 2.6vw, 32px);
+    color: var(--muted);
+    font-size: 0.93rem;
+}
+
+.hero__perks li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.hero__perks .icon {
+    width: 1.05em;
+    height: 1.05em;
+    stroke: var(--orange);
+    stroke-width: 2.4;
+}
+
+/* ---------- تلميح التصفح على شاشات الأعمال ---------- */
+.piece__frame {
+    position: relative;
+}
+
+.scroll-hint {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .scroll-hint {
+        position: absolute;
+        bottom: 16px;
+        inset-inline-end: 16px;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px 6px 12px;
+        border-radius: 999px;
+        background: rgba(18, 18, 18, 0.82);
+        color: #F7F5F0;
+        font: 600 0.8rem/1.4 var(--display);
+        white-space: nowrap;
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        pointer-events: none;
+        transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+    }
+
+    .scroll-hint svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: hint-bob 1.6s var(--ease-io) infinite;
+    }
+
+    .device--phone .scroll-hint {
+        bottom: 9%;
+        inset-inline-end: 50%;
+        transform: translateX(-50%);
+    }
+
+    .piece__frame:hover .scroll-hint,
+    .piece__frame:focus-visible .scroll-hint {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    .device--phone.piece__frame:hover .scroll-hint,
+    .device--phone.piece__frame:focus-visible .scroll-hint {
+        transform: translate(-50%, 8px);
+    }
+}
+
+@keyframes hint-bob {
+    50% {
+        transform: translateY(3px);
+    }
+}
+
+/* ---------- الخدمات: السطر يتلوّن عند المرور ---------- */
+@media (hover: hover) and (pointer: fine) {
+    .service {
+        position: relative;
+        isolation: isolate;
+    }
+
+    .service::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset-block: 0;
+        inset-inline: calc(var(--gutter) * -0.5);
+        background: color-mix(in srgb, var(--orange) 9%, var(--paper));
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.55s var(--ease);
+    }
+
+    .service:hover::before {
+        transform: scaleY(1);
+    }
+
+    .service__title {
+        transition: transform 0.55s var(--ease);
+    }
+
+    .service:hover .service__title {
+        transform: translateX(-10px);
+    }
+
+    .service:hover .service__link {
+        color: var(--orange-ink);
+        border-color: currentColor;
+    }
+
+    .service:hover .service__link .icon--arrow {
+        transform: translateX(-5px);
+    }
+}
+
+/* ---------- الباقات: إبراز الباقة المقترحة ---------- */
+.price--feature {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 1.5px var(--orange), 0 40px 80px -36px color-mix(in srgb, var(--orange) 60%, transparent);
+}
+
+.price--feature::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    height: 4px;
+    background: var(--orange);
+}
+
+.price--feature .price__badge {
+    position: relative;
+    overflow: hidden;
+}
+
+/* لمعة تمر على الشارة كل فترة */
+.price--feature .price__badge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+    transform: translateX(120%);
+    animation: shine 4.5s var(--ease-io) infinite;
+}
+
+@keyframes shine {
+    60%,
+    100% {
+        transform: translateX(-120%);
+    }
+}
+
+/* ---------- زر واتساب العائم ---------- */
+.float-wa {
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    inset-inline-end: 20px;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25D366;
+    color: #FFFFFF;
+    text-decoration: none;
+    box-shadow: 0 18px 36px -14px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+    pointer-events: none;
+    transition: opacity 0.45s var(--ease), transform 0.6s var(--ease);
+}
+
+.float-wa.is-shown {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+}
+
+.float-wa svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.float-wa__tip {
+    position: absolute;
+    inset-inline-start: calc(100% + 12px);
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--ivory);
+    font: 600 0.88rem/1.4 var(--display);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
+    pointer-events: none;
+}
+
+.float-wa:hover .float-wa__tip,
+.float-wa:focus-visible .float-wa__tip {
+    opacity: 1;
+    transform: none;
+}
+
+html.menu-open .float-wa {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 960px) {
+    .theme {
+        margin-inline-start: auto;
+    }
+
+    .menu-toggle {
+        margin-inline-start: 0;
+    }
+
+    .site-header__inner {
+        gap: 12px;
+    }
+
+    .hero::after {
+        top: auto;
+        bottom: 0;
+        margin-top: 0;
+        width: 110vw;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero__status {
+        font-size: 0.82rem;
+    }
+
+    .hero__perks {
+        gap: 8px 16px;
+        font-size: 0.88rem;
+    }
+
+    .float-wa {
+        width: 54px;
+        height: 54px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+        inset-inline-end: 16px;
+    }
+
+    .theme__panel {
+        inset-inline-end: -58px;
+    }
 }
 
 /* ---------- الشاشات المتوسطة ---------- */
