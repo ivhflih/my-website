@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>سَكينة — شكل أنيق وذكي | MD-DESIGN</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;600&family=Noto+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* شكل أنيق وذكي: رمادي فاتح هادئ، عنوان بخط تحريري، لون مميز واحد بحذر، ومجسّم ذكاء اصطناعي في الوسط */
+:root{--accent:#4F46E5;--bg:color-mix(in srgb,var(--accent) 3%,#F5F5F7);--ink:#0A0A0A;--muted:#5B5B65;--line:rgba(0,0,0,.08);
+--serif:"Markazi Text","Amiri",serif;--sans:"Noto Sans Arabic",Tahoma,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+.w{max-width:1200px;margin-inline:auto;padding-inline:24px}
+
+/* القائمة: ثابتة فوق، زجاجية */
+.nav{position:fixed;inset:0 0 auto;z-index:50;background:color-mix(in srgb,var(--bg) 80%,transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);animation:nav-in .8s ease-out both}
+@keyframes nav-in{from{opacity:0;transform:translateY(-20px)}}
+.nav__in{display:flex;align-items:center;gap:24px;height:72px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:1.25rem}
+.logo svg{width:22px;height:22px;fill:var(--accent);transition:fill .4s}
+.links{display:flex;gap:34px;margin:0 auto;padding:0;list-style:none}
+.links a{position:relative;color:var(--muted);font-size:.93rem;font-weight:500;transition:color .3s}
+.links a::after{content:"";position:absolute;right:0;bottom:-4px;width:0;height:1px;background:var(--ink);transition:width .4s var(--ease)}
+.links a:hover{color:var(--ink)}
+.links a:hover::after{width:100%}
+.acts{display:flex;align-items:center;gap:18px}
+.signin{font-size:.93rem;font-weight:500;transition:opacity .3s}
+.signin:hover{opacity:.7}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;font:500 .95rem/1 var(--sans);cursor:pointer;transition:transform .3s var(--ease),background-color .3s,opacity .3s}
+.btn:hover{transform:scale(.98)}
+.btn--white{min-height:42px;padding:0 18px;background:#fff;border:1px solid rgba(0,0,0,.14)}
+.btn--black{min-height:56px;padding:0 32px;background:#111;color:#fff;border:0}
+.btn--black:hover{background:#000}
+.burger{display:none;width:44px;height:44px;margin-inline-start:auto;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+.burger svg{width:20px;height:20px;margin:auto;display:block;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round}
+
+/* قائمة الجوال: تنزل وتغطي الشاشة */
+/* فوق شريط الألوان (999) عشان زر الحجز ما يتغطى */
+.sheet{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;padding:24px;background:var(--bg);transform:translateY(-100%);visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s}
+.sheet.is-open{transform:none;visibility:visible;transition:transform .55s var(--ease)}
+.sheet__top{display:flex;align-items:center;justify-content:space-between;height:48px}
+.sheet nav{display:grid;gap:6px;margin:40px 0 auto}
+.sheet nav a{padding:12px 0;border-bottom:1px solid var(--line);font:500 2.2rem/1.3 var(--serif)}
+.sheet .btn--black{width:100%}
+
+/* الواجهة */
+.hero{padding:clamp(130px,16vw,170px) 24px 70px;text-align:center;overflow-x:clip}
+.hero__in{display:flex;flex-direction:column;align-items:center;max-width:980px;margin-inline:auto}
+.rise{animation:rise .8s ease-out both;animation-delay:calc(var(--n)*.1s + .2s)}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(229,231,235,.5);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:var(--muted);font-size:.8rem;font-weight:500}
+.badge i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h1{margin:26px 0 0;font:500 clamp(46px,8.4vw,104px)/1.08 var(--serif);color:var(--ink)}
+h1 em{font-style:normal;color:var(--accent);transition:color .4s}
+.sub{max-width:700px;margin:28px 0 0;color:var(--muted);font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.85}
+.cta{margin-top:36px}
+
+/* المجسّم: كرة زجاجية ومدارات، بدل الفيديو */
+.orb{position:relative;width:min(100%,640px);aspect-ratio:640/594;margin-top:clamp(18px,4vw,40px);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse at center,#000 62%,transparent 100%)}
+.orb__glow{position:absolute;top:50%;left:50%;width:600px;height:600px;margin:-300px 0 0 -300px;border-radius:50%;background:#fff;filter:blur(100px);opacity:.4;pointer-events:none}
+.orb__float{position:absolute;inset:0;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.orb__scene{position:absolute;inset:0}
+.core{position:absolute;top:50%;left:50%;width:38%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0 12%,color-mix(in srgb,var(--accent) 22%,white) 38%,color-mix(in srgb,var(--accent) 70%,#1b1640) 100%);
+  box-shadow:0 40px 80px -30px color-mix(in srgb,var(--accent) 60%,transparent),inset -18px -24px 50px rgba(0,0,0,.25),inset 10px 14px 30px rgba(255,255,255,.6);
+  animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.04)}}
+/* موجة صوت داخل الكرة: المساعد يسمع الجلسة */
+.wave{position:absolute;top:50%;left:50%;display:flex;align-items:center;gap:5px;height:22%;transform:translate(-50%,-50%)}
+.wave i{width:5px;height:30%;border-radius:4px;background:#fff;opacity:.92;animation:bar 1.2s ease-in-out infinite;animation-delay:calc(var(--k)*-.15s)}
+@keyframes bar{50%{height:100%}}
+.ring{position:absolute;top:50%;left:50%;width:var(--s);aspect-ratio:1;margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);border-radius:50%;
+  border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);animation:spin var(--t) linear infinite}
+.ring::before{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.ring--1{--s:62%;--t:16s;--rx:72deg;--ry:0deg}
+.ring--2{--s:74%;--t:22s;--rx:68deg;--ry:58deg;border-style:dashed}
+.ring--3{--s:86%;--t:30s;--rx:76deg;--ry:-52deg;border-color:rgba(0,0,0,.1)}
+.ring--3::before{background:#111;box-shadow:none;width:7px;height:7px;margin-left:-3.5px;top:-4px}
+/* كل مدار له منظوره الخاص بدل مشهد 3D مشترك: كذا ما يقطع الكرة ويطلع مستطيل فاتح جنبها */
+@keyframes spin{from{transform:perspective(1200px) rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(0)}to{transform:perspective(1200px) rotateY(var(--ry)) rotateX(var(--rx)) rotateZ(360deg)}}
+/* بطاقات صغيرة تطفو حول الكرة */
+.note{position:absolute;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.82);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 20px 40px -24px rgba(0,0,0,.35);font-size:.82rem;font-weight:500;white-space:nowrap;animation:float 7s ease-in-out infinite}
+.note small{display:block;color:var(--muted);font-size:.7rem;font-weight:400}
+.note svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.note--1{top:18%;right:6%}
+.note--2{top:46%;left:2%;animation-delay:-2.5s}
+.note--3{bottom:16%;right:12%;animation-delay:-4.5s}
+
+/* مؤشرات الثقة */
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 32px;margin:clamp(10px,3vw,24px) 0 0;padding:0;list-style:none;color:var(--muted);font-size:.9rem;font-weight:500}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* المزايا */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:40px auto 90px;max-width:1200px;background:var(--line);border-block:1px solid var(--line)}
+.feat{padding:40px 30px;background:var(--bg)}
+.feat b{display:block;margin-bottom:4px;color:var(--accent);font:600 .85rem/1.6 var(--sans);transition:color .4s}
+.feat h2{margin:0 0 8px;font:500 2rem/1.25 var(--serif)}
+.feat p{margin:0;color:var(--muted)}
+footer{padding:28px 24px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+
+@media (max-width:900px){
+  .links,.acts{display:none}
+  .burger{display:block}
+  .feats{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .note{font-size:.72rem;padding:8px 10px}
+  .note--1{right:0;top:12%}.note--2{left:0}.note--3{right:2%}
+  .trust{gap:10px 20px;font-size:.84rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="w nav__in">
+    <a class="logo" href="#" aria-label="سكينة، الرئيسية">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.4 4.1 8.9 10.5 10.5-6.4 1.6-9.9 5.1-10.5 10.5-.6-5.4-4.1-8.9-10.5-10.5C7.9 10.4 11.4 6.9 12 1.5z"/></svg>
+      سَكينة
+    </a>
+    <ul class="links">
+      <li><a href="#product">المنتج</a></li>
+      <li><a href="#story">قصتنا</a></li>
+      <li><a href="#uses">الاستخدامات</a></li>
+    </ul>
+    <div class="acts">
+      <a class="signin" href="#">تسجيل الدخول</a>
+      <a class="btn btn--white" href="#">احجز عرضًا</a>
+    </div>
+    <button class="burger" type="button" aria-label="فتح القائمة" aria-expanded="false" data-open>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" data-sheet>
+  <div class="sheet__top">
+    <span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.4 4.1 8.9 10.5 10.5-6.4 1.6-9.9 5.1-10.5 10.5-.6-5.4-4.1-8.9-10.5-10.5C7.9 10.4 11.4 6.9 12 1.5z"/></svg>سَكينة</span>
+    <button class="burger" type="button" aria-label="إغلاق القائمة" data-close style="display:block;margin:0">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav aria-label="قائمة الجوال">
+    <a href="#product" data-close>المنتج</a>
+    <a href="#story" data-close>قصتنا</a>
+    <a href="#uses" data-close>الاستخدامات</a>
+    <a href="#" data-close>تسجيل الدخول</a>
+  </nav>
+  <a class="btn btn--black" href="#" data-close>احجز عرضًا تجريبيًا</a>
+</div>
+
+<main>
+  <section class="hero" id="product">
+    <div class="hero__in">
+      <span class="badge rise" style="--n:0"><i></i>مستقبل الذكاء الاصطناعي في الصحة النفسية</span>
+      <h1 class="rise" style="--n:1">ملاحظات سريرية أذكى.<br>تعرّف على <em>سَكينة</em>.</h1>
+      <p class="sub rise" style="--n:2">سكينة مساعد ذكي للمختصين في الرعاية الصحية: يدوّن ملاحظات الجلسات وينظّمها ويختصر العمل الورقي، لتمنح مرضاك وقتًا أطول واهتمامًا أكبر.</p>
+      <a class="btn btn--black cta rise" style="--n:3" href="#">احجز عرضًا تجريبيًا</a>
+
+      <div class="orb rise" style="--n:4" aria-hidden="true">
+        <span class="orb__glow"></span>
+        <div class="orb__float">
+          <div class="orb__scene">
+            <span class="ring ring--3"></span>
+            <span class="ring ring--2"></span>
+            <span class="ring ring--1"></span>
+            <span class="core"></span>
+            <span class="wave"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i></span>
+          </div>
+          <div class="note note--1"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span><small>قبل دقيقة</small>ملخص الجلسة جاهز</span></div>
+          <div class="note note--2"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg><span><small>تدوين تلقائي</small>12 ملاحظة منظّمة</span></div>
+          <div class="note note--3"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span><small>حالة المريض</small>تحسّن ملحوظ</span></div>
+        </div>
+      </div>
+
+      <ul class="trust rise" style="--n:5">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>بيانات مشفّرة</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>بنية تحتية آمنة</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 17h6"/></svg>توثيق بمساعدة الذكاء الاصطناعي</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V7l6-3v17M10 21h10V10l-10-3"/><path d="M14 13h2M14 17h2"/></svg>تثق به العيادات</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="feats" id="uses">
+    <article class="feat" id="story"><b>01</b><h2>يستمع ويدوّن</h2><p>يحوّل حديث الجلسة إلى ملاحظات مرتّبة، وأنت تركّز مع مريضك.</p></article>
+    <article class="feat"><b>02</b><h2>يلخّص في ثوانٍ</h2><p>ملخص واضح لكل جلسة، جاهز للمراجعة والاعتماد بضغطة.</p></article>
+    <article class="feat"><b>03</b><h2>يتابع التقدّم</h2><p>صورة كاملة لتطوّر كل حالة عبر الجلسات، في لوحة واحدة.</p></article>
+  </div>
+</main>
+<footer>شكل تصميم من MD-DESIGN. الاسم والمحتوى للعرض فقط.</footer>
+
+<script>
+window.KIT = {
+  style: "editorial",
+  name: "أنيق وذكي",
+  palettes: [
+    { name: "نيلي", swatch: "#4F46E5", vars: { "--accent": "#4F46E5" } },
+    { name: "زمردي", swatch: "#0E9F7E", vars: { "--accent": "#0E9F7E" } },
+    { name: "عنّابي", swatch: "#B4235A", vars: { "--accent": "#B4235A" } },
+    { name: "ذهبي", swatch: "#B7791F", vars: { "--accent": "#B7791F" } }
+  ]
+};
+// قائمة الجوال
+(function () {
+  const sheet = document.querySelector("[data-sheet]");
+  const opener = document.querySelector("[data-open]");
+  const set = open => {
+    sheet.classList.toggle("is-open", open);
+    opener.setAttribute("aria-expanded", String(open));
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  };
+  opener.addEventListener("click", () => set(true));
+  sheet.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", () => set(false)));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") set(false); });
+})();
+</script>
+<script src="kit.js"></script>
+</body>
+</html>
