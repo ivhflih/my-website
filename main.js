@@ -39,68 +39,56 @@ const WHATSAPP = "966559333976";
     }, { passive: true });
     window.addEventListener("resize", onScrollHeader);
 
-    // زر الألوان: اللون المميز والوضع الفاتح أو الداكن، وينحفظ في متصفح الزائر
-    const theme = document.querySelector("[data-theme]");
-    if (theme) {
-        const btn = theme.querySelector("[data-theme-toggle]");
-        const panel = theme.querySelector("[data-theme-panel]");
-        const metaColor = document.querySelector('meta[name="theme-color"]');
-        const ACCENTS = ["orange", "blue", "green", "violet"];
-        // المتصفح يرجّع اللون المخلوط بصيغة color(srgb 0.96 0.93 0.9)، وشريط الجوال يبيه #RRGGBB
-        const toHex = value => {
-            const n = (value.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
-            if (n.length < 3) return value;
-            const scale = value.startsWith("color(") ? 255 : 1;
-            return "#" + n.map(v => Math.round(v * scale).toString(16).padStart(2, "0")).join("");
-        };
+    // ألوان الموقع: ليد دايمًا (اللون يدور لحاله)، وزر واحد يقلب بين الفاتح والداكن وينحفظ في متصفح الزائر
+    const metaColor = document.querySelector('meta[name="theme-color"]');
+    // المتصفح يرجّع اللون المخلوط بصيغ مثل oklch(...) أو color(srgb ...)، وشريط الجوال يبيه #RRGGBB:
+    // نرسمه في نقطة وحدة على canvas ونقرا قيمته
+    const toHex = value => {
+        try {
+            const ctx = document.createElement("canvas").getContext("2d");
+            ctx.fillStyle = value;
+            ctx.fillRect(0, 0, 1, 1);
+            const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+            return "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
+        } catch (e) {
+            return value;
+        }
+    };
 
-        const sync = () => {
-            const accent = root.getAttribute("data-accent") || "orange";
-            const mode = root.getAttribute("data-mode") === "dark" ? "dark" : "light";
-            theme.querySelectorAll("[data-accent-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.accentSet === accent)));
-            theme.querySelectorAll("[data-mode-set]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.modeSet === mode)));
-            // لون شريط المتصفح في الجوال = لون خلفية الصفحة الفعلي (بعد خلط اللون المختار)
-            // (ننتظر انتقال اللون يخلص)
-            if (metaColor) setTimeout(() => { metaColor.content = toHex(getComputedStyle(document.body).backgroundColor); }, 450);
-        };
-        const save = (key, value) => {
-            try { localStorage.setItem(key, value); } catch (e) { /* المتصفح يمنع الحفظ: يشتغل بدون حفظ */ }
-        };
-        // لون غير معروف محفوظ من قبل يرجع للبرتقالي
-        if (!ACCENTS.includes(root.getAttribute("data-accent") || "orange")) root.removeAttribute("data-accent");
+    // ليد: درجة اللون تدور 15 درجة بالثانية (دورة كاملة كل 24 ثانية)، ومحسوبة من الوقت
+    // عشان تكمل من نفس اللون لما ينتقل الزائر لصفحة ثانية. تتوقف لو الصفحة مخفية.
+    root.setAttribute("data-accent", "led");
+    let ledTimer = 0;
+    const ledTick = () => root.style.setProperty("--hue", ((Date.now() / 1000 * 15) % 360).toFixed(1));
+    const led = () => {
+        if (!document.hidden && !ledTimer) {
+            ledTick();
+            if (!reduceMotion) ledTimer = setInterval(ledTick, 80);
+        } else if (document.hidden && ledTimer) {
+            clearInterval(ledTimer);
+            ledTimer = 0;
+        }
+    };
+    document.addEventListener("visibilitychange", led);
+    led();
 
-        theme.querySelectorAll("[data-accent-set]").forEach(b => b.addEventListener("click", () => {
-            const accent = b.dataset.accentSet;
-            if (accent === "orange") root.removeAttribute("data-accent");
-            else root.setAttribute("data-accent", accent);
-            save("md-accent", accent);
-            sync();
-        }));
-        theme.querySelectorAll("[data-mode-set]").forEach(b => b.addEventListener("click", () => {
-            if (b.dataset.modeSet === "dark") root.setAttribute("data-mode", "dark");
+    const modeBtn = document.querySelector("[data-mode-toggle]");
+    const syncMode = () => {
+        const dark = root.getAttribute("data-mode") === "dark";
+        if (modeBtn) modeBtn.setAttribute("aria-pressed", String(dark));
+        // لون شريط المتصفح في الجوال = لون خلفية الصفحة
+        if (metaColor) metaColor.content = toHex(getComputedStyle(document.body).backgroundColor);
+    };
+    if (modeBtn) {
+        modeBtn.addEventListener("click", () => {
+            const dark = root.getAttribute("data-mode") !== "dark";
+            if (dark) root.setAttribute("data-mode", "dark");
             else root.removeAttribute("data-mode");
-            save("md-mode", b.dataset.modeSet);
-            sync();
-        }));
-
-        const setOpen = open => {
-            btn.setAttribute("aria-expanded", String(open));
-            panel.hidden = !open;
-            if (open) {
-                const current = panel.querySelector('[aria-checked="true"]');
-                if (current) current.focus();
-            }
-        };
-        btn.addEventListener("click", () => setOpen(panel.hidden));
-        document.addEventListener("click", e => { if (!panel.hidden && !theme.contains(e.target)) setOpen(false); });
-        document.addEventListener("keydown", e => {
-            if (e.key === "Escape" && !panel.hidden) {
-                setOpen(false);
-                btn.focus();
-            }
+            try { localStorage.setItem("md-mode", dark ? "dark" : "light"); } catch (e) { /* المتصفح يمنع الحفظ: يشتغل بدون حفظ */ }
+            syncMode();
         });
-        sync();
     }
+    syncMode();
 
     // جملة الواجهة تتبدّل كل ثواني (وتوقف لو الصفحة مخفية أو الزائر يفضّل تقليل الحركة)
     const swap = document.querySelector("[data-swap]");

@@ -39,11 +39,6 @@
     color-scheme: light;
 }
 
-/* ألوان يختارها الزائر من زر الألوان (تنحفظ في متصفحه) */
-:root[data-accent="blue"] { --orange: #3B82F6; --orange-ink: #1D4ED8; }
-:root[data-accent="green"] { --orange: #16A34A; --orange-ink: #15803D; }
-:root[data-accent="violet"] { --orange: #9B6BFF; --orange-ink: #6D28D9; }
-
 /* الوضع الداكن: نفس الأسماء بقيم معكوسة، فكل الموقع يتبعها */
 :root[data-mode="dark"] {
     --base-ivory: #141311;
@@ -62,9 +57,18 @@
     color-scheme: dark;
 }
 
-:root[data-mode="dark"][data-accent="blue"] { --orange-ink: #8AB4FF; }
-:root[data-mode="dark"][data-accent="green"] { --orange-ink: #4ADE80; }
-:root[data-mode="dark"][data-accent="violet"] { --orange-ink: #BFA6FF; }
+/* ليد: اللون يدور على كل الألوان ببطء (درجة اللون --hue يحرّكها main.js)، بقوة متوسطة */
+:root[data-accent="led"] {
+    --orange: oklch(0.66 0.16 var(--hue, 40));
+    --orange-ink: oklch(0.5 0.15 var(--hue, 40));
+    --tint: 6%;
+}
+
+:root[data-mode="dark"][data-accent="led"] {
+    --orange-ink: oklch(0.8 0.12 var(--hue, 40));
+    --tint: 8%;
+}
+
 
 *,
 *::before,
@@ -82,7 +86,6 @@ html {
 body {
     margin: 0;
     background: var(--ivory);
-    transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
     color: var(--ink);
     font-family: var(--text);
     font-size: 1.0625rem;
@@ -2466,11 +2469,7 @@ html.quick-open {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='%23141311' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-/* ---------- زر الألوان ---------- */
-.theme {
-    position: relative;
-}
-
+/* ---------- زر الوضع (فاتح / داكن) ---------- */
 .theme__btn {
     display: grid;
     place-items: center;
@@ -2480,15 +2479,14 @@ html.quick-open {
     border-radius: 50%;
     background: color-mix(in srgb, var(--white) 72%, transparent);
     cursor: pointer;
-    transition: border-color 0.3s var(--ease), transform 0.5s var(--ease);
+    transition: border-color 0.3s var(--ease);
 }
 
-.theme__btn:hover,
-.theme__btn[aria-expanded="true"] {
+.theme__btn:hover {
     border-color: var(--ink);
 }
 
-/* نصف الدائرة باللون المختار، والنصف الثاني بلون الوضع */
+/* نصف الدائرة بلون الليد، والنصف الثاني بلون الوضع. تلف نص لفة عند تبديل الوضع */
 .theme__dot {
     width: 20px;
     height: 20px;
@@ -2497,115 +2495,9 @@ html.quick-open {
     transition: transform 0.6s var(--ease);
 }
 
-.theme__btn:hover .theme__dot {
+.theme__btn[aria-pressed="true"] .theme__dot {
     transform: rotate(180deg);
 }
-
-.theme__panel {
-    position: absolute;
-    top: calc(100% + 12px);
-    inset-inline-end: 0;
-    z-index: 70;
-    width: 236px;
-    padding: 16px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--white);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
-    animation: theme-in 0.35s var(--ease);
-}
-
-@keyframes theme-in {
-    from {
-        opacity: 0;
-        transform: translateY(-6px);
-    }
-}
-
-.theme__label {
-    color: var(--muted);
-    font: 500 0.82rem/1.6 var(--text);
-}
-
-.theme__label + div {
-    margin-top: 8px;
-}
-
-.theme__swatches + .theme__label {
-    margin-top: 16px;
-}
-
-.theme__swatches {
-    display: flex;
-    gap: 10px;
-}
-
-.theme__swatches button {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: 1.5px solid transparent;
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-    transition: border-color 0.3s var(--ease);
-}
-
-.theme__swatches i {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    transition: transform 0.4s var(--ease);
-}
-
-.theme__swatches button:hover i {
-    transform: scale(1.12);
-}
-
-.theme__swatches button[aria-checked="true"] {
-    border-color: var(--ink);
-}
-
-.theme__modes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    padding: 4px;
-    border-radius: 999px;
-    background: var(--paper);
-}
-
-.theme__modes button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    min-height: 38px;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    color: var(--ink-soft);
-    font: 600 0.88rem/1 var(--display);
-    cursor: pointer;
-    transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
-}
-
-.theme__modes svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-}
-
-.theme__modes button[aria-checked="true"] {
-    background: var(--ink);
-    color: var(--ivory);
-}
-
 /* ---------- شريط التقدم ---------- */
 .progress {
     position: absolute;
@@ -2972,7 +2864,7 @@ html.menu-open .float-wa {
 }
 
 @media (max-width: 960px) {
-    .theme {
+    .theme__btn {
         margin-inline-start: auto;
     }
 
@@ -3038,9 +2930,6 @@ html.menu-open .float-wa {
         inset-inline-end: 16px;
     }
 
-    .theme__panel {
-        inset-inline-end: -58px;
-    }
 }
 
 /* ---------- الشاشات المتوسطة ---------- */
