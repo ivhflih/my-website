@@ -532,7 +532,7 @@ const WHATSAPP = "966559333976";
         });
 
         // جاء من صفحة شكل (زر "أبي هذا الشكل"): نفتح الطلب والشكل واللون مكتوبين فيه
-        const STYLES = ["ثلاثي الأبعاد", "فاخر وأنيق", "بسيط ونظيف", "جريء وملوّن"];
+        const STYLES = ["ثلاثي الأبعاد", "فاخر وأنيق", "بسيط ونظيف", "جريء وملوّن", "أنيق وذكي"];
         const params = new URLSearchParams(location.search);
         const style = params.get("style");
         const color = params.get("color") || "";
