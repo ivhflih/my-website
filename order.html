@@ -6,7 +6,7 @@
     <title>اطلب موقعك | MD-DESIGN</title>
     <meta name="description" content="اطلب موقعك من MD-DESIGN: اختر الباقة، واحكِ لي عن فكرتك، وأرسل طلبك على واتساب بخطوة واحدة.">
     <link rel="canonical" href="https://moayad-design.vercel.app/order.html">
-    <meta name="theme-color" content="#F7F5F0">
+    <meta name="theme-color" content="#111111">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_SA">
     <meta property="og:site_name" content="MD-DESIGN">
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="style.css">
-    <script>(function(d){d.classList.add('js');try{var m=localStorage.getItem('md-mode');d.setAttribute('data-accent','led');if(m==='dark')d.setAttribute('data-mode','dark');}catch(e){}})(document.documentElement);</script>
+    <script>(function(d){d.classList.add('js');try{var m=localStorage.getItem('md-mode');d.setAttribute('data-accent','led');if(m!=='light')d.setAttribute('data-mode','dark');}catch(e){}})(document.documentElement);</script>
 </head>
 <body>
     <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
@@ -128,6 +128,26 @@
                     <label class="field">ما الذي تريده في موقعك؟
                         <textarea id="idea" rows="5" placeholder="مثلًا: صفحة فيها قائمة الطعام وأوقات العمل وزر طلب عبر واتساب" required></textarea>
                     </label>
+                    <div class="fields">
+                        <label class="field">الميزانية التقريبية
+                            <select id="budget" required>
+                                <option value="" selected disabled>اختر</option>
+                                <option>أقل من 1,000 ر.س</option>
+                                <option>من 1,000 إلى 2,000 ر.س</option>
+                                <option>أكثر من 2,000 ر.س</option>
+                                <option>لم أحددها بعد</option>
+                            </select>
+                        </label>
+                        <label class="field">متى تحتاج الموقع؟
+                            <select id="time" required>
+                                <option value="" selected disabled>اختر</option>
+                                <option>خلال أسبوع</option>
+                                <option>خلال أسبوعين</option>
+                                <option>خلال شهر</option>
+                                <option>الموعد مرن</option>
+                            </select>
+                        </label>
+                    </div>
                     <label class="field">مواقع تعجبك (اختياري)
                         <input id="refs" placeholder="روابط أو أسماء مواقع">
                     </label>
@@ -203,6 +223,8 @@
         }
 
         form.addEventListener("change", updateSummary);
+        // أول ما يختار من القائمة يختفي التنبيه الأحمر
+        form.addEventListener("change", e => { if (e.target.tagName === "SELECT") e.target.removeAttribute("aria-invalid"); });
 
         // الأرقام العربية تتحول لإنجليزية وقت الكتابة
         $("phone").addEventListener("input", e => {
@@ -236,7 +258,7 @@
             let firstBad = null;
 
             if (!plan) { $("plan-error").hidden = false; firstBad = firstBad || form.querySelector('input[name="plan"]'); }
-            ["name", "business", "idea"].forEach(id => {
+            ["name", "business", "idea", "budget", "time"].forEach(id => {
                 const el = $(id);
                 const empty = !el.value.trim();
                 if (empty) el.setAttribute("aria-invalid", "true");
@@ -263,6 +285,8 @@
                 "النشاط: " + $("business").value.trim() + " (" + $("type").value + ")",
                 "",
                 "الفكرة: " + $("idea").value.trim(),
+                "الميزانية التقريبية: " + $("budget").value,
+                "موعد التسليم: " + $("time").value,
                 "مواقع تعجبني: " + ($("refs").value.trim() || "لا يوجد"),
                 "",
                 "سأرفق صورة إيصال التحويل هنا."

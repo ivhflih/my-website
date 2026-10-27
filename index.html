@@ -6,7 +6,7 @@
     <title>MD-DESIGN | تصميم وتطوير المواقع في السعودية</title>
     <meta name="description" content="MD-DESIGN استوديو تصميم وتطوير مواقع عربية للشركات والمتاجر والمطاعم والمشاريع التجارية في السعودية. مواقع سريعة ومتجاوبة مع الجوال، مصممة خصيصًا لمشروعك.">
     <link rel="canonical" href="https://moayad-design.vercel.app/">
-    <meta name="theme-color" content="#F7F5F0">
+    <meta name="theme-color" content="#111111">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_SA">
     <meta property="og:site_name" content="MD-DESIGN">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
     <link rel="stylesheet" href="style.css">
-    <script>(function(d){d.classList.add('js');try{var m=localStorage.getItem('md-mode');d.setAttribute('data-accent','led');if(m==='dark')d.setAttribute('data-mode','dark');}catch(e){}})(document.documentElement);</script>
+    <script>(function(d){d.classList.add('js');try{var m=localStorage.getItem('md-mode');d.setAttribute('data-accent','led');if(m!=='light')d.setAttribute('data-mode','dark');}catch(e){}})(document.documentElement);</script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -130,29 +130,35 @@
                     </a>
                     <a class="btn btn--line" href="#work">استعرض أعمالي</a>
                 </div>
+            </div>
+
+            <!-- مشروع مميز بحجم كبير، وجنبه الجوال يطفو ويتحرك مع الماوس -->
+            <figure class="show" aria-label="مشروع مميز من أعمالي: نموذج مطعم جمر على الكمبيوتر والجوال" data-stack>
+                <div class="show__scene">
+                    <a class="device device--browser show__main" href="projects/jamr.html" style="--depth: 0.4" data-cursor="view" aria-label="تفاصيل مشروع جمر">
+                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">jamr.sa</span></div>
+                        <div class="device__screen" data-pan><img src="assets/work/jamr-desktop.png" width="1280" height="1104" alt="الصفحة الرئيسية لنموذج موقع مطعم جمر" fetchpriority="high"></div>
+                    </a>
+                    <div class="show__phone" style="--depth: 1.3">
+                        <div class="device device--phone show__float">
+                            <div class="device__screen" data-pan><img src="assets/work/jamr-mobile.png" width="390" height="1499" alt="نموذج موقع مطعم جمر على الجوال"></div>
+                        </div>
+                    </div>
+                    <a class="show__tag" href="projects/jamr.html" style="--depth: 1.6">
+                        <small>مشروع مميز</small>
+                        <b>جَمر · موقع مطعم</b>
+                        <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg>
+                    </a>
+                </div>
+            </figure>
+
+            <div class="hero__bar">
                 <ul class="hero__perks" data-reveal>
                     <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>دومين أول سنة مجانًا</li>
                     <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>تسليم خلال 5 إلى 14 يومًا</li>
                     <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>متوافق مع الجوال</li>
                 </ul>
             </div>
-
-            <figure class="stack" aria-label="نماذج من أعمالي معروضة على شاشات" data-stack>
-                <div class="stack__scene">
-                    <div class="device device--browser stack__back" style="--depth: 0.35">
-                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">asas.sa</span></div>
-                        <div class="device__screen"><img src="assets/work/asas-desktop.png" width="1280" height="1566" alt="الصفحة الرئيسية لنموذج موقع شركة أساس للمقاولات" fetchpriority="high"></div>
-                    </div>
-                    <div class="device device--browser stack__mid" style="--depth: 0.7">
-                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">souqna.sa</span></div>
-                        <div class="device__screen"><img src="assets/work/souqna-desktop.png" width="1280" height="1054" alt="صفحة الهبوط لنموذج منصة سوقنا"></div>
-                    </div>
-                    <div class="device device--phone stack__front" style="--depth: 1.2">
-                        <div class="device__screen"><img src="assets/work/jamr-mobile.png" width="390" height="1499" alt="نموذج موقع مطعم جمر على الجوال"></div>
-                    </div>
-                </div>
-                <figcaption class="stack__caption">نماذج تصميم من أعمالي: أساس، سوقنا، جَمر</figcaption>
-            </figure>
         </section>
 
         <!-- الشريط المتحرك -->
@@ -170,67 +176,110 @@
         <!-- الأعمال -->
         <section class="works wrap" id="work" aria-labelledby="works-title">
             <div class="section-head">
+                <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">01</span>الأعمال</p>
                 <h2 class="section-title" id="works-title" data-reveal>أعمال تتحدث<br>عن نفسها.</h2>
                 <p class="section-intro" data-reveal>منصة حقيقية بنيتها من الصفر، ونماذج تصميم لأنواع مشاريع في السوق السعودي. مرّر المؤشر على أي شاشة لتتصفح الموقع كاملًا، أو افتح النموذج وجرّبه بنفسك.</p>
             </div>
 
-            <div class="gallery">
-                <article class="piece piece--wide piece--signals" data-reveal>
-                    <div class="piece__frame device device--browser" tabindex="0" aria-label="معاينة منصة إشارات التداول، مرّر أو ركّز لتصفح الصفحة كاملة">
-                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span>إشارات التداول</span></div>
-                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/signals-desktop.jpg" width="1280" height="4382" alt="لقطة كاملة للصفحة الرئيسية لمنصة إشارات التداول" loading="lazy" decoding="async"></div>
-                        <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
-                    </div>
-                    <div class="piece__label">
-                        <h3 class="piece__title">إشارات التداول</h3>
-                        <p class="piece__type">منصة اشتراكات لإشارات الذهب</p>
-                        <p class="piece__desc">منصة كاملة بنيتها من الصفر: خادم يستقبل البيانات مباشرة من MetaTrader 5، واشتراكات ودفع، ولوحة إدارة، وأكاديمية تعليمية، وبوت تيليجرام.</p>
-                        <p class="piece__note">تعمل على خادم خاص، والمعاينة الحية متاحة عند الطلب.
-                            <a class="piece__link" href="order.html" data-wa>اطلب معاينة حيّة <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
-                        </p>
-                    </div>
-                </article>
+            <!-- التصنيفات: تخفي وتظهر البطاقات، والمساحة المحجوزة تبقى دايم -->
+            <div class="filters" role="group" aria-label="تصنيف الأعمال" data-filters data-reveal>
+                <button class="filter" type="button" aria-pressed="true" data-filter="all">الكل <span dir="ltr">4</span></button>
+                <button class="filter" type="button" aria-pressed="false" data-filter="company">الشركات والمطاعم <span dir="ltr">2</span></button>
+                <button class="filter" type="button" aria-pressed="false" data-filter="landing">صفحات الهبوط <span dir="ltr">1</span></button>
+                <button class="filter" type="button" aria-pressed="false" data-filter="platform">المنصات <span dir="ltr">1</span></button>
+            </div>
 
-                <article class="piece piece--major" data-reveal>
-                    <a class="piece__frame device device--browser" href="work/jamr.html" data-cursor="view" aria-label="افتح نموذج مطعم جمر">
-                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">jamr.sa</span></div>
-                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/jamr-desktop.png" width="1280" height="1104" alt="لقطة كاملة لنموذج موقع مطعم جمر" loading="lazy" decoding="async"></div>
+            <div class="gallery" data-gallery>
+                <article class="case" data-cat="platform" data-reveal>
+                    <a class="case__media piece__frame" href="projects/signals.html" data-cursor="view" aria-label="تفاصيل منصة إشارات التداول">
+                        <div class="device device--browser case__browser">
+                            <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span>إشارات التداول</span></div>
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/signals-desktop.jpg" width="1280" height="4382" alt="لقطة كاملة للصفحة الرئيسية لمنصة إشارات التداول" loading="lazy" decoding="async"></div>
+                        </div>
+                        <div class="device device--phone case__phone">
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/signals-mobile.jpg" width="390" height="4200" alt="منصة إشارات التداول على الجوال" loading="lazy" decoding="async"></div>
+                        </div>
                         <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
                     </a>
-                    <div class="piece__label">
-                        <h3 class="piece__title">جَمر</h3>
-                        <p class="piece__type">موقع مطعم مشويات</p>
-                        <p class="piece__desc">هوية دافئة تناسب المشويات، وقائمة طعام واضحة بالأسعار، وأوقات العمل، وزر طلب عبر واتساب.</p>
-                        <a class="btn btn--ink btn--sm piece__open" href="work/jamr.html">افتح النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                    <div class="case__body">
+                        <p class="case__n"><span dir="ltr">01</span>منصة</p>
+                        <h3 class="case__title">إشارات التداول</h3>
+                        <p class="case__type">منصة اشتراكات لإشارات الذهب</p>
+                        <p class="case__desc">منصة كاملة بنيتها من الصفر: خادم يستقبل البيانات مباشرة من MetaTrader 5، واشتراكات ودفع، ولوحة إدارة، وأكاديمية تعليمية، وبوت تيليجرام.</p>
+                        <p class="case__note">تعمل على خادم خاص، والمعاينة الحية متاحة عند الطلب.</p>
+                        <div class="case__actions">
+                            <a class="btn btn--ink btn--sm" href="projects/signals.html">تفاصيل المشروع <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                            <a class="piece__link" href="order.html" data-wa>اطلب معاينة حيّة</a>
+                        </div>
                     </div>
                 </article>
 
-                <article class="piece piece--minor" data-reveal>
-                    <div class="piece__stage">
-                        <a class="piece__frame device device--phone" href="work/souqna.html" data-cursor="view" aria-label="افتح نموذج منصة سوقنا">
-                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/souqna-mobile.png" width="390" height="1327" alt="لقطة كاملة لنموذج سوقنا على الجوال" loading="lazy" decoding="async"></div>
-                            <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
-                        </a>
-                    </div>
-                    <div class="piece__label">
-                        <h3 class="piece__title">سوقنا</h3>
-                        <p class="piece__type">صفحة هبوط لمنصة إعلانات</p>
-                        <p class="piece__desc">عنوان جذاب مع خانة بحث، وأقسام المنصة ومميزاتها، ونموذج للتسجيل المبكر.</p>
-                        <a class="btn btn--ink btn--sm piece__open" href="work/souqna.html">افتح النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
-                    </div>
-                </article>
-
-                <article class="piece piece--wide" data-reveal>
-                    <a class="piece__frame device device--browser" href="work/asas.html" data-cursor="view" aria-label="افتح نموذج أساس للمقاولات">
-                        <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">asas.sa</span></div>
-                        <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/asas-desktop.png" width="1280" height="1566" alt="لقطة كاملة لنموذج موقع أساس للمقاولات" loading="lazy" decoding="async"></div>
+                <article class="case" data-cat="company" data-reveal>
+                    <a class="case__media piece__frame" href="projects/jamr.html" data-cursor="view" aria-label="تفاصيل مشروع مطعم جمر">
+                        <div class="device device--browser case__browser">
+                            <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">jamr.sa</span></div>
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/jamr-desktop.png" width="1280" height="1104" alt="لقطة كاملة لنموذج موقع مطعم جمر" loading="lazy" decoding="async"></div>
+                        </div>
+                        <div class="device device--phone case__phone">
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/jamr-mobile.png" width="390" height="1499" alt="نموذج مطعم جمر على الجوال" loading="lazy" decoding="async"></div>
+                        </div>
                         <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
                     </a>
-                    <div class="piece__label">
-                        <h3 class="piece__title">أساس للمقاولات</h3>
-                        <p class="piece__type">موقع شركة مقاولات</p>
-                        <p class="piece__desc">واجهة تبرز قيمة الشركة، وإنجازاتها بالأرقام، وخدماتها في عرض منظم، مع نموذج لطلب عرض سعر.</p>
-                        <a class="btn btn--ink btn--sm piece__open" href="work/asas.html">افتح النموذج <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                    <div class="case__body">
+                        <p class="case__n"><span dir="ltr">02</span>مطعم</p>
+                        <h3 class="case__title">جَمر</h3>
+                        <p class="case__type">موقع مطعم مشويات</p>
+                        <p class="case__desc">هوية دافئة تناسب المشويات، وقائمة طعام واضحة بالأسعار، وأوقات العمل، وزر طلب عبر واتساب.</p>
+                        <div class="case__actions">
+                            <a class="btn btn--ink btn--sm" href="projects/jamr.html">تفاصيل المشروع <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                            <a class="piece__link" href="work/jamr.html">افتح النموذج</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case" data-cat="landing" data-reveal>
+                    <a class="case__media piece__frame" href="projects/souqna.html" data-cursor="view" aria-label="تفاصيل مشروع منصة سوقنا">
+                        <div class="device device--browser case__browser">
+                            <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">souqna.sa</span></div>
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/souqna-desktop.png" width="1280" height="1054" alt="لقطة كاملة لنموذج سوقنا" loading="lazy" decoding="async"></div>
+                        </div>
+                        <div class="device device--phone case__phone">
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/souqna-mobile.png" width="390" height="1327" alt="نموذج سوقنا على الجوال" loading="lazy" decoding="async"></div>
+                        </div>
+                        <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
+                    </a>
+                    <div class="case__body">
+                        <p class="case__n"><span dir="ltr">03</span>صفحة هبوط</p>
+                        <h3 class="case__title">سوقنا</h3>
+                        <p class="case__type">صفحة هبوط لمنصة إعلانات</p>
+                        <p class="case__desc">عنوان جذاب مع خانة بحث، وأقسام المنصة ومميزاتها، ونموذج للتسجيل المبكر.</p>
+                        <div class="case__actions">
+                            <a class="btn btn--ink btn--sm" href="projects/souqna.html">تفاصيل المشروع <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                            <a class="piece__link" href="work/souqna.html">افتح النموذج</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="case" data-cat="company" data-reveal>
+                    <a class="case__media piece__frame" href="projects/asas.html" data-cursor="view" aria-label="تفاصيل مشروع أساس للمقاولات">
+                        <div class="device device--browser case__browser">
+                            <div class="device__bar" aria-hidden="true"><i></i><i></i><i></i><span dir="ltr">asas.sa</span></div>
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/asas-desktop.png" width="1280" height="1566" alt="لقطة كاملة لنموذج موقع أساس للمقاولات" loading="lazy" decoding="async"></div>
+                        </div>
+                        <div class="device device--phone case__phone">
+                            <div class="device__screen device__screen--scroll" data-scroll-screen><img src="assets/work/asas-mobile.png" width="390" height="2299" alt="نموذج أساس للمقاولات على الجوال" loading="lazy" decoding="async"></div>
+                        </div>
+                        <span class="scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-5-5l5 5 5-5"/></svg>مرّر للتصفح</span>
+                    </a>
+                    <div class="case__body">
+                        <p class="case__n"><span dir="ltr">04</span>شركة</p>
+                        <h3 class="case__title">أساس للمقاولات</h3>
+                        <p class="case__type">موقع شركة مقاولات</p>
+                        <p class="case__desc">واجهة تبرز قيمة الشركة، وإنجازاتها بالأرقام، وخدماتها في عرض منظم، مع نموذج لطلب عرض سعر.</p>
+                        <div class="case__actions">
+                            <a class="btn btn--ink btn--sm" href="projects/asas.html">تفاصيل المشروع <svg class="icon icon--arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6l-6 6 6 6"/></svg></a>
+                            <a class="piece__link" href="work/asas.html">افتح النموذج</a>
+                        </div>
                     </div>
                 </article>
 
@@ -257,8 +306,9 @@
         <!-- الأشكال -->
         <section class="styles" id="styles" aria-labelledby="styles-title">
             <div class="wrap section-head">
+                <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">02</span>الأشكال</p>
                 <h2 class="section-title" id="styles-title" data-reveal>اختر شكل موقعك.</h2>
-                <p class="section-intro" data-reveal>خمسة أشكال جاهزة للتجربة. افتح أي شكل، وجرّب ألوانه، واختر الأقرب لذوقك، وأبنيه لك بهوية مشروعك.</p>
+                <p class="section-intro" data-reveal>سبعة أشكال جاهزة للتجربة. افتح أي شكل، وجرّب ألوانه، واختر الأقرب لذوقك، وأبنيه لك بهوية مشروعك.</p>
             </div>
             <ul class="style-row wrap">
                 <li class="style-card" data-reveal>
@@ -316,6 +366,28 @@
                         </span>
                     </a>
                 </li>
+                <li class="style-card" data-reveal>
+                    <a class="style-card__link" href="work/style-future.html" data-cursor="view">
+                        <span class="style-card__shot"><img src="assets/styles/future.jpg" width="640" height="800" alt="معاينة شكل مستقبلي لمساعد ذكاء اصطناعي" loading="lazy" decoding="async"></span>
+                        <span class="style-card__meta">
+                            <span class="style-card__num" aria-hidden="true">06</span>
+                            <span class="style-card__name">مستقبلي</span>
+                            <span class="style-card__for">لتطبيقات الذكاء الاصطناعي</span>
+                            <span class="style-card__dots" aria-hidden="true"><i style="background:#E4F03C"></i><i style="background:#3CD6F0"></i><i style="background:#FF6FB5"></i><i style="background:#FF8A3D"></i></span>
+                        </span>
+                    </a>
+                </li>
+                <li class="style-card" data-reveal>
+                    <a class="style-card__link" href="work/style-city.html" data-cursor="view">
+                        <span class="style-card__shot"><img src="assets/styles/city.jpg" width="640" height="800" alt="معاينة شكل مدينة ليلية لشركة عقارية" loading="lazy" decoding="async"></span>
+                        <span class="style-card__meta">
+                            <span class="style-card__num" aria-hidden="true">07</span>
+                            <span class="style-card__name">مدينة ليلية</span>
+                            <span class="style-card__for">للعقار والتطوير العمراني</span>
+                            <span class="style-card__dots" aria-hidden="true"><i style="background:#c6ff2e"></i><i style="background:#ffc94a"></i><i style="background:#ff7ab8"></i><i style="background:#4dffa6"></i></span>
+                        </span>
+                    </a>
+                </li>
             </ul>
         </section>
 
@@ -323,6 +395,7 @@
         <section class="services" id="services" aria-labelledby="services-title">
             <div class="wrap">
                 <div class="section-head">
+                    <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">03</span>الخدمات</p>
                     <h2 class="section-title" id="services-title" data-reveal>ماذا أصمّم لك؟</h2>
                     <p class="section-intro" data-reveal>كل خدمة تشمل تصميمًا متجاوبًا مع الجوال، وسرعة تحميل عالية، واتجاهًا عربيًا صحيحًا من اليمين إلى اليسار.</p>
                 </div>
@@ -414,6 +487,7 @@
         <section class="why wrap" id="why" aria-labelledby="why-title">
             <div class="why__head">
                 <div class="why__aside">
+                    <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">04</span>لماذا تختارني</p>
                     <h2 class="section-title" id="why-title" data-reveal>لماذا<br>تختارني؟</h2>
                     <p class="section-intro" data-reveal>نحوّل فكرتك إلى موقع إلكتروني احترافي يجمع بين التصميم الإبداعي والأداء المتميز.</p>
                 </div>
@@ -478,6 +552,7 @@
             <div class="wrap">
                 <div class="section-head process__head">
                     <div>
+                        <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">05</span>طريقة العمل</p>
                         <h2 class="section-title" id="process-title" data-reveal>من الفكرة<br>إلى الإطلاق.</h2>
                         <p class="section-intro" data-reveal>أربع مراحل واضحة، تعرف في كل واحدة منها ما الذي يحدث وما المطلوب منك.</p>
                     </div>
@@ -528,6 +603,7 @@
         <!-- الباقات -->
         <section class="packages wrap" id="packages" aria-labelledby="packages-title">
             <div class="section-head">
+                <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">06</span>الباقات</p>
                 <h2 class="section-title" id="packages-title" data-reveal>باقات واضحة،<br>بلا مفاجآت.</h2>
                 <p class="section-intro" data-reveal>سعر ثابت تعرفه قبل أن نبدأ، ومدة تسليم محددة في كل باقة.</p>
             </div>
@@ -584,8 +660,9 @@
         </section>
 
         <!-- أسئلة شائعة -->
-        <section class="faq wrap" id="faq" aria-labelledby="faq-title">
+        <section class="faq wrap split" id="faq" aria-labelledby="faq-title">
             <div class="section-head">
+                <p class="eyebrow" data-reveal><span class="eyebrow__n" dir="ltr">07</span>أسئلة شائعة</p>
                 <h2 class="section-title" id="faq-title" data-reveal>أسئلة شائعة.</h2>
                 <p class="section-intro" data-reveal>أهم ما يسأل عنه العملاء قبل البدء: السعر والتسليم والصيانة.</p>
             </div>

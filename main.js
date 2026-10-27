@@ -440,6 +440,57 @@ const WHATSAPP = "966559333976";
         }
     }
 
+    // شاشات الواجهة: تنزل وتطلع ببطء لحالها عشان يبان الموقع كامل
+    document.querySelectorAll("[data-pan]").forEach(screen => {
+        const img = screen.querySelector("img");
+        if (!img) return;
+        const set = () => {
+            const travel = Math.max(0, img.getBoundingClientRect().height - screen.getBoundingClientRect().height);
+            screen.style.setProperty("--travel", travel.toFixed(0));
+            screen.style.setProperty("--dur", Math.max(6, Math.min(22, travel / 45)).toFixed(1) + "s");
+        };
+        if (!img.complete) img.addEventListener("load", set, { once: true });
+        set();
+        window.addEventListener("resize", set);
+    });
+
+    // تصنيفات الأعمال: تظهر البطاقات اللي من نفس النوع بس، وتدخل بحركة خفيفة
+    const filters = document.querySelector("[data-filters]");
+    const gallery = document.querySelector("[data-gallery]");
+    if (filters && gallery) {
+        const buttons = Array.from(filters.querySelectorAll("[data-filter]"));
+        const cards = Array.from(gallery.querySelectorAll("[data-cat]"));
+        buttons.forEach(btn => btn.addEventListener("click", () => {
+            const cat = btn.getAttribute("data-filter");
+            buttons.forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+            let n = 0;
+            cards.forEach(card => {
+                const show = cat === "all" || card.getAttribute("data-cat") === cat;
+                card.hidden = !show;
+                card.classList.remove("is-enter");
+                if (show) {
+                    card.classList.add("is-in");
+                    card.style.setProperty("--n", n++);
+                    if (!reduceMotion) { void card.offsetWidth; card.classList.add("is-enter"); }
+                }
+                // ترقيم البطاقات الظاهرة يمشي بالترتيب وجهتها تتبادل يمين ويسار
+                card.classList.toggle("is-flip", show && (n - 1) % 2 === 1);
+            });
+        }));
+        cards.forEach((card, i) => card.classList.toggle("is-flip", i % 2 === 1));
+    }
+
+    // بطاقات الأعمال: ضوء خفيف يتبع الماوس على خلفية المعاينة
+    if (finePointer && !reduceMotion) {
+        document.querySelectorAll(".case__media").forEach(media => {
+            media.addEventListener("pointermove", e => {
+                const r = media.getBoundingClientRect();
+                media.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
+                media.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
+            });
+        });
+    }
+
     // خط مراحل التنفيذ يتعبى مع التمرير
     const steps = document.querySelector("[data-steps]");
     if (steps) {
@@ -532,7 +583,7 @@ const WHATSAPP = "966559333976";
         });
 
         // جاء من صفحة شكل (زر "أبي هذا الشكل"): نفتح الطلب والشكل واللون مكتوبين فيه
-        const STYLES = ["ثلاثي الأبعاد", "فاخر وأنيق", "بسيط ونظيف", "جريء وملوّن", "أنيق وذكي"];
+        const STYLES = ["ثلاثي الأبعاد", "فاخر وأنيق", "بسيط ونظيف", "جريء وملوّن", "أنيق وذكي", "مستقبلي", "مدينة ليلية"];
         const params = new URLSearchParams(location.search);
         const style = params.get("style");
         const color = params.get("color") || "";
