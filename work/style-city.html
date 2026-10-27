@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أركان — شكل مدينة ليلية | MD-DESIGN</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* شكل مدينة ليلية: مدينة مصغّرة مرسومة بالكود، والكاميرا تتقدّم فوقها مع التمرير حتى تصل للمشروع */
+:root{
+  --u:clamp(.72px,min(100vw / 1440,100vh / 960),1.5px);
+  --night:#0f1626;--ink:#f4f6fa;--ink72:rgba(244,246,250,.72);--ink46:rgba(244,246,250,.46);
+  --pill:#2a3245;--lime:#c6ff2e;--cyan:#3fd8ff;--hair:rgba(255,255,255,.22);--font:"Cairo",Tahoma,sans-serif}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:var(--night);color:var(--ink);font-family:var(--font);overflow-x:clip}
+a{color:inherit;text-decoration:none}
+
+/* شاشة التحميل */
+.loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--night);transition:opacity .6s,visibility 0s .6s}
+.loader.is-done{opacity:0;visibility:hidden}
+.loader__orb{position:relative;width:220px;height:220px;display:grid;place-items:center}
+.loader__orb::before,.loader__orb::after{content:"";position:absolute;border:1.5px dotted rgba(255,255,255,.28);border-radius:50%}
+.loader__orb::before{inset:70px -40px}
+.loader__orb::after{inset:40px}
+.loader__mark{width:64px;height:64px;animation:spin 1.6s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* القائمة: 3 أعمدة */
+.nav{position:fixed;inset:0 0 auto;z-index:30;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:calc(58 * var(--u));min-height:52px;padding:0 calc(28 * var(--u))}
+.nav__links{display:flex;gap:calc(26 * var(--u));font-size:max(12px,calc(12.5 * var(--u)));font-weight:600;color:var(--ink72)}
+.nav__links a:hover{color:var(--ink)}
+.nav__mark{font-size:max(17px,calc(21 * var(--u)));font-weight:700;letter-spacing:.02em}
+.nav__acts{display:flex;justify-content:flex-end;gap:10px}
+.pillbtn{display:inline-flex;align-items:center;height:max(34px,calc(40 * var(--u)));padding:0 calc(20 * var(--u));border-radius:999px;font-size:max(12px,calc(12.5 * var(--u)));font-weight:700;transition:transform .25s}
+.pillbtn:hover{transform:translateY(-1px)}
+.pillbtn--grey{background:var(--pill)}
+.pillbtn--lime{background:var(--lime);color:#0b1020}
+
+/* المسار الطويل والمشهد اللاصق */
+.track{position:relative;height:420vh}
+.scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(rgba(15,22,38,.55),rgba(15,22,38,0) 34%),linear-gradient(0deg,rgba(15,22,38,.5),rgba(15,22,38,0) 30%)}
+
+/* العنوان: يميل للخلف وينطبع في المدينة مع التمرير */
+.stage{position:fixed;top:calc(92 * var(--u) + 40px);left:0;right:0;z-index:10;perspective:calc(900 * var(--u));pointer-events:none}
+.headline{max-width:calc(900 * var(--u));margin:0 auto;padding:0 20px;text-align:center;transform-origin:50% 100%;will-change:transform,opacity}
+.headline h1{margin:0;font-size:calc(80 * var(--u));line-height:1.2;font-weight:700}
+.headline p{margin:calc(22 * var(--u)) auto 0;max-width:46ch;color:var(--ink72);font-size:calc(18 * var(--u));line-height:1.8}
+.headline p span{display:block}
+
+.cue{position:fixed;left:50%;bottom:calc(36 * var(--u) + 64px);z-index:10;transform:translateX(-50%);font-size:max(11px,calc(12 * var(--u)));font-weight:600;letter-spacing:.02em;color:var(--ink72);white-space:nowrap}
+.cue::after{content:"";display:block;height:1px;margin-top:6px;background:var(--ink72);transform-origin:right;transform:scaleX(var(--drain,1))}
+
+/* قائمة المراحل: تحت يمين */
+.steps{position:fixed;right:calc(36 * var(--u));bottom:calc(28 * var(--u) + 64px);z-index:10;width:calc(430 * var(--u));min-width:320px;margin:0;padding:0;list-style:none;opacity:0;transform:translateY(40px)}
+.step{display:grid;grid-template-columns:calc(36 * var(--u)) 1fr;gap:0 14px;align-items:center;padding:8px 0}
+.step__n{display:grid;place-items:center;width:max(28px,calc(36 * var(--u)));height:max(28px,calc(36 * var(--u)));border-radius:9px;color:var(--ink72);font-size:max(11px,calc(12 * var(--u)));font-weight:700;transition:background-color .45s,color .45s}
+.step__t{color:var(--ink72);font-size:max(13px,calc(13.5 * var(--u)));font-weight:600;transition:font-size .45s,color .45s}
+.step__body{grid-column:2;display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s}
+.step__body > div{overflow:hidden}
+.step__body p{margin:8px 0 2px;padding-right:14px;border-right:1px solid var(--hair);color:var(--ink72);font-size:max(13px,calc(14.5 * var(--u)));line-height:1.8}
+.step.is-on .step__n{background:var(--ink);color:#0b1020}
+.step.is-on .step__t{color:var(--ink);font-size:max(16px,calc(19 * var(--u)))}
+.step.is-on .step__body{grid-template-rows:1fr}
+
+/* ما بعد المشهد */
+.after{position:relative;z-index:20;background:var(--night);padding:90px 20px 120px;text-align:center;border-top:1px solid var(--hair)}
+.after h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.4rem)}
+.after p{margin:0 auto 26px;max-width:52ch;color:var(--ink72)}
+footer{position:relative;z-index:20;padding:26px 20px 110px;border-top:1px solid var(--hair);background:var(--night);color:var(--ink46);font-size:.85rem;text-align:center}
+
+@media (max-width:760px){
+  :root{--u:1px}
+  .nav{grid-template-columns:auto 1fr;padding:0 14px}
+  .nav__links{display:none}
+  .nav__acts .pillbtn{height:34px;padding:0 14px}
+  .stage{top:96px}
+  .headline h1{font-size:clamp(38px,11vw,48px)}
+  .headline p{font-size:15px;max-width:34ch}
+  .headline p span{display:inline}
+  /* لوحة داكنة خلف المراحل عشان تنقرأ فوق المباني */
+  .steps{left:18px;right:18px;width:auto;min-width:0;bottom:118px;padding:6px 14px;border-radius:14px;background:rgba(15,22,38,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .cue{bottom:126px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__orb">
+    <svg class="loader__mark" viewBox="0 0 64 64">
+      <g fill="var(--cyan)"><rect x="29" y="2" width="6" height="6"/><rect x="51" y="15" width="6" height="6"/><rect x="51" y="43" width="6" height="6"/><rect x="29" y="56" width="6" height="6"/><rect x="7" y="43" width="6" height="6"/><rect x="7" y="15" width="6" height="6"/></g>
+      <path d="M24 26l8 8 8-8" fill="none" stroke="var(--lime)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</div>
+
+<header class="nav">
+  <nav class="nav__links" aria-label="أقسام الموقع"><a href="#after">مشاريعنا</a><a href="#after">رسالتنا</a></nav>
+  <a class="nav__mark" href="#" aria-label="أركان، الرئيسية">أركان</a>
+  <div class="nav__acts"><a class="pillbtn pillbtn--grey" href="#after">سجّل اهتمامك</a><a class="pillbtn pillbtn--lime" href="#after">احجز وحدتك</a></div>
+</header>
+
+<div class="stage">
+  <div class="headline" data-headline>
+    <h1>المعيار الجديد<br>في العقار</h1>
+    <p><span>بيانات ذكية. اختيار دقيق.</span> <span>نوصلك بوحدات موثّقة تحمي استثمارك</span> <span>وتختصر عليك طريق التملّك بثقة وهدوء.</span></p>
+  </div>
+</div>
+<div class="cue" data-cue>مرّر لتكتشف رحلة التملّك</div>
+
+<ol class="steps" data-steps aria-label="مراحل التملّك">
+  <li class="step is-on"><span class="step__n">01</span><span class="step__t">طلب واحد يكفي</span><div class="step__body"><div><p>أخبرنا بالمدينة والميزانية ونوع الوحدة، ونرسل لك خيارات مطابقة خلال دقائق. بلا وسطاء، ولا مكالمات متكررة.</p></div></div></li>
+  <li class="step"><span class="step__n">02</span><span class="step__t">وحدات موثّقة</span><div class="step__body"><div><p>كل وحدة نعرضها مفحوصة قبل أن تصلك: الصك، والتراخيص، وجودة البناء، حتى تتملّك بثقة من اليوم الأول.</p></div></div></li>
+  <li class="step"><span class="step__n">03</span><span class="step__t">زيارة ومطابقة</span><div class="step__body"><div><p>نرتّب لك زيارة ميدانية، ونطابق الوحدة مع طلبك بندًا بندًا قبل أي التزام.</p></div></div></li>
+  <li class="step"><span class="step__n">04</span><span class="step__t">استلام سلس</span><div class="step__body"><div><p>نتابع معك العقد والتمويل والإفراغ حتى تستلم مفتاحك.</p></div></div></li>
+</ol>
+
+<main>
+  <div class="track" data-track>
+    <div class="scene"><canvas data-city aria-hidden="true"></canvas></div>
+  </div>
+  <section class="after" id="after">
+    <h2>مشروعك القادم يبدأ من هنا.</h2>
+    <p>سجّل اهتمامك، ونرسل لك أول المشاريع الموثّقة في مدينتك قبل طرحها للعموم.</p>
+    <a class="pillbtn pillbtn--lime" href="#">احجز وحدتك</a>
+  </section>
+</main>
+<footer>شكل تصميم من MD-DESIGN. الاسم والمحتوى للعرض فقط.</footer>
+
+<script>
+window.KIT = {
+  style: "city",
+  name: "مدينة ليلية",
+  palettes: [
+    { name: "ليموني وسماوي", swatch: "#c6ff2e", vars: { "--lime": "#c6ff2e", "--cyan": "#3fd8ff" } },
+    { name: "ذهبي", swatch: "#ffc94a", vars: { "--lime": "#ffc94a", "--cyan": "#ffb347" } },
+    { name: "وردي", swatch: "#ff7ab8", vars: { "--lime": "#ff7ab8", "--cyan": "#b98cff" } },
+    { name: "أخضر", swatch: "#4dffa6", vars: { "--lime": "#4dffa6", "--cyan": "#33e0c4" } }
+  ]
+};
+
+(function () {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canvas = document.querySelector("[data-city]");
+  const ctx = canvas.getContext("2d");
+  const track = document.querySelector("[data-track]");
+  const headline = document.querySelector("[data-headline]");
+  const cue = document.querySelector("[data-cue]");
+  const stepsEl = document.querySelector("[data-steps]");
+  const steps = Array.from(stepsEl.children);
+  const loader = document.querySelector("[data-loader]");
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const easeIO = t => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const range = (p, a, b) => clamp((p - a) / (b - a), 0, 1);
+
+  // ---------- بناء المدينة مرة وحدة (عشوائي ثابت عشان تطلع نفس المدينة كل مرة) ----------
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const GRID = 42, BLOCK = 6;            // شارع كل 6 مربعات
+  const HUB = { x: 31, y: 31, w: 4, d: 4, h: 11 };
+  const items = [];                      // مباني وأشجار ورافعات
+  for (let bx = 0; bx < GRID; bx += BLOCK) for (let by = 0; by < GRID; by += BLOCK) {
+    const x0 = bx + 0.75, y0 = by + 0.75, size = BLOCK - 1.5;
+    if (bx === 30 && by === 30) continue; // مكان المشروع الرئيسي
+    const dist = Math.hypot(bx - 30, by - 30) / 42; // كل ما قربنا من المشروع ارتفعت المباني
+    if (bx === 12 && by === 18) {          // حديقة ونافورة
+      items.push({ type: "park", x: x0, y: y0, w: size, d: size });
+      for (let i = 0; i < 7; i++) items.push({ type: "tree", x: x0 + 0.5 + rnd() * (size - 1), y: y0 + 0.5 + rnd() * (size - 1) });
+      continue;
+    }
+    const crane = (bx === 24 && by === 6) || (bx === 18 && by === 30) || (bx === 36 && by === 18);
+    const parts = rnd() < 0.5 ? 1 : 2;
+    for (let k = 0; k < parts; k++) {
+      const w = parts === 1 ? size : size / 2 - 0.15, d = size;
+      const x = parts === 1 ? x0 : x0 + k * (size / 2 + 0.15);
+      // المباني اللي قدّام المشروع (أقرب للكاميرا) واطية عشان ما تغطيه بالنهاية
+      const front = bx + by > 54 && Math.abs(bx - by) < 18;
+      const tall = front ? 0.7 + rnd() * 0.9 : dist < 0.35 ? 2.4 + rnd() * 4 : dist < 0.6 ? 1.4 + rnd() * 2.4 : 0.8 + rnd() * 1.3;
+      items.push({ type: "box", x, y: y0, w, d, h: crane ? tall * 0.5 : tall, site: crane });
+    }
+    if (crane) items.push({ type: "crane", x: x0 + size / 2, y: y0 + size / 2, h: 9 + rnd() * 2, a: rnd() * 6, s: 0.15 + rnd() * 0.15 });
+    if (rnd() < 0.6) items.push({ type: "tree", x: bx + 0.4, y: by + 0.4 + rnd() * 5 });
+  }
+  items.push({ type: "box", x: HUB.x, y: HUB.y, w: HUB.w, d: HUB.d, h: HUB.h, hub: true });
+  // نوافذ كل مبنى (مضاءة أو لا) تتحدد مرة وحدة
+  items.forEach(it => {
+    if (it.type !== "box") return;
+    const cols = Math.max(1, Math.floor(it.d * 1.6)), cols2 = Math.max(1, Math.floor(it.w * 1.6)), rows = Math.max(1, Math.floor(it.h * 1.5));
+    it.win = { cols, cols2, rows, a: [], b: [] };
+    for (let i = 0; i < cols * rows; i++) it.win.a.push(rnd() < (it.site ? 0.15 : 0.62));
+    for (let i = 0; i < cols2 * rows; i++) it.win.b.push(rnd() < (it.site ? 0.15 : 0.55));
+  });
+  // المسارات المضيئة: كلها توصل للمشروع
+  const routes = [
+    [[0, 30], [31, 30]], [[0, 29.6], [31, 29.6]], [[0, 30.4], [31, 30.4]],     // 3 مسارات متوازية من فوق يسار
+    [[30, 0], [30, 31]],
+    [[6, 0], [6, 18], [24, 18], [24, 30], [31, 30.2]],
+    [[42, 36], [36, 36], [36, 33]]
+  ].map(pts => { let len = 0; for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return { pts, len }; });
+  // العمّال يمشون على الأرصفة
+  const walkers = Array.from({ length: 46 }, () => {
+    const along = rnd() < 0.5, line = Math.floor(rnd() * 8) * BLOCK + (rnd() < 0.5 ? 0.62 : -0.62);
+    return { along, line, at: rnd() * GRID, v: (0.25 + rnd() * 0.35) * (rnd() < 0.5 ? -1 : 1) };
+  });
+
+  // ---------- الرسم المتساوي القياس (isometric) ----------
+  let W = 0, H = 0, dpr = 1, S = 30;
+  const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
+  let camX = 0, camY = 0, zoom = 1, ax = 0, ay = 0;
+  const iso = (x, y, z) => [((x - y) * C30 * S - camX) * zoom + ax, ((x + y) * S30 * S - z * S - camY) * zoom + ay];
+  const poly = pts => { ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); };
+  let colors = {};
+  const readColors = () => {
+    const cs = getComputedStyle(document.documentElement);
+    colors = { lime: cs.getPropertyValue("--lime").trim(), cyan: cs.getPropertyValue("--cyan").trim() };
+  };
+
+  const resize = () => {
+    dpr = Math.min(2, devicePixelRatio || 1);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    S = W < 760 ? 18 : clamp(Math.min(W / 1440, H / 960) * 27, 20, 38);
+  };
+
+  const box = (it, t) => {
+    const { x, y, w, d, h } = it;
+    const top = [iso(x, y, h), iso(x + w, y, h), iso(x + w, y + d, h), iso(x, y + d, h)];
+    // الوجهين الظاهرين: جهة +x (يمين تحت) وجهة +y (يسار تحت)
+    const fx = [iso(x + w, y, 0), iso(x + w, y + d, 0), iso(x + w, y + d, h), iso(x + w, y, h)];
+    const fy = [iso(x, y + d, 0), iso(x + w, y + d, 0), iso(x + w, y + d, h), iso(x, y + d, h)];
+    ctx.fillStyle = it.hub ? "#3a4560" : "#2b3347"; poly(fx); ctx.fill();
+    ctx.fillStyle = it.hub ? "#2e3850" : "#222a3c"; poly(fy); ctx.fill();
+    ctx.fillStyle = it.hub ? "#4b5878" : "#3a4359"; poly(top); ctx.fill();
+    if (it.site) { // سقالات الموقع تحت الإنشاء
+      ctx.strokeStyle = "rgba(255,190,90,.35)"; ctx.lineWidth = 1;
+      for (let z = 0.6; z < h; z += 0.6) { ctx.beginPath(); const a = iso(x + w, y, z), b = iso(x + w, y + d, z), c = iso(x, y + d, z); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.stroke(); }
+    }
+    // النوافذ المضاءة
+    const win = it.win, ww = 0.22, wh = 0.32;
+    for (let r = 0; r < win.rows; r++) {
+      const z = 0.35 + r * (h - 0.5) / win.rows;
+      for (let c = 0; c < win.cols; c++) {
+        if (!win.a[r * win.cols + c]) continue;
+        const yy = y + 0.25 + c * (d - 0.5) / win.cols;
+        const flick = it.hub ? 1 : 0.75 + 0.25 * Math.sin(t * 1.3 + c * 3.1 + r * 1.7 + x);
+        ctx.fillStyle = it.hub ? "rgba(140,230,255," + flick + ")" : "rgba(255,200,110," + (0.85 * flick).toFixed(2) + ")";
+        poly([iso(x + w, yy, z), iso(x + w, yy + ww, z), iso(x + w, yy + ww, z + wh), iso(x + w, yy, z + wh)]); ctx.fill();
+      }
+      for (let c = 0; c < win.cols2; c++) {
+        if (!win.b[r * win.cols2 + c]) continue;
+        const xx = x + 0.25 + c * (w - 0.5) / win.cols2;
+        ctx.fillStyle = it.hub ? "rgba(120,215,255,.85)" : "rgba(255,190,100,.6)";
+        poly([iso(xx, y + d, z), iso(xx + ww, y + d, z), iso(xx + ww, y + d, z + wh), iso(xx, y + d, z + wh)]); ctx.fill();
+      }
+    }
+    if (it.hub) { // حواف مضيئة للمشروع الرئيسي
+      ctx.strokeStyle = colors.cyan; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.9;
+      poly(top); ctx.stroke();
+      ctx.beginPath(); const a = iso(x + w, y + d, 0), b = iso(x + w, y + d, h); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+  };
+
+  const tree = it => {
+    const [px, py] = iso(it.x, it.y, 0.9);
+    const r = 0.38 * S * zoom;
+    ctx.fillStyle = "#1d3a3a"; ctx.beginPath(); ctx.arc(px, py, r, 0, 7); ctx.fill();
+    ctx.fillStyle = "rgba(120,200,170,.18)"; ctx.beginPath(); ctx.arc(px - r * 0.3, py - r * 0.3, r * 0.5, 0, 7); ctx.fill();
+  };
+
+  const crane = (it, t) => {
+    const a = it.a + (reduce ? 0 : t * it.s);
+    const base = iso(it.x, it.y, 0), top = iso(it.x, it.y, it.h);
+    ctx.strokeStyle = "#f2b33d"; ctx.lineWidth = Math.max(1.5, 0.12 * S * zoom);
+    ctx.beginPath(); ctx.moveTo(base[0], base[1]); ctx.lineTo(top[0], top[1]); ctx.stroke();
+    const tip = iso(it.x + Math.cos(a) * 4.5, it.y + Math.sin(a) * 4.5, it.h), back = iso(it.x - Math.cos(a) * 1.6, it.y - Math.sin(a) * 1.6, it.h);
+    ctx.lineWidth = Math.max(1.2, 0.08 * S * zoom);
+    ctx.beginPath(); ctx.moveTo(back[0], back[1]); ctx.lineTo(tip[0], tip[1]); ctx.stroke();
+    const hook = iso(it.x + Math.cos(a) * 3.4, it.y + Math.sin(a) * 3.4, it.h - 3 - Math.sin(t * 0.8 + it.a) * 0.8);
+    const hookTop = iso(it.x + Math.cos(a) * 3.4, it.y + Math.sin(a) * 3.4, it.h);
+    ctx.strokeStyle = "rgba(255,255,255,.4)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(hookTop[0], hookTop[1]); ctx.lineTo(hook[0], hook[1]); ctx.stroke();
+    ctx.fillStyle = "#ff5a4a"; ctx.beginPath(); ctx.arc(top[0], top[1] - 2, 2.2, 0, 7); ctx.fill(); // ضوء تحذير
+  };
+
+  const walker = (wk, t) => {
+    let at = (wk.at + (reduce ? 0 : t * wk.v)) % GRID; if (at < 0) at += GRID;
+    const x = wk.along ? at : wk.line, y = wk.along ? wk.line : at;
+    const [px, py] = iso(x, y, 0);
+    const s = Math.max(1, S * zoom / 30);
+    ctx.fillStyle = colors.lime; ctx.fillRect(px - 1.5 * s, py - 6 * s, 3 * s, 4 * s);   // السترة
+    ctx.fillStyle = "#1a2236"; ctx.fillRect(px - 1.2 * s, py - 2 * s, 2.4 * s, 2 * s);   // الرجول
+    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(px, py - 7.5 * s, 1.6 * s, 0, 7); ctx.fill(); // الخوذة
+  };
+
+  const draw = (p, t) => {
+    // الكاميرا: تبدأ فوق أول المدينة، وتنزلق للأمام حتى المشروع، وتهدأ بالنهاية
+    const g = easeOut(p);
+    const fx = lerp(-3, HUB.x + 2, g), fy = lerp(-3, HUB.y + 2, g);
+    zoom = lerp(1, 1.5, g);
+    camX = (fx - fy) * C30 * S; camY = (fx + fy) * S30 * S;
+    ax = W / 2; ay = H * lerp(W < 760 ? 0.42 : 0.36, 0.72, g);
+
+    ctx.fillStyle = "#0f1626"; ctx.fillRect(0, 0, W, H);
+    // الأرض والشوارع
+    poly([iso(-2, -2, 0), iso(GRID + 2, -2, 0), iso(GRID + 2, GRID + 2, 0), iso(-2, GRID + 2, 0)]);
+    ctx.fillStyle = "#162036"; ctx.fill();
+    ctx.fillStyle = "#0c1322";
+    for (let k = 0; k <= GRID; k += BLOCK) {
+      poly([iso(k - 0.45, -2, 0), iso(k + 0.45, -2, 0), iso(k + 0.45, GRID + 2, 0), iso(k - 0.45, GRID + 2, 0)]); ctx.fill();
+      poly([iso(-2, k - 0.45, 0), iso(GRID + 2, k - 0.45, 0), iso(GRID + 2, k + 0.45, 0), iso(-2, k + 0.45, 0)]); ctx.fill();
+    }
+    // المسارات المضيئة: خط عريض باهت + خط رفيع ساطع + شرطات تمشي نحو المشروع
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    routes.forEach((r, i) => {
+      ctx.beginPath();
+      r.pts.forEach((pt, j) => { const s = iso(pt[0], pt[1], 0.02); j ? ctx.lineTo(s[0], s[1]) : ctx.moveTo(s[0], s[1]); });
+      ctx.strokeStyle = colors.cyan;
+      ctx.globalAlpha = 0.26; ctx.lineWidth = 9 * zoom; ctx.setLineDash([]); ctx.stroke();
+      ctx.globalAlpha = 1; ctx.lineWidth = 2.2 * zoom; ctx.setLineDash([S * 0.5 * zoom, S * 0.7 * zoom]); ctx.lineDashOffset = -(reduce ? 0 : t * 40 + i * 9); ctx.stroke();
+    });
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+
+    // هالة نقاط حول المشروع تدور وتنبض
+    const hc = [HUB.x + HUB.w / 2, HUB.y + HUB.d / 2];
+    const pulse = 0.6 + 0.4 * Math.sin(t * 2.2);
+    for (let i = 0; i < 36; i++) {
+      const a = i / 36 * Math.PI * 2 + (reduce ? 0 : t * 0.25);
+      for (const rr of [3.4, 4.2]) {
+        const s = iso(hc[0] + Math.cos(a) * rr, hc[1] + Math.sin(a) * rr, 0.05);
+        ctx.fillStyle = colors.cyan; ctx.globalAlpha = (rr < 4 ? 0.9 : 0.45) * pulse;
+        ctx.beginPath(); ctx.arc(s[0], s[1], (rr < 4 ? 2.2 : 1.5) * zoom, 0, 7); ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    // الحديقة والنافورة
+    items.forEach(it => {
+      if (it.type !== "park") return;
+      poly([iso(it.x, it.y, 0), iso(it.x + it.w, it.y, 0), iso(it.x + it.w, it.y + it.d, 0), iso(it.x, it.y + it.d, 0)]);
+      ctx.fillStyle = "#14302f"; ctx.fill();
+      const c = [it.x + it.w / 2, it.y + it.d / 2];
+      poly([iso(c[0] - 1, c[1] - 1, 0.02), iso(c[0] + 1, c[1] - 1, 0.02), iso(c[0] + 1, c[1] + 1, 0.02), iso(c[0] - 1, c[1] + 1, 0.02)]);
+      ctx.fillStyle = colors.cyan; ctx.globalAlpha = 0.35 + 0.15 * Math.sin(t * 1.5); ctx.fill(); ctx.globalAlpha = 1;
+    });
+
+    // كل شي واقف يترسم من البعيد للقريب عشان القريب يغطي البعيد
+    const list = [];
+    items.forEach(it => { if (it.type !== "park") list.push([it.type === "box" ? it.x + it.y + (it.w + it.d) / 2 : it.x + it.y + 0.6, it]); });
+    walkers.forEach(wk => { let at = (wk.at + (reduce ? 0 : t * wk.v)) % GRID; if (at < 0) at += GRID; list.push([(wk.along ? at + wk.line : wk.line + at) + 0.2, wk]); });
+    list.sort((a, b) => a[0] - b[0]);
+    for (const [, it] of list) {
+      if (it.type === "box") {
+        // نتخطّى اللي برا الشاشة
+        const s = iso(it.x + it.w / 2, it.y + it.d / 2, 0);
+        if (s[0] < -300 || s[0] > W + 300 || s[1] < -40 || s[1] - it.h * S * zoom > H + 40) continue;
+        box(it, t);
+      } else if (it.type === "tree") tree(it);
+      else if (it.type === "crane") crane(it, t);
+      else walker(it, t);
+    }
+
+    // شعاع ضوء خفيف فوق المشروع
+    const topC = iso(hc[0], hc[1], HUB.h);
+    const beam = ctx.createLinearGradient(topC[0], topC[1], topC[0], topC[1] - 220 * zoom);
+    beam.addColorStop(0, colors.cyan); beam.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.globalAlpha = 0.25 + 0.1 * pulse; ctx.fillStyle = beam;
+    ctx.fillRect(topC[0] - 2 * zoom, topC[1] - 220 * zoom, 4 * zoom, 220 * zoom);
+    ctx.globalAlpha = 1;
+  };
+
+  // ---------- التمرير: كل الواجهة دالة في p ----------
+  let p = 0, shown = 0;
+  const progress = () => {
+    const r = track.getBoundingClientRect();
+    return clamp(-r.top / (track.offsetHeight - innerHeight), 0, 1);
+  };
+  const ui = q => {
+    const h = easeIO(clamp(q / 0.38, 0, 1));
+    headline.style.transform = "translateY(" + (-34 * h) + "vh) rotateX(" + (62 * h) + "deg) scale(" + (1 - 0.12 * h) + ")";
+    headline.style.opacity = String(1 - range(q, 0.1, 0.24));
+    const sIn = range(q, 0.08, 0.24);
+    stepsEl.style.opacity = String(sIn);
+    stepsEl.style.transform = "translateY(" + (40 * (1 - sIn)) + "px)";
+    cue.style.setProperty("--drain", String(1 - range(q, 0, 0.1)));
+    cue.style.opacity = String(1 - range(q, 0.04, 0.12));
+    const active = q < 0.45 ? 0 : q < 0.7 ? 1 : q < 0.88 ? 2 : 3;
+    steps.forEach((s, i) => s.classList.toggle("is-on", i === active));
+    // لما يخلص المشهد نخفي الطبقات الثابتة عشان ما تغطي القسم اللي بعده
+    const past = track.getBoundingClientRect().bottom < innerHeight * 0.6;
+    [document.querySelector(".stage"), cue, stepsEl].forEach(el => (el.style.visibility = past ? "hidden" : ""));
+  };
+
+  let running = false, visible = true;
+  const frame = time => {
+    if (!running) return;
+    p = progress();
+    shown = reduce ? p : shown + (p - shown) * 0.2;
+    if (Math.abs(p - shown) < 0.0005) shown = p;
+    ui(shown);
+    draw(shown, time / 1000);
+    requestAnimationFrame(frame);
+  };
+  const start = () => { if (!running && visible && !document.hidden) { running = true; requestAnimationFrame(frame); } };
+  const stop = () => { running = false; };
+
+  addEventListener("resize", () => { resize(); if (!running) draw(shown, 0); });
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(track);
+  // شريط الألوان يغيّر المتغيرات: نقراها من جديد
+  new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ["style"] });
+
+  readColors();
+  resize();
+  draw(0, 0);
+  // شاشة التحميل تختفي بعد أول رسم (أو 3.5 ثانية بالكثير)
+  const hideLoader = () => loader.classList.add("is-done");
+  const fontReady = document.fonts ? document.fonts.ready : Promise.resolve();
+  Promise.race([fontReady, new Promise(r => setTimeout(r, 3500))]).then(() => setTimeout(hideLoader, 350));
+  if (reduce) { // بدون حركة: نرسم مع كل تمرير بس
+    addEventListener("scroll", () => { p = shown = progress(); ui(p); draw(p, 0); }, { passive: true });
+    ui(0);
+  } else start();
+})();
+</script>
+<script src="kit.js"></script>
+</body>
+</html>

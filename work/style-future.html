@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رفيق — شكل مستقبلي | MD-DESIGN</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;800&display=swap">
+<link rel="stylesheet" href="kit.css">
+<style>
+/* شكل مستقبلي: أسود عميق، نص بكسل ضخم ورا مجسّم من آلاف النقاط، ولون مميز واحد ساطع */
+:root{--accent:#E4F03C;--bg:#050506;--ink:#F2F0F7;--muted:#8E8A99;--line:rgba(255,255,255,.1);--panel:#121216;--font:"Noto Kufi Arabic",Tahoma,sans-serif}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.7;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+
+/* القائمة: كبسولة في النص فوق، فيها ساعة حيّة */
+.pill{position:fixed;top:14px;left:50%;z-index:40;display:flex;align-items:center;gap:6px;padding:6px;transform:translateX(-50%);
+  border:1px solid var(--line);border-radius:14px;background:rgba(18,18,22,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  font-size:.82rem;white-space:nowrap;animation:drop .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes drop{from{opacity:0;transform:translate(-50%,-16px)}}
+.pill__grid{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#24242b}
+.pill__grid svg{width:16px;height:16px;fill:var(--muted)}
+.pill__clock{padding:0 10px;font-variant-numeric:tabular-nums;font-weight:500;direction:ltr}
+.pill__sep{width:1px;height:18px;background:var(--line)}
+.pill__live{display:flex;align-items:center;gap:7px;padding:0 10px;color:var(--muted)}
+.pill__live i{width:7px;height:7px;border-radius:50%;background:#3FE0A6;box-shadow:0 0 0 0 rgba(63,224,166,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 7px rgba(63,224,166,0)}100%{box-shadow:0 0 0 0 rgba(63,224,166,0)}}
+.pill__links{display:flex;gap:2px}
+.pill__links a{padding:7px 10px;border-radius:9px;color:var(--muted);transition:color .25s,background-color .25s}
+.pill__links a:hover{color:var(--ink);background:#1d1d23}
+.pill__in{padding:8px 14px;border-radius:10px;background:#2a2a31;font-weight:500;transition:background-color .25s}
+.pill__in:hover{background:#34343c}
+.pill__cta{padding:8px 16px;border-radius:10px;background:var(--accent);color:#0A0A0A;font-weight:600;transition:transform .25s,filter .25s}
+.pill__cta:hover{transform:scale(.97);filter:brightness(1.06)}
+
+/* الواجهة: لوحة الرسم تغطيها كاملة */
+.hero{position:relative;height:100svh;min-height:620px;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__copy{position:absolute;right:clamp(16px,2.6vw,40px);bottom:clamp(90px,10vh,120px);z-index:2;max-width:440px;animation:rise 1s .5s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:18px;color:var(--muted);font-size:.78rem}
+.meta b{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:9px;background:#1b1b21;color:var(--ink);font-weight:500}
+.meta b i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.meta span{direction:rtl}
+h1{margin:0;font-size:clamp(1.45rem,2.4vw,2rem);line-height:1.5;font-weight:500}
+h1 span{display:block;color:var(--muted)}
+
+/* المزايا تحت الواجهة */
+.rows{max-width:1180px;margin:0 auto;padding:clamp(70px,10vw,120px) 20px}
+.row{display:grid;grid-template-columns:120px 1fr 1fr;gap:24px;align-items:baseline;padding:30px 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row b{color:var(--accent);font-size:.85rem;font-weight:600;direction:ltr;text-align:right}
+.row h2{margin:0;font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:600}
+.row p{margin:0;color:var(--muted)}
+footer{padding:30px 20px 110px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;text-align:center}
+
+@media (max-width:900px){
+  .pill__links,.pill__sep:nth-of-type(2),.pill__in{display:none}
+  .row{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:480px){
+  .pill{gap:4px;font-size:.76rem}
+  .pill__live{display:none}
+  .pill__sep{display:none}
+  /* فوق شريط الألوان اللي تحت */
+  .hero__copy{left:16px;right:16px;bottom:150px}
+  /* تعتيم تحت عشان الكلام يُقرأ فوق الكتفين */
+  .hero::after{content:"";position:absolute;inset:auto 0 0;height:48%;z-index:1;background:linear-gradient(transparent,rgba(5,5,6,.88) 60%);pointer-events:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="pill" aria-label="القائمة الرئيسية">
+  <span class="pill__grid" aria-hidden="true"><svg viewBox="0 0 16 16"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg></span>
+  <span class="pill__clock" data-clock>00:00:00</span>
+  <span class="pill__sep"></span>
+  <span class="pill__live"><i></i>رفيق يستمع</span>
+  <span class="pill__sep"></span>
+  <span class="pill__links"><a href="#rows">الحالة</a><a href="#rows">المساعدون</a><a href="#rows">الذاكرة</a></span>
+  <a class="pill__in" href="#">تسجيل الدخول</a>
+  <a class="pill__cta" href="#">انضم لقائمة الانتظار</a>
+</nav>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- النص البكسل الضخم والمجسّم يترسمون هنا، والنص الحقيقي في العنوان تحت لقارئ الشاشة -->
+    <canvas data-scene aria-hidden="true"></canvas>
+    <div class="hero__copy">
+      <div class="meta"><b><i></i>نسخة تجريبية خاصة</b><span>رفيق <bdi dir="ltr">0.9</bdi> · ذاكرة على جهازك</span></div>
+      <h1 id="hero-title"><span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">مرحبًا، أنا رفيق. </span>رفيق نظام تشغيل يفهمك.<span>ويستأذنك قبل أن يتصرّف.</span></h1>
+    </div>
+  </section>
+
+  <section class="rows" id="rows">
+    <article class="row"><b>01</b><h2>يتذكّر عنك</h2><p>ذاكرة خاصة تبقى على جهازك، تعرف عاداتك ومواعيدك ولا تخرج لأحد.</p></article>
+    <article class="row"><b>02</b><h2>مساعدون يعملون معك</h2><p>مساعدات صغيرة لكل مهمة: البريد، والتقويم، والملاحظات، كلها في مكان واحد.</p></article>
+    <article class="row"><b>03</b><h2>يستأذن قبل أن يتصرّف</h2><p>لا يرسل ولا يحذف ولا يشتري شيئًا إلا بعد موافقتك الواضحة.</p></article>
+  </section>
+</main>
+<footer>شكل تصميم من MD-DESIGN. الاسم والمحتوى للعرض فقط.</footer>
+
+<script>
+window.KIT = {
+  style: "future",
+  name: "مستقبلي",
+  palettes: [
+    { name: "ليموني", swatch: "#E4F03C", vars: { "--accent": "#E4F03C" } },
+    { name: "سماوي", swatch: "#3CD6F0", vars: { "--accent": "#3CD6F0" } },
+    { name: "وردي", swatch: "#FF6FB5", vars: { "--accent": "#FF6FB5" } },
+    { name: "برتقالي", swatch: "#FF8A3D", vars: { "--accent": "#FF8A3D" } }
+  ]
+};
+
+// الساعة الحيّة في القائمة (أرقام إنجليزية)
+(function () {
+  const el = document.querySelector("[data-clock]");
+  const tick = () => { el.textContent = new Date().toLocaleTimeString("en-GB", { hour12: false }); };
+  tick();
+  setInterval(tick, 1000);
+})();
+
+// المشهد: نص بكسل ضخم + مجسّم رأس وكتفين من آلاف النقاط، يلف ويتنفس ويبتعد عن الماوس
+(function () {
+  const canvas = document.querySelector("[data-scene]");
+  const ctx = canvas.getContext("2d");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W = 0, H = 0, dpr = 1, pixelText = null, running = false, visible = true;
+  const mouse = { x: -9999, y: -9999, nx: 0, ny: 0, sx: 0, sy: 0 };
+
+  // ---- بناء المجسّم مرة وحدة: نقاط على سطح رأس وأذنين ورقبة وكتفين، ولكل نقطة اتجاه سطح (للإضاءة) ----
+  const small = innerWidth < 700;
+  const N = small ? 8000 : 22000;
+  const P = new Float32Array(N * 4); // x, y, z, لمعة عشوائية
+  const NM = new Float32Array(N * 3); // اتجاه السطح عند النقطة
+  const g = d => Math.exp(-d);
+  let n = 0;
+  const push = (x, y, z, nx, ny, nz) => {
+    if (n >= N) return;
+    const l = Math.hypot(nx, ny, nz) || 1;
+    P[n * 4] = x; P[n * 4 + 1] = y; P[n * 4 + 2] = z; P[n * 4 + 3] = Math.random();
+    NM[n * 3] = nx / l; NM[n * 3 + 1] = ny / l; NM[n * 3 + 2] = nz / l;
+    n++;
+  };
+  const rnd = Math.random;
+
+  // الرأس (58%)
+  for (let i = 0; i < N * 0.58; i++) {
+    const u = rnd() * Math.PI * 2, v = Math.acos(1 - 2 * rnd());
+    let x = Math.sin(v) * Math.cos(u) * 0.8, y = Math.cos(v) * 0.96, z = Math.sin(v) * Math.sin(u) * 0.88;
+    let nx = x / 0.55, ny = y, nz = z / 0.74;
+    // الفك يضيق تحت
+    if (y < -0.15) { const k = 1 - 0.3 * Math.min(1, (-0.15 - y) / 0.8); x *= k; z *= 0.85 + 0.15 * k; ny -= 0.3; }
+    if (z > 0) {
+      const nose = 0.2 * g(x * x / 0.012 + (y + 0.08) ** 2 / 0.05);
+      const eyeR = 0.1 * g(((x - 0.27) ** 2 + (y - 0.13) ** 2) / 0.012);
+      const eyeL = 0.1 * g(((x + 0.27) ** 2 + (y - 0.13) ** 2) / 0.012);
+      const brow = 0.05 * g((y - 0.3) ** 2 / 0.006) * g(x * x / 0.2);
+      const lips = 0.06 * g(x * x / 0.03 + (y + 0.42) ** 2 / 0.004);
+      z += nose - eyeR - eyeL + brow + lips;
+      // ميل السطح عند الأنف والعيون عشان الضوء يبيّنها
+      nx += -x * nose * 40 + (x - 0.27) * eyeR * 30 + (x + 0.27) * eyeL * 30;
+      ny += -(y + 0.08) * nose * 14 + (y - 0.13) * (eyeR + eyeL) * 30;
+    }
+    push(x, y + 0.15, z, nx, ny, nz);
+  }
+  // الأذنين
+  for (let i = 0; i < N * 0.035; i++) {
+    const s = i % 2 ? 1 : -1, a = rnd() * Math.PI * 2, r = Math.sqrt(rnd());
+    push(s * (0.8 + 0.05 * r), 0.1 + Math.sin(a) * 0.2 * r, -0.05 + Math.cos(a) * 0.1 * r, s, 0, 0.2);
+  }
+  // الرقبة
+  for (let i = 0; i < N * 0.07; i++) {
+    const a = rnd() * Math.PI * 2, y = -0.62 - rnd() * 0.55;
+    push(Math.cos(a) * 0.4, y, Math.sin(a) * 0.4 + 0.02, Math.cos(a), 0, Math.sin(a));
+  }
+  // الكتفين والصدر: يتسعون تحت
+  while (n < N) {
+    const t = rnd(), y = -1.1 - t * 1.8;
+    const w = Math.min(1, Math.pow(t * 1.7, 0.5));
+    const rx = 0.42 + 1.6 * w, rz = 0.42 + 0.3 * t;
+    const a = (rnd() * 1.3 - 0.15) * Math.PI;
+    const ca = Math.cos(a), sa = Math.sin(a);
+    const drop = Math.max(0, Math.abs(ca) - 0.55) * 0.35;
+    push(ca * rx, y - drop, sa * rz, ca / rx, 0.35 + drop, sa / rz);
+  }
+
+  // ---- النص البكسل: يترسم صغير في لوحة جانبية، وبعدين يتكبّر بدون تنعيم فيطلع مربعات ----
+  const buildText = () => {
+    const cell = W < 700 ? 6 : 10;
+    const cols = Math.ceil(W / cell), rows = Math.ceil(H / cell);
+    const off = document.createElement("canvas");
+    off.width = cols; off.height = rows;
+    const o = off.getContext("2d");
+    o.fillStyle = "#E9E6F2";
+    o.textAlign = "center";
+    o.textBaseline = "middle";
+    o.direction = "rtl";
+    const lines = W < 700 ? ["مرحبًا،", "أنا رفيق"] : ["مرحبًا، أنا رفيق"];
+    let size = rows * (lines.length > 1 ? 0.2 : 0.3);
+    o.font = "800 " + size + "px 'Noto Kufi Arabic', Tahoma, sans-serif";
+    const widest = Math.max(...lines.map(l => o.measureText(l).width));
+    if (widest > cols * 0.94) { size *= cols * 0.94 / widest; o.font = "800 " + size + "px 'Noto Kufi Arabic', Tahoma, sans-serif"; }
+    const top = rows * (lines.length > 1 ? 0.3 : 0.36);
+    lines.forEach((l, i) => o.fillText(l, cols / 2, top + i * size * 1.15));
+    // نخلّي كل خلية يا مليانة يا فاضية: شكل البكسل الحاد
+    const img = o.getImageData(0, 0, cols, rows);
+    for (let i = 3; i < img.data.length; i += 4) img.data[i] = img.data[i] > 110 ? 235 : 0;
+    o.putImageData(img, 0, 0);
+    pixelText = off;
+  };
+
+  const resize = () => {
+    const r = canvas.getBoundingClientRect();
+    dpr = Math.min(2, devicePixelRatio || 1);
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildText();
+  };
+
+  const accent = () => getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#E4F03C";
+  const hexRgb = h => { const v = parseInt(h.replace("#", ""), 16); return [v >> 16 & 255, v >> 8 & 255, v & 255]; };
+  const top = [214, 200, 255]; // لون النقاط فوق: بنفسجي فاتح
+  const sx = new Float32Array(N), sy = new Float32Array(N); // إزاحة النقاط عن الماوس (تتلاشى بهدوء)
+  // النقاط تتجمّع في 8 درجات لون × 8 درجات إضاءة، ونرسم كل مجموعة بلون واحد: أسرع بكثير من لون لكل نقطة
+  const B = 64, bx = new Float32Array(N * 3), bCount = new Int32Array(B), bStart = new Int32Array(B);
+  const bucketOf = new Uint8Array(N), keep = new Float32Array(N * 3);
+  let lastAcc = "", styles = [];
+
+  const draw = time => {
+    const t = time / 1000;
+    ctx.clearRect(0, 0, W, H);
+
+    // النص البكسل ورا كل شي، يظهر تدريجيًا أول ما تفتح الصفحة
+    if (pixelText) {
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      ctx.globalAlpha = Math.min(0.88, time / 1400);
+      const cell = W < 700 ? 6 : 10;
+      ctx.drawImage(pixelText, 0, 0, pixelText.width * cell, pixelText.height * cell);
+      ctx.restore();
+    }
+
+    const accHex = accent();
+    if (accHex !== lastAcc) {
+      // نبني ألوان المجموعات من جديد لما يتغير اللون من الشريط
+      lastAcc = accHex;
+      const acc = hexRgb(accHex);
+      styles = [];
+      for (let ci = 0; ci < 8; ci++) for (let li = 0; li < 8; li++) {
+        const m = ci / 7, light = 0.25 + li / 7 * 0.75;
+        const c = [0, 1, 2].map(k => Math.round((top[k] + (acc[k] - top[k]) * m) * (0.45 + 0.55 * light)));
+        styles.push("rgba(" + c + "," + (0.35 + 0.65 * light).toFixed(2) + ")");
+      }
+    }
+    const acc = hexRgb(accHex);
+
+    // الماوس يحرّك الرأس شوي (بنعومة)
+    mouse.sx += (mouse.nx - mouse.sx) * 0.05;
+    mouse.sy += (mouse.ny - mouse.sy) * 0.05;
+    const yaw = Math.sin(t * 0.35) * 0.32 + mouse.sx * 0.55;
+    const pitch = -0.05 + mouse.sy * 0.16;
+    const cy = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    const breathe = 1 + Math.sin(t * 1.4) * 0.012;
+    const scale = Math.min(W * 0.42, H * 0.27);
+    const ox = W / 2, oy = H * (W < 700 ? 0.4 : 0.42), f = 4.2;
+
+    // ظل داكن خفيف خلف الرأس عشان النص البكسل يبان وراه مثل الصورة
+    const shade = ctx.createRadialGradient(ox, oy - scale * 0.15, 0, ox, oy - scale * 0.15, scale * 1.15);
+    shade.addColorStop(0, "rgba(5,5,6,.78)");
+    shade.addColorStop(1, "rgba(5,5,6,0)");
+    ctx.fillStyle = shade;
+    ctx.fillRect(0, 0, W, H);
+
+    // توهّج باللون المختار تحت الكتفين
+    const glow = ctx.createRadialGradient(ox, H * 1.08, 0, ox, H * 1.08, Math.max(W * 0.45, H * 0.6));
+    glow.addColorStop(0, "rgba(" + acc + ",.34)");
+    glow.addColorStop(1, "rgba(" + acc + ",0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    bCount.fill(0);
+    let kept = 0;
+    const dot = Math.max(1.3, scale / 130);
+    for (let i = 0; i < N; i++) {
+      const x = P[i * 4], y = P[i * 4 + 1] * breathe, z = P[i * 4 + 2];
+      // نلف اتجاه السطح ونخفي النقاط اللي على الظهر (مخفية ورا الرأس)
+      const nx = NM[i * 3], ny = NM[i * 3 + 1], nz = NM[i * 3 + 2];
+      let nz1 = -nx * syw + nz * cy;
+      nz1 = ny * sp + nz1 * cp;
+      if (nz1 < -0.2) continue;
+      const nx1 = nx * cy + nz * syw;
+      let x1 = x * cy + z * syw, z1 = -x * syw + z * cy;
+      const y1 = y * cp - z1 * sp; z1 = y * sp + z1 * cp;
+      const k = f / (f - z1);
+      let px = ox + x1 * scale * k, py = oy - y1 * scale * k;
+      // الماوس يدفع النقاط القريبة (وترجع لمكانها بالتدريج)
+      const dx = px - mouse.x, dy = py - mouse.y, d2 = dx * dx + dy * dy;
+      if (d2 < 9000) { const pw = (1 - d2 / 9000) * 3.2, dl = Math.sqrt(d2 + 1); sx[i] += dx / dl * pw; sy[i] += dy / dl * pw; }
+      sx[i] *= 0.92; sy[i] *= 0.92;
+      px += sx[i]; py += sy[i];
+      if (py > H + 4 || py < -4) continue;
+      // الإضاءة: ضوء من فوق ويمين قدّام، وحافة مضيئة على الأطراف
+      const lam = Math.max(0, nx1 * -0.35 + (ny * cp - nz * sp) * 0.45 + nz1 * 0.82);
+      const rim = Math.pow(1 - Math.min(1, Math.abs(nz1)), 3) * 0.9;
+      const tw = 0.8 + 0.2 * Math.sin(t * 2.2 + P[i * 4 + 3] * 30);
+      const light = Math.min(1, (0.18 + lam * 0.85 + rim * 0.7) * tw);
+      const m = Math.max(0, Math.min(1, (-P[i * 4 + 1] - 1.05) / 1.6));
+      const b = ((m * 7.99) | 0) * 8 + ((light * 7.99) | 0);
+      bucketOf[kept] = b;
+      keep[kept * 3] = px; keep[kept * 3 + 1] = py; keep[kept * 3 + 2] = dot * k;
+      bCount[b]++;
+      kept++;
+    }
+    // نرتّب النقاط حسب مجموعتها ونرسم كل مجموعة مرة وحدة
+    let acc0 = 0;
+    for (let b = 0; b < B; b++) { bStart[b] = acc0; acc0 += bCount[b]; }
+    const fillPos = bStart.slice();
+    for (let i = 0; i < kept; i++) { const j = fillPos[bucketOf[i]]++; bx[j * 3] = keep[i * 3]; bx[j * 3 + 1] = keep[i * 3 + 1]; bx[j * 3 + 2] = keep[i * 3 + 2]; }
+    for (let b = 0; b < B; b++) {
+      if (!bCount[b]) continue;
+      ctx.fillStyle = styles[b];
+      for (let j = bStart[b], e = j + bCount[b]; j < e; j++) ctx.fillRect(bx[j * 3], bx[j * 3 + 1], bx[j * 3 + 2], bx[j * 3 + 2]);
+    }
+  };
+
+  const loop = time => {
+    if (!running) return;
+    draw(time);
+    requestAnimationFrame(loop);
+  };
+  const start = () => { if (!running && visible && !document.hidden && !reduce) { running = true; requestAnimationFrame(loop); } };
+  const stop = () => { running = false; };
+
+  canvas.parentElement.addEventListener("pointermove", e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    mouse.nx = (mouse.x / W - 0.5) * 2; mouse.ny = (mouse.y / H - 0.5) * 2;
+  });
+  canvas.parentElement.addEventListener("pointerleave", () => { mouse.x = mouse.y = -9999; mouse.nx = mouse.ny = 0; });
+
+  addEventListener("resize", () => { resize(); if (reduce) draw(3000); });
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }).observe(canvas);
+
+  // ننتظر الخط عشان النص البكسل يطلع بخطه الصحيح
+  (document.fonts ? document.fonts.load("800 40px 'Noto Kufi Arabic'") : Promise.resolve()).finally(() => {
+    resize();
+    if (reduce) draw(3000); else start();
+  });
+  // اللون يتغير من شريط الألوان: نعيد الرسم لو الحركة موقفة
+  document.addEventListener("click", e => { if (reduce && e.target.closest(".kit__swatch")) setTimeout(() => draw(3000), 0); });
+})();
+</script>
+<script src="kit.js"></script>
+</body>
+</html>
